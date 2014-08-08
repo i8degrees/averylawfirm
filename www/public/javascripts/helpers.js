@@ -28,12 +28,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Search input helpers
 
-function set_input( target, value )
-{
+function set_input( target, value ) {
   target.value = value;
 }
 
-function clear_input( target )
-{
+function clear_input( target ) {
   target.value = "";
 }

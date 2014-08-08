@@ -5,10 +5,11 @@ Local site configuration notes.
 ## Dependencies
 
 * git
-* pow
 * node.js
 
 * Optional (convenience) development tools
+    * [nodemon](https://www.npmjs.org/package/nodemon)
+    * pow
     * LiveReload
 
 ### Local Development Site Setup
@@ -50,6 +51,17 @@ npm start &
 
 You should now be able to access the local site at the [node.js local host](http://localhost:8222) when everything is setup properly.
 
+##### nodemon
+
+This optional package restarts the web server anytime the configuration files -- i.e.: app.js, www/routes/index.js -- are modified.
+
+Simply swap out the use of ```npm start``` with:
+
+```
+cd averylawfirm.git/www
+nodemon app.js
+```
+
 ##### Pow
 
 Create a symbolic link from the project's root directory to your user's .pow directory:
@@ -76,3 +88,4 @@ You should now be able to access the local site at the following URLs if everyth
 ## References
 
 * http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/
+* https://www.npmjs.org/package/nodemon

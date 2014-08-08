@@ -4,6 +4,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var md = require('node-markdown').Markdown;
 
 var routes = require('./routes/index');
 // var users = require('./routes/users');
@@ -43,6 +44,9 @@ if (app.get('env') === 'development') {
             error: err
         });
     });
+
+    // Human-friendly (indented) HTML output from Jade templates
+    app.locals.pretty = true;
 }
 
 // production error handler

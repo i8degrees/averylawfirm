@@ -1,0 +1,31 @@
+extends layout
+
+block head
+
+  - var topics = [ { title: 'Contact', href: '#contact' } ];
+
+block content
+
+  br
+  div( class='content', align='left' )
+    main
+      a(id='contact')
+      h2 Contact
+      i
+        | *(some type of form on the first page)*
+
+      br
+      br
+
+      i
+        | *(put some type of google map here)*
+
+      br
+      br
+
+      address
+        103 N. College Ave. Ste 5, Fayetteville, AR 72701
+
+      p The office is located inside the second building on the right on College Avenue past Dickson St., if you are coming from the North. Free parking is available in front for clients and prospective clients.
+
+block footer

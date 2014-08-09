@@ -18,7 +18,7 @@ html
     link(href='stylesheets/style.css', rel='stylesheet', type='text/css', media='screen')
 
     // Fonts
-    link(href='http://fonts.googleapis.com/css?family=Open+Sans:italic,300,400,800,700', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:italic,400,600,800', rel='stylesheet', type='text/css')
 
     block head
 
@@ -49,9 +49,9 @@ html
             // div(class='site_message') ERROR MSG
 
       #content_wrap
-        div(class='toc')
-          //- a(href=topics[0].href) #{topics[0].title}
-          - each link in topics
+
+        //- div(class='toc')
+          //- - each link in topics
             a(href=link.href) #{link.title}
 
         block content

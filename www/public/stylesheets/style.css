@@ -1,6 +1,6 @@
 body
 {
-    background-color: #E7E7E7;
+    background-color: white;
 
     /* Dark magenta */
     /*background-color: #AA307B;  */
@@ -16,7 +16,9 @@ body
 
 #page_wrap
 {
-    background-color: #E7E7E7;
+    /*background-color: #E7E7E7;*/
+    background-color: white;
+
     width: 1024px;
     margin-left: auto;
     margin-right: auto;
@@ -25,7 +27,9 @@ body
 
 #content_wrap
 {
-    background-color: #E7E7E7;
+    /*background-color: #E7E7E7;*/
+    background-color: white;
+
     width: 99%;
     margin-left: auto;
     margin-right: auto;
@@ -69,7 +73,7 @@ body
     text-decoration:none;
 }
 
-.content h2
+.content h1, h2
 {
     font-family: Lora, serif;
 }
@@ -246,6 +250,36 @@ body
     font-weight: bold;
     font-style: italic;
     color: gray;
+}
+
+.req
+{
+    /*font-size: 1em;*/
+    color: red;
+    font-weight: bold;
+}
+
+.blue_button
+{
+    /* sky blue */
+    background-color: #5eb0ea;
+    -moz-border-radius: 21px;
+    -webkit-border-radius: 21px;
+    border-radius: 21px;
+    padding: 14px 28px;
+    border: none;
+    color: white !important;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.blue_button:hover
+{
+    background: #468CCF !important;
 }
 
 /* BEGIN: FOOTER */

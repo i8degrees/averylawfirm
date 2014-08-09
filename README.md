@@ -4,13 +4,15 @@ Local site configuration notes.
 
 ## Dependencies
 
-* git
-* node.js
+* [git](http://git-scm.com/)
+* [node.js](http://nodejs.org/)
 
 * Optional (convenience) development tools
     * [nodemon](https://www.npmjs.org/package/nodemon)
-    * pow
-    * LiveReload
+    * [pow](http://pow.cx/)
+    * [LiveReload app](http://go.livereload.com/)
+        * [LiveReload Sublime Text 2/3 package](https://github.com/dz0ny/LiveReload-sublimetext2)
+        * [LiveReload browser extensions](http://go.livereload.com/)
 
 ### Local Development Site Setup
 
@@ -84,6 +86,7 @@ You should now be able to access the local site at the following URLs if everyth
 
 * [Official Express guide](http://expressjs.com/guide.html)
 * [Node.js & Express Tutorial](http://shapeshed.com/creating-a-basic-site-with-node-and-express/)
+* [Pow User's Manual](http://pow.cx/manual.html)
 
 ## References
 

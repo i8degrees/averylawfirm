@@ -18,7 +18,7 @@ html
     link(href='stylesheets/style.css', rel='stylesheet', type='text/css', media='screen')
 
     // Fonts
-    link(href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,800,700', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:italic,300,400,800,700', rel='stylesheet', type='text/css')
 
     block head
 
@@ -43,10 +43,7 @@ html
 
             div(class='form-mm')
               form(align='center', action='', method='get')
-
-                // TODO: Set the input value to the text used when value
-                // != 'Search site...' ..?
-                input( id='searchbar', class='mm_input', type='text', name='search_site', autocomplete='off', accesskey='s', value='Search site...', onfocus='clear_input(this)', onblur='set_input(this, \'Search site...\')')
+                input( id='searchbar', class='mm_input', type='text', name='search_site', autocomplete='off', accesskey='s', value='Search site...', onfocus='clear_value_if_default(this, \'Search site...\')' onblur='set_default_value_if_null(this, \'Search site...\')' )
                 input( name='action', type='hidden', value='go')
 
             // div(class='site_message') ERROR MSG
@@ -81,6 +78,6 @@ html
           small
             | www.averylawfirm.com Copyright (c) 2014 #{site_company} ALL RIGHTS RESERVED
 
-    // Defer loading JavaScript until the last moment possible -- this fixes a
+    // Defer loading JavaScript until the last moment possible; this fixes a
     // visual glitch with the search input box and navigational links.
     script(type='text/javascript', src='javascripts/helpers.js')

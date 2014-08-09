@@ -26,12 +26,47 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ******************************************************************************/
 
-// Search input helpers
+// Input form helpers
 
-function set_input( target, value ) {
+// Input form helpers (getters)
+
+function get_value( target ) {
+  return target.value;
+}
+
+function null_value( target ) {
+  if( get_value( target ) === '' )
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+// Input form helpers (setters)
+
+function clear_value( target ) {
+  set_value(target, '');
+}
+
+function set_value( target, value ) {
   target.value = value;
 }
 
-function clear_input( target ) {
-  target.value = "";
+function clear_value_if_default( target, default_value )
+{
+  if( get_value( target ) === default_value )
+  {
+    clear_value( target );
+  }
+}
+
+function set_default_value_if_null( target, default_value )
+{
+  if( null_value( target ) == true )
+  {
+    set_value( target, default_value )
+  }
 }

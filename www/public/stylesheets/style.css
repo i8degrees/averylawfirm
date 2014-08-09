@@ -183,6 +183,14 @@ body
 
 #searchbar
 {
+    /* TODO: Use these attributes for the blur event */
+
+    /*font-weight: bold;*/
+    /*font-style: italic;*/
+    /*color: gray;*/
+
+    /* ...and then these attributes below for the focus event */
+
     /*width:100px;*/
     /*border:0 none;*/
     /*color:#fff;*/
@@ -193,12 +201,60 @@ body
     -webkit-appearance:none;
 }
 
+#contact_form fieldset
+{
+    border: none;
+    border-top: 1px solid black;
+    width: 50%;
+}
+
+#contact_form legend
+{
+    font-weight: bold;
+}
+
+#contact_form img.disclaimer
+{
+    float: left;
+    margins: 0 1em 0 0;
+}
+
+.align_left
+{
+    text-align: left;
+}
+
+.align_center
+{
+    text-align: center;
+}
+
+.align_right
+{
+    text-align: right;
+}
+
+.contact_form table, th
+{
+    border: 0px solid black;
+    vertical-align: middle;
+}
+
+/* TODO: Rename me */
+#name
+{
+    font-weight: bold;
+    font-style: italic;
+    color: gray;
+}
+
 /* BEGIN: FOOTER */
 
 .footer .disclaimer
 {
     font-size: 10%;
-    font-weight: italic !important;
+    font-style: italic !important;
+    font-weight: 400;
 }
 
 /* END: FOOTER */

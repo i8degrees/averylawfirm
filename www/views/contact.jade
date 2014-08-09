@@ -2,29 +2,150 @@ extends layout
 
 block head
 
-  - var topics = [ { title: 'Contact', href: '#contact' } ];
+  - var topics = [ { title: 'Contact', href: '#contact', id: 'contact' }, { title: 'Location', href: '#location', id: 'location' } ];
 
 block content
 
   br
   div( class='content', align='left' )
     main
-      a(id='contact')
-      h2 Contact
-      i
-        | *(some type of form on the first page)*
+      a(id= topics[0].id)
+      h1 #{topics[0].title}
+
+      div(class='form-mm')
+        form(id='contact_form', action='', method='get')
+          fieldset
+            legend Personal Information
+            table
+              tr
+                td(class='align_right')
+                  | Name
+                td
+                  input(class='mm_input', type='text', name='contact_first_name', autocomplete='off', value='First name', onfocus='clear_value_if_default(this,\'First name\')', onblur='set_default_value_if_null(this,\'First name\')' )
+                  input(class='mm_input', type='text', name='contact_last_name', autocomplete='off', value='Last name', onfocus='clear_value_if_default(this,\'Last name\')', onblur='set_default_value_if_null(this,\'Last name\')' )
+              tr
+                td(class='align_right')
+                  label(for='email_address') Email Address
+                td
+                  input(id='email_address', class='mm_input', type='text', name='contact_email', autocomplete='off', value='example@domain.com', onfocus='clear_value_if_default(this,\'example@domain.com\')', onblur='set_default_value_if_null(this,\'example@domain.com\')' )
+              tr
+                td(class='align_right')
+                  label(for='confirm_email') Confirm Email
+                td
+                  input(id='confirm_email', class='mm_input', type='text', name='contact_confirm_email', autocomplete='off' )
+              tr
+                td(class='align_right')
+                  strong Phone
+                td
+                  input(class='mm_input', type='text', name='contact_ph', autocomplete='off', maxlength=14, value='(xxx) xxx-xxxx', onfocus='clear_value_if_default(this,\'(xxx) xxx-xxxx\')', onblur='set_default_value_if_null(this,\'(xxx) xxx-xxxx\')' )
+                  input(class='mm_input', type='text', name='contact_ph_ext', autocomplete='off', size=4, value='Ext', onfocus='clear_value_if_default(this,\'Ext\')', onblur='set_default_value_if_null(this,\'Ext\')' )
+              tr
+                td(class='align_right')
+                  strong State & Zip
+                td
+                  select(id='state', class='mm_input', name='contact_state')
+                    option(value='DID NOT RESPOND', selected='selected') Select State
+                    option(value='Alabama') Alabama
+                    option(value='Alaska') Alaska
+                    option(value='Arizona') Arizona
+                    option(value='Arkansas') Arkansas
+                    option(value='California') California
+                    option(value='Colorado') Colorado
+                    option(value='Connecticut') Connecticut
+                    option(value='Delaware') Delaware
+                    option(value='Florida') Florida
+                    option(value='Georgia') Georgia
+                    option(value='Hawaii') Hawaii
+                    option(value='Idaho') Idaho
+                    option(value='Illinois') Illinois
+                    option(value='Indiana') Indiana
+                    option(value='Iowa') Iowa
+                    option(value='Kansas') Kansas
+                    option(value='Kentucky') Kentucky
+                    option(value='Louisiana') Louisiana
+                    option(value='Maine') Maine
+                    option(value='Maryland') Maryland
+                    option(value='Massachusetts') Massachusetts
+                    option(value='Michigan') Michigan
+                    option(value='Minnesota') Minnesota
+                    option(value='Mississippi') Mississippi
+                    option(value='Missouri') Missouri
+                    option(value='Montana') Montana
+                    option(value='Nebraska') Nebraska
+                    option(value='Nevada') Nevada
+                    option(value='New Hampshire') New Hampshire
+                    option(value='New Jersey') New Jersey
+                    option(value='New Mexico') New Mexico
+                    option(value='New York') New York
+                    option(value='North Carolina') North Carolina
+                    option(value='North Dakota') North Dakota
+                    option(value='Ohio') Ohio
+                    option(value='Oklahoma') Oklahoma
+                    option(value='Oregon') Oregon
+                    option(value='Pennsylvania') Pennsylvania
+                    option(value='Puerto Rico') Puerto Rico
+                    option(value='Rhode Island') Rhode Island
+                    option(value='South Carolina') South Carolina
+                    option(value='South Dakota') South Dakota
+                    option(value='Tennessee') Tennessee
+                    option(value='Texas') Texas
+                    option(value='Utah') Utah
+                    option(value='Vermont') Vermont
+                    option(value='Virginia') Virginia
+                    option(value='Washington') Washington
+                    option(value='Washington DC') Washington DC
+                    option(value='West Virginia') West Virginia
+                    option(value='Wisconsin') Wisconsin
+                    option(value='Wyoming') Wyoming
+                  input(id='zipcode', class='mm_input', type='text', name='contact_zipcode', autocomplete='off', size=14, maxlength=11, value='72701', onfocus='clear_value_if_default(this,\'72701\')', onblur='set_default_value_if_null(this,\'72701\')' )
+          fieldset
+            legend Contact Preferences
+            | How would you like to be contacted?
+            br
+            input(id='pref_email', class='mm_input', type='checkbox', name='contact_prefers_email')
+            label(for='pref_email') Email
+
+            input(id='pref_phone', class='mm_input', type='checkbox', name='contact_prefers_phone')
+            label(for='pref_phone') Phone
+          fieldset
+            legend How can we help you?
+            label(for='message') Brief description of your legal issue
+            br
+            textarea(id='message', class='mm_input', name='contact_message', rows='10', cols='50')
+            p
+              // Source: https://www.iconfinder.com/search/?q=caution&price=free
+              img(class='disclaimer', src='images/caution.png', alt='Caution')
+              | The use of the Internet or this form for communication with the firm or any individual member of the firm does not establish an attorney-client relationship. Confidential or time-sensitive information should not be sent through this form.
+
+            input(id='tos', class='mm_input', type='checkbox', name='read_disclaimer')
+            label(for='tos') I have read the disclaimer.
+            p
+              a(href='privacy',target='self') Privacy Policy
+
+          input(name='action', type='submit', value='Send Message')
+
+    article
+      a(id= topics[1].id)
+      h2 #{topics[1].title}
+      iframe(width='480', height='320', frameborder='0', style='border: 0;', src='https://www.google.com/maps/embed/v1/place?q=103%20n%20college%20ave%20%235%20fayetteville%2C%20ar&key=AIzaSyC3Z3Zn32hQBcvqoCc8033jHMFhfVE6NhY')
+
+      br
+      a(target='self',href='http://maps.google.com/maps?ll=36.06402,-94.158191&z=16&t=m&hl=en-US&gl=US&mapclient=embed&q=103%20N%20College%20Ave%20%235%20Fayetteville%2C%20AR%2072701') Map and Directions
 
       br
       br
 
-      i
-        | *(put some type of google map here)*
-
+      strong Avery Law Firm
+      address 103 N College Ave Ste 5
+      address Fayetteville, AR 72701
       br
+      | Phone: +1 (479) 739-1903
       br
+      | Fax: +1 (479) 439-8283
+      br
+      | Email:
+      a(href='mailto:#{site_email}') #{site_email}
 
-      address
-        103 N. College Ave. Ste 5, Fayetteville, AR 72701
 
       p The office is located inside the second building on the right on College Avenue past Dickson St., if you are coming from the North. Free parking is available in front for clients and prospective clients.
 

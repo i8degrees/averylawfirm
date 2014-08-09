@@ -1,6 +1,6 @@
 
 // http://stackoverflow.com/questions/5697863/dynamic-links-with-jade
-- var navi_links = [ { title: 'About', href: 'about' }, { title: 'Office Locations', href: 'contact' }, { title: 'Areas of Practice', href: 'index' }, { title: 'Contact', href: 'contact' }, { title: 'Blog', href: 'index' } ];
+- var navi_links = [ { title: 'About', href: 'about' }, { title: 'Office Locations', href: 'contact' }, { title: 'Areas of Practice', href: 'practice' }, { title: 'Contact', href: 'contact' }, { title: 'Blog', href: 'index' } ];
 
 doctype html
 html
@@ -38,7 +38,6 @@ html
 
         nav
           div(class='nav_down')
-            //- a(href=navi_links[0].href) #{navi_links[0].title}
             - each link in navi_links
               a(href=link.href) #{link.title}
 
@@ -48,6 +47,9 @@ html
                 input( name='action', type='hidden', value='go')
 
             // div(class='site_message') ERROR MSG
+
+      br
+      br
 
       #content_wrap
 

@@ -33,7 +33,7 @@ body
     width: 99%;
     margin-left: auto;
     margin-right: auto;
-    padding: 0px;
+    padding: 25px;
     border: 1px solid gray;
 }
 
@@ -205,19 +205,20 @@ body
     -webkit-appearance:none;
 }
 
-#contact_form fieldset
+
+.contact_form fieldset
 {
     border: none;
     border-top: 1px solid black;
     width: 50%;
 }
 
-#contact_form legend
+.contact_form legend
 {
     font-weight: bold;
 }
 
-#contact_form img.disclaimer
+.contact_form img.disclaimer
 {
     float: left;
     margins: 0 1em 0 0;
@@ -242,6 +243,38 @@ body
 {
     border: 0px solid black;
     vertical-align: middle;
+}
+
+.contact_form input, select
+{
+    /*width:102px;*/
+    /*background:#707C78;*/
+    font-size:16px;
+    border:1px solid #999;
+    height:24px;
+    font-style: italic;
+    font-weight: bold;
+    color: gray;
+}
+
+.contact_form input:focus
+{
+    /*font-size: 14px;*/
+    /*height: 14px;*/
+    font-style: normal;
+
+    /* Light Tan */
+    background-color: #ffc;
+}
+
+.contact_form textarea:focus
+{
+    /*font-size: 14px;*/
+    /*height: 14px;*/
+    font-style: normal;
+
+    /* Light Tan */
+    background-color: #ffc;
 }
 
 /* TODO: Rename me */

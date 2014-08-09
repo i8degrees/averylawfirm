@@ -29,4 +29,9 @@ router.get('/privacy', function(req, res) {
   res.render('privacy', { site_company: company_name, md:md });
 });
 
+// TODO: Add additional routing links (i.e.: criminal_defense, ...) for this
+// page.
+router.get('/practice', function(req, res) {
+  res.render('practice', { site_company: company_name, md:md });
+});
 module.exports = router;

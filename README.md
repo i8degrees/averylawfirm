@@ -108,6 +108,7 @@ You should now be able to access the local site at the following URLs if everyth
 * [Official Express guide](http://expressjs.com/guide.html)
 * [Node.js & Express Tutorial](http://shapeshed.com/creating-a-basic-site-with-node-and-express/)
 * [Pow User's Manual](http://pow.cx/manual.html)
+* [Heroku: Deploying with Git](https://devcenter.heroku.com/articles/git)
 
 ## References
 

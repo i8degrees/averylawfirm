@@ -6,7 +6,6 @@ block head
 
 block content
 
-  br
   div( class='content', align='left' )
     :markdown
       <p style='text-align: center; font-size: 2.5em; font-weight: 600;'>
@@ -24,14 +23,14 @@ block content
     a(id= topics[0].id)
     h1 #{topics[0].title}
 
-    p If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.
-    p Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+    p(style='font-size: 1.25em; font-weight: 400;') If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.
+    p(style='font-size: 1.25em; font-weight: 400;') Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
 
     :markdown
       Labels marked with <span class='req'>*</span> indicates required information.
 
-    div(class='form-mm')
-      form(id='contact_form', action='', method='get')
+    div(class='contact_form')
+      form(action='', method='get')
         fieldset
           legend Personal Information
           table
@@ -39,31 +38,32 @@ block content
               td(class='align_right') Name
                 span(class='req') *
               td
-                input(class='mm_input', type='text', name='contact_first_name', autocomplete='off', value='First name', onfocus='clear_value_if_default(this,\'First name\')', onblur='set_default_value_if_null(this,\'First name\')' )
-                input(class='mm_input', type='text', name='contact_last_name', autocomplete='off', value='Last name', onfocus='clear_value_if_default(this,\'Last name\')', onblur='set_default_value_if_null(this,\'Last name\')' )
+                input(class='', type='text', name='contact_first_name', autocomplete='off', size=25, value='First name', onfocus='clear_value_if_default(this,\'First name\')', onblur='set_default_value_if_null(this,\'First name\')' )
+                // FIXME: size should match first name
+                input(class='', type='text', name='contact_last_name', autocomplete='off', size=20, value='Last name', onfocus='clear_value_if_default(this,\'Last name\')', onblur='set_default_value_if_null(this,\'Last name\')' )
             tr
               td(class='align_right')
                 label(for='email_address') Email Address
                 span(class='req') *
               td
-                input(id='email_address', class='mm_input', type='text', name='contact_email', autocomplete='off', value='example@domain.com', onfocus='clear_value_if_default(this,\'example@domain.com\')', onblur='set_default_value_if_null(this,\'example@domain.com\')' )
+                input(id='email_address', class='', type='text', name='contact_email', autocomplete='off', size=25, value='example@domain.com', onfocus='clear_value_if_default(this,\'example@domain.com\')', onblur='set_default_value_if_null(this,\'example@domain.com\')' )
             tr
               td(class='align_right')
                 label(for='confirm_email') Confirm Email
                 span(class='req') *
               td
-                input(id='confirm_email', class='mm_input', type='text', name='contact_confirm_email', autocomplete='off' )
+                input(id='confirm_email', class='', type='text', name='contact_confirm_email', autocomplete='off', size=25 )
             tr
               td(class='align_right') Phone
                 span(class='req') *
               td
-                input(class='mm_input', type='text', name='contact_ph', autocomplete='off', maxlength=14, value='(xxx) xxx-xxxx', onfocus='clear_value_if_default(this,\'(xxx) xxx-xxxx\')', onblur='set_default_value_if_null(this,\'(xxx) xxx-xxxx\')' )
-                input(class='mm_input', type='text', name='contact_ph_ext', autocomplete='off', size=4, value='Ext', onfocus='clear_value_if_default(this,\'Ext\')', onblur='set_default_value_if_null(this,\'Ext\')' )
+                input(class='', type='text', name='contact_ph', autocomplete='off', maxlength=14, value='(xxx) xxx-xxxx', onfocus='clear_value_if_default(this,\'(xxx) xxx-xxxx\')', onblur='set_default_value_if_null(this,\'(xxx) xxx-xxxx\')' )
+                input(class='', type='text', name='contact_ph_ext', autocomplete='off', size=4, value='Ext', onfocus='clear_value_if_default(this,\'Ext\')', onblur='set_default_value_if_null(this,\'Ext\')' )
             tr
               td(class='align_right') State & Zip
                 span(class='req') *
               td
-                select(id='state', class='mm_input', name='contact_state')
+                select(id='state', class='', name='contact_state')
                   option(value='DID NOT RESPOND', selected='selected') Select State
                   option(value='Alabama') Alabama
                   option(value='Alaska') Alaska
@@ -117,28 +117,28 @@ block content
                   option(value='West Virginia') West Virginia
                   option(value='Wisconsin') Wisconsin
                   option(value='Wyoming') Wyoming
-                input(id='zipcode', class='mm_input', type='text', name='contact_zipcode', autocomplete='off', size=14, maxlength=11, value='72701', onfocus='clear_value_if_default(this,\'72701\')', onblur='set_default_value_if_null(this,\'72701\')' )
+                input(id='zipcode', class='', type='text', name='contact_zipcode', autocomplete='off', size=14, maxlength=11, value='72701', onfocus='clear_value_if_default(this,\'72701\')', onblur='set_default_value_if_null(this,\'72701\')' )
         fieldset
           legend Contact Preferences
           | How would you like to be contacted?
           br
-          input(id='pref_email', class='mm_input', type='checkbox', name='contact_prefers_email')
+          input(id='pref_email', class='', type='checkbox', name='contact_prefers_email')
           label(for='pref_email') Email
 
-          input(id='pref_phone', class='mm_input', type='checkbox', name='contact_prefers_phone')
+          input(id='pref_phone', class='', type='checkbox', name='contact_prefers_phone')
           label(for='pref_phone') Phone
         fieldset
           legend Inquiry
           label(for='message') Brief description of your legal issue
           span(class='req') *
           br
-          textarea(id='message', class='mm_input', name='contact_message', rows='10', cols='50')
+          textarea(id='message', name='contact_message', rows='10', cols='50')
           p
             // Source: https://www.iconfinder.com/search/?q=caution&price=free
             img(class='disclaimer', src='images/caution.png', alt='Caution')
             | The use of the Internet or this form for communication with the firm or any individual member of the firm does not establish an attorney-client relationship. Confidential or time-sensitive information should not be sent through this form.
 
-          input(id='tos', class='mm_input', type='checkbox', name='read_disclaimer')
+          input(id='tos', class='', type='checkbox', name='read_disclaimer')
           label(for='tos') I have read the disclaimer.
           span(class='req') *
           p

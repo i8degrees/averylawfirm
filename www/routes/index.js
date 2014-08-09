@@ -17,6 +17,10 @@ router.get('/index', function(req, res) {
   res.render('index', { site_company: company_name });
 });
 
+router.get('/about', function(req, res) {
+  res.render('index', { site_company: company_name });
+});
+
 router.get('/contact', function(req, res) {
   res.render('contact', { site_company: company_name, site_email: email_addr });
 });

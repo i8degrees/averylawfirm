@@ -3,7 +3,15 @@
   "version": "0.0.1",
   "description": "www.averylawfirm.com web site for Laura Avery",
   "author": "Jeffrey Carpenter <i8degrees@gmail.com>",
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/i8degrees/averylawfirm"
+  },
+  "bugs": {
+    "url": "https://github.com/i8degrees/averylawfirm/issues"
+  },
+  "license": "Simplified BSD",
+  "main": "./www/app.js",
   "scripts": {
     "start": "node ./bin/www"
   },
@@ -14,6 +22,10 @@
     "cookie-parser": "~1.0.1",
     "body-parser": "~1.0.0",
     "debug": "~0.7.4",
-    "jade": "~1.3.0"
+    "jade": "~1.3.0",
+    "marked": "~0.3.2"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }

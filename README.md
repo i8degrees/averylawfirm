@@ -40,7 +40,7 @@ brew install -vd pow
 
 ```
 git clone git@github.com:i8degrees/averylawfirm.git averylawfirm.git
-cd averylawfirm.git/www
+cd averylawfirm.git/
 
 # Install deps required for running site
 npm install
@@ -55,12 +55,12 @@ You should now be able to access the local site at the [node.js local host](http
 
 ##### nodemon
 
-This optional package restarts the web server anytime the configuration files -- i.e.: app.js, www/routes/index.js -- are modified.
+This optional package restarts the web server anytime the configuration files -- i.e.: app.js, routes/index.js -- are modified.
 
 Simply swap out the use of ```npm start``` with:
 
 ```
-# averylawfirm.git/www
+# averylawfirm.git
 nodemon app.js
 ```
 
@@ -68,14 +68,14 @@ nodemon app.js
 
 **NOTE:** This is part of Heroku's [toolchain](https://devcenter.heroku.com/articles/getting-started-with-nodejs).
 
-This optional package restarts the web server anytime the configuration files -- i.e.: app.js, www/routes/index.js -- are modified.
+This optional package restarts the web server anytime the configuration files -- i.e.: app.js, routes/index.js -- are modified.
 
 Create a [Procfile](https://devcenter.heroku.com/articles/procfile), a text file in the root directory of the application, to explicitly declare what command should be executed to start a web host:
 
 ```
 cd averylawfirm.git/
 touch Procfile
-cat 'web: node www/app.js' > Procfile
+cat 'web: node app.js' > Procfile
 ```
 
 Simply swap out the use of ```npm start``` with:

@@ -2,7 +2,7 @@
 build
 third-party
 design
-www/node_modules
+node_modules
 *.xcf
 
 # Misc

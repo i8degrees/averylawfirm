@@ -61,6 +61,13 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-var server = app.listen(8222, function() {
-    console.log('Listening on port %d', server.address().port);
+
+var port = Number(process.env.PORT || 5000);
+
+if(app.get('env') === 'development') {
+  port = 8222;
+}
+
+var server = app.listen(port, function() {
+  console.log('Listening on port %d', server.address().port);
 });

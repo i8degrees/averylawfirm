@@ -29,41 +29,51 @@ block content
     :markdown
       Labels marked with <span class='req'>*</span> indicates required information.
 
+    // Validation errors
+    include site_message.jade
+
     div(class='contact_form')
-      form(action='', method='get')
+      form(action='contact', method='POST')
         fieldset
           legend Personal Information
           table
             tr
-              td(class='align_right') Name
+              td(class='align_right')
+                label(for='contact_first_name') Name
                 span(class='req') *
+                label(hidden='true', for='contact_last_name')
               td
-                input(class='', type='text', name='contact_first_name', autocomplete='off', size=25, value='First name', onfocus='clear_value_if_default(this,\'First name\')', onblur='set_default_value_if_null(this,\'First name\')' )
+                input(id='contact_first_name', class='', type='text', name='first_name', size=25, spellcheck='false', required data-required-msg=req_input_errs['first_name'], placeholder='First name' )
                 // FIXME: size should match first name
-                input(class='', type='text', name='contact_last_name', autocomplete='off', size=20, value='Last name', onfocus='clear_value_if_default(this,\'Last name\')', onblur='set_default_value_if_null(this,\'Last name\')' )
+                input(id='contact_last_name', class='', type='text', name='last_name', size=20, spellcheck='false', required data-required-msg=req_input_errs['last_name'], placeholder='Last name' )
             tr
               td(class='align_right')
-                label(for='email_address') Email Address
+                label(for='contact_email') Email Address
                 span(class='req') *
               td
-                input(id='email_address', class='', type='text', name='contact_email', autocomplete='off', size=25, value='example@domain.com', onfocus='clear_value_if_default(this,\'example@domain.com\')', onblur='set_default_value_if_null(this,\'example@domain.com\')' )
+                input(id='contact_email', class='', type='email', name='email', size=25, required data-required-msg=req_input_errs['email'], placeholder='example@domain.com')
             tr
               td(class='align_right')
-                label(for='confirm_email') Confirm Email
+                label(for='contact_confirm_email') Confirm Email
                 span(class='req') *
               td
-                input(id='confirm_email', class='', type='text', name='contact_confirm_email', autocomplete='off', size=25 )
+                input(id='contact_confirm_email', class='', type='email', name='confirm_email', size=25, required data-required-msg=req_input_errs['confirm_email'] )
             tr
-              td(class='align_right') Phone
+              td(class='align_right')
+                label(for='contact_phone') Phone
+                label(hidden='true', for='contact_phone_ext')
                 span(class='req') *
+
               td
-                input(class='', type='text', name='contact_ph', autocomplete='off', maxlength=14, value='(xxx) xxx-xxxx', onfocus='clear_value_if_default(this,\'(xxx) xxx-xxxx\')', onblur='set_default_value_if_null(this,\'(xxx) xxx-xxxx\')' )
-                input(class='', type='text', name='contact_ph_ext', autocomplete='off', size=4, value='Ext', onfocus='clear_value_if_default(this,\'Ext\')', onblur='set_default_value_if_null(this,\'Ext\')' )
+                input(id='contact_phone', class='', type='tel', name='phone', maxlength=14, required data-required-msg=req_input_errs['phone'], placeholder='(xxx) xxx-xxxx' )
+                input(id='contact_phone_ext', class='', type='tel', name='phone_ext', size=4, placeholder='Ext' )
             tr
-              td(class='align_right') State & Zip
+              td(class='align_right')
+                label(for='contact_state') State & Zip
                 span(class='req') *
+                label(hidden='true', for='contact_zipcode')
               td
-                select(id='state', class='', name='contact_state')
+                select(id='contact_state', class='', name='state', required data-required-msg=req_input_errs['state'] )
                   option(value='DID NOT RESPOND', selected='selected') Select State
                   option(value='Alabama') Alabama
                   option(value='Alaska') Alaska
@@ -117,28 +127,28 @@ block content
                   option(value='West Virginia') West Virginia
                   option(value='Wisconsin') Wisconsin
                   option(value='Wyoming') Wyoming
-                input(id='zipcode', class='', type='text', name='contact_zipcode', autocomplete='off', size=14, maxlength=11, value='72701', onfocus='clear_value_if_default(this,\'72701\')', onblur='set_default_value_if_null(this,\'72701\')' )
+                input(id='contact_zipcode', class='', type='text', name='zipcode', size=14, maxlength=11, required data-required-msg=req_input_errs['zipcode'], placeholder='72901' )
         fieldset
           legend Contact Preferences
           label How would you like to be contacted?
           br
-          input(id='pref_email', class='', type='checkbox', name='contact_prefers_email')
-          label(for='pref_email') Email
+          input(id='contact_pref_email', class='', type='checkbox', name='contact_pref', value='email')
+          label(for='contact_pref_email') Email
 
-          input(id='pref_phone', class='', type='checkbox', name='contact_prefers_phone')
-          label(for='pref_phone') Phone
+          input(id='contact_pref_phone', class='', type='checkbox', name='contact_pref', value='phone')
+          label(for='contact_pref_phone') Phone
         fieldset
           legend Inquiry
-          label(for='message') Brief description of your legal issue
+          label(for='contact_message') Brief description of your legal issue
           span(class='req') *
           br
-          textarea(id='message', name='contact_message', rows='10', cols='50')
+          textarea(id='contact_message', name='message', rows='10', cols='50', spellcheck='true', required data-required-msg=req_input_errs['message'] )
 
           // DISCLAIMER
           ul
             li The use of the Internet or this form for communication with the firm or any individual member of the firm does not establish an attorney-client relationship. Confidential or time-sensitive information should not be sent through this form.
 
-          input(id='tos', class='', type='checkbox', name='read_disclaimer')
+          input(id='tos', class='', type='checkbox', name='tos', value='agree', required data-required-msg=req_input_errs['tos'] )
           label(for='tos') I have read the disclaimer.
           span(class='req') *
           p
@@ -163,7 +173,8 @@ block content
 
       br
 
-      iframe(width='480', height='320', frameborder='0', style='border: 0;', src='https://www.google.com/maps/embed/v1/place?q=103%20n%20college%20ave%20%235%20fayetteville%2C%20ar&key=AIzaSyC3Z3Zn32hQBcvqoCc8033jHMFhfVE6NhY')
+      if ENV != 'offline'
+        iframe(width='480', height='320', frameborder='0', style='border: 0;', src='https://www.google.com/maps/embed/v1/place?q=103%20n%20college%20ave%20%235%20fayetteville%2C%20ar&key=AIzaSyC3Z3Zn32hQBcvqoCc8033jHMFhfVE6NhY')
 
       br
 
@@ -172,3 +183,4 @@ block content
       p The office is located inside the second building on the right on College Avenue past Dickson St., if you are coming from the North. Free parking is available in front for clients and prospective clients.
 
 block footer
+

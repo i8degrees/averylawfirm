@@ -4,10 +4,9 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var md = require('node-markdown').Markdown;
+var validator = require('express-validator');
 
 var routes = require('./routes/index');
-// var users = require('./routes/users');
 
 var app = express();
 
@@ -17,13 +16,18 @@ app.set('view engine', 'jade');
 
 app.use(favicon());
 app.use(logger('dev'));
+
+app.use( bodyParser() );
+
+// this line must be immediately after express.bodyParser
+app.use( validator() );
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-// app.use('/users', users);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -69,5 +73,6 @@ if(app.get('env') === 'development') {
 }
 
 var server = app.listen(port, function() {
+  console.log('Environment: %s', app.get('env') );
   console.log('Listening on port %d', server.address().port);
 });

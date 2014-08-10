@@ -5,7 +5,8 @@
 doctype html
 html
   head
-    title= site_company
+    - if( site_company != null )
+      title= site_company
 
     // Meta
     meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
@@ -30,31 +31,28 @@ html
 
     div(id='page_container')
 
-      header
+      header(id='navi_container')
 
-        div(id='navi_container')
+        div(class='header')
+          h1
+            a( href='index')= site_company
+            //- FIXME:
+            //- img( align='', src='images/logo_small.png', alt='')
 
-          div(class='header')
-            h1
-              a( href='index')= site_company
-              //- FIXME:
-              //- img( align='', src='images/logo_small.png', alt='')
+          nav(class='nav_down')
+            - each link in navi_links
+              a(href=link.href) #{link.title}
 
-          nav
-            div(class='nav_down')
-              - each link in navi_links
-                a(href=link.href) #{link.title}
+            form(action='/search_results', method='get')
+              input(id='searchbar', class='mm_input', type='text', name='q', spellcheck='false', autocomplete='off', accesskey='s', onfocus='', onblur='' )
+              button(id='search_button', type='submit')
 
-              form(action='/search_results', method='get')
-                input(id='searchbar', class='mm_input', type='text', name='q', spellcheck='false', autocomplete='off', accesskey='s', onfocus='', onblur='' )
-                button(id='search_button', type='submit')
+            //- div(align='center',class='site_message')
+              //- p ERROR MSG
 
-              //- div(align='center',class='site_message')
-                //- p ERROR MSG
-
-            //- div(class='toc')
-              //- - each link in topics
-                a(href=link.href) #{link.title}
+          //- div(class='toc')
+            //- - each link in topics
+              a(href=link.href) #{link.title}
 
       div(id='content_container')
         block content

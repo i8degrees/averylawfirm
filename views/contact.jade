@@ -23,7 +23,8 @@ block content
     a(id= topics[0].id)
     h1 #{topics[0].title}
 
-    p(style='font-size: 1.25em; font-weight: 400;') If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.
+    main
+      p(style='font-size: 1.25em; font-weight: 400;') If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.
 
     :markdown
       Labels marked with <span class='req'>*</span> indicates required information.
@@ -119,7 +120,7 @@ block content
                 input(id='zipcode', class='', type='text', name='contact_zipcode', autocomplete='off', size=14, maxlength=11, value='72701', onfocus='clear_value_if_default(this,\'72701\')', onblur='set_default_value_if_null(this,\'72701\')' )
         fieldset
           legend Contact Preferences
-          | How would you like to be contacted?
+          label How would you like to be contacted?
           br
           input(id='pref_email', class='', type='checkbox', name='contact_prefers_email')
           label(for='pref_email') Email
@@ -133,6 +134,7 @@ block content
           br
           textarea(id='message', name='contact_message', rows='10', cols='50')
 
+          // DISCLAIMER
           ul
             li The use of the Internet or this form for communication with the firm or any individual member of the firm does not establish an attorney-client relationship. Confidential or time-sensitive information should not be sent through this form.
 
@@ -147,7 +149,7 @@ block content
         br
         br
 
-    article
+    section
       a(id= topics[1].id)
       h2 #{topics[1].title}
 

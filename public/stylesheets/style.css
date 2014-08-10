@@ -335,7 +335,7 @@ body
 #footer .disclaimer
 {
     text-align: center;
-    font-size: 10%;
+    font-size: 1.0em;
     font-style: italic !important;
     font-weight: 400;
 }
@@ -343,7 +343,7 @@ body
 #footer .copyright
 {
     text-align: center;
-    font-size: 10%;
+    font-size: 1.0em;
     font-style: normal !important;
     font-weight: 400;
 }

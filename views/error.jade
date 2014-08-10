@@ -1,6 +1,29 @@
 extends layout
 
+
+block head
+  title Page Not Found
+  link(rel='stylesheet', href='stylesheets/error_404.css')
+
 block content
-  h1= message
-  h2= error.status
+
+  .container
+
+    h1= error.status + ' ' + message
+    // TODO: Frown face image?
+    p :(
+    p Sorry, but the page you were trying to view does not exist.
+    p It looks like this was the result of either:
+    ul
+      li a mistyped address
+      li an out-of-date link
+  script.
+    // Google 404 Widget helper
+    // https://support.google.com/webmasters/answer/136085
+    var GOOG_FIXURL_LANG = 'en';
+    var GOOG_FIXURL_SITE = (navigator.language || '').slice(0,2),GOOG_FIXURL_SITE = location.host;
+  script(src='http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js')
+
+  hr
+  //- TODO: Show only in dev mode?
   pre #{error.stack}

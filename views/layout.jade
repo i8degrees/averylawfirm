@@ -1,6 +1,6 @@
 
-// http://stackoverflow.com/questions/5697863/dynamic-links-with-jade
-- var navi_links = [ { title: 'About', href: 'about' }, { title: 'Office Locations', href: 'contact' }, { title: 'Areas of Practice', href: 'practice' }, { title: 'Contact', href: 'contact' }, { title: 'Blog', href: 'index' } ];
+//- http://stackoverflow.com/questions/5697863/dynamic-links-with-jade
+- var navi_links = [ { title: 'About', href: 'about' }, { title: 'Office Location', href: 'contact#location' }, { title: 'Areas of Practice', href: 'practice' }, { title: 'Contact', href: 'contact#contact' }, { title: 'Blog', href: 'index' } ];
 
 doctype html
 html
@@ -21,50 +21,52 @@ html
     link(href='http://fonts.googleapis.com/css?family=Open+Sans:italic,400,600,800', rel='stylesheet', type='text/css')
     link(href='http://fonts.googleapis.com/css?family=Lora:italic,400,600,800', rel='stylesheet', type='text/css')
 
+    // JavaScript
+    script(type='text/javascript', src='javascripts/google_search.js')
+
     block head
 
   body
-    #page_wrap
+
+    div(id='page_container')
+
       header
-        //- div(class='header-n')
-        //- span(class='welcome')= site_company
-        //- span(class='option')
 
-        div(class='header', align='center')
-          // FIXME:
-          // img( align='left', src='images/logo_small.png', alt='')
-          h1
-            a( href='index')= site_company
+        div(id='navi_container')
 
-        nav
-          div(class='nav_down')
-            - each link in navi_links
-              a(href=link.href) #{link.title}
+          div(class='header')
+            h1
+              a( href='index')= site_company
+              //- FIXME:
+              //- img( align='', src='images/logo_small.png', alt='')
 
-            div(class='form-mm')
-              form(align='center', action='', method='get')
-                input( id='searchbar', class='mm_input', type='text', name='search_site', autocomplete='off', accesskey='s', value='Search site...', onfocus='clear_value_if_default(this, \'Search site...\')' onblur='set_default_value_if_null(this, \'Search site...\')' )
-                input( name='action', type='hidden', value='go')
+          nav
+            div(class='nav_down')
+              - each link in navi_links
+                a(href=link.href) #{link.title}
 
-            // div(class='site_message') ERROR MSG
+              form(action='/search_results', method='get')
+                input(id='searchbar', class='mm_input', type='text', name='q', spellcheck='false', autocomplete='off', accesskey='s', onfocus='', onblur='' )
+                button(id='search_button', type='submit')
 
-      br
-      br
+              //- div(align='center',class='site_message')
+                //- p ERROR MSG
 
-      #content_wrap
+            //- div(class='toc')
+              //- - each link in topics
+                a(href=link.href) #{link.title}
 
-        //- div(class='toc')
-          //- - each link in topics
-            a(href=link.href) #{link.title}
-
+      div(id='content_container')
         block content
 
     footer
       nav
+        //- FIXME:
         hr
         br
-        div(class='nav_down', align='center')
-          //- a(href=navi_links[0].href) #{navi_links[0].title}
+
+        //- FIXME:
+        div(class='nav_down',style='text-align: center;')
           - each link in navi_links
             a(href=link.href) #{link.title}
         br

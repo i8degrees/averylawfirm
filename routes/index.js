@@ -34,4 +34,9 @@ router.get('/privacy', function(req, res) {
 router.get('/practice', function(req, res) {
   res.render('practice', { site_company: company_name, md:md });
 });
+
+router.get('/search_results', function(req, res) {
+  res.render('search_results', { site_company: company_name, md:md, cse_query: req.query['q'] });
+});
+
 module.exports = router;

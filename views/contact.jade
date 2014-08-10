@@ -15,8 +15,8 @@ block content
     br
 
     div(align='center')
-      a(class='blue_button', href='#contact') Contact
-      a(class='blue_button', href='#location') Location
+      a(id='blue_button', href='#contact') Contact
+      a(id='blue_button', href='#location') Location
 
     br
 
@@ -133,10 +133,9 @@ block content
           span(class='req') *
           br
           textarea(id='message', name='contact_message', rows='10', cols='50')
-          p
-            // Source: https://www.iconfinder.com/search/?q=caution&price=free
-            img(class='disclaimer', src='images/caution.png', alt='Caution')
-            | The use of the Internet or this form for communication with the firm or any individual member of the firm does not establish an attorney-client relationship. Confidential or time-sensitive information should not be sent through this form.
+
+          ul
+            li The use of the Internet or this form for communication with the firm or any individual member of the firm does not establish an attorney-client relationship. Confidential or time-sensitive information should not be sent through this form.
 
           input(id='tos', class='', type='checkbox', name='read_disclaimer')
           label(for='tos') I have read the disclaimer.
@@ -144,7 +143,7 @@ block content
           p
             a(href='privacy',target='self') Privacy Policy
 
-          input(class='blue_button', type='submit', name='action', value='Send Message')
+          button(id='blue_button', type='submit') Send Message
 
         br
         br

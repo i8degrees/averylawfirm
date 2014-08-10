@@ -1,0 +1,4 @@
+http://averylawfirm.70.178.134.15.xip.io:8222/index
+http://averylawfirm.70.178.134.15.xip.io:8222/about
+http://averylawfirm.70.178.134.15.xip.io:8222/contact
+http://averylawfirm.70.178.134.15.xip.io:8222/practice

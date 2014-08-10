@@ -8,6 +8,8 @@ node_modules
 # Misc
 *.bck
 tmp
+public/testme.html
+public/stylesheets/testme.css
 
 # OS X Finder metadata
 *.DS_Store

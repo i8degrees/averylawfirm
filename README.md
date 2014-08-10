@@ -8,7 +8,7 @@ Local site configuration notes.
 * [node.js](http://nodejs.org/)
 
 * Optional (convenience) development tools
-    * [nodemon](https://www.npmjs.org/package/nodemon) or [Foreman](https://github.com/ddollar/foreman)
+    * [nodemon](https://www.npmjs.org/package/nodemon)
     * [pow](http://pow.cx/)
     * [LiveReload app](http://go.livereload.com/)
         * [LiveReload Sublime Text 2/3 package](https://github.com/dz0ny/LiveReload-sublimetext2)
@@ -62,27 +62,6 @@ Simply swap out the use of ```npm start``` with:
 ```
 # averylawfirm.git
 nodemon app.js
-```
-
-##### foreman
-
-**NOTE:** This is part of Heroku's [toolchain](https://devcenter.heroku.com/articles/getting-started-with-nodejs).
-
-This optional package restarts the web server anytime the configuration files -- i.e.: app.js, routes/index.js -- are modified.
-
-Create a [Procfile](https://devcenter.heroku.com/articles/procfile), a text file in the root directory of the application, to explicitly declare what command should be executed to start a web host:
-
-```
-cd averylawfirm.git/
-touch Procfile
-cat 'web: node app.js' > Procfile
-```
-
-Simply swap out the use of ```npm start``` with:
-
-```
-# averylawfirm.git/
-foreman start
 ```
 
 ##### Pow

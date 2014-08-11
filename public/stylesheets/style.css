@@ -16,8 +16,9 @@ body {
 
 #page_container {
   /*width: 1024px;*/
+  /*width: 100%;*/
   /* Experimental width */
-  width: 100%;
+  /*width: 75%;*/
 
   margin-left: auto;
   margin-right: auto;
@@ -26,7 +27,7 @@ body {
 
   /* Debugging aid */
   /*background-color: #E7E7E7;*/
-  /*border: 1px solid gray;*/
+  border: 1px dashed gray;
 }
 
 #navi_container {
@@ -54,7 +55,6 @@ body {
 
   margin-left: auto;
   margin-right: auto;
-  padding: 25px;
   background-color: white;
 
   /* Debugging aid */
@@ -80,13 +80,9 @@ body {
   color: blue;
 }
 
-.content h1, h2 {
-  font-family: Lora, serif;
-}
-
 /* BEGIN HEADER: NAVIGATION */
 
-.nav_down {
+#nav_down {
   font-weight: 600;
   font-size: 1.15em;
   color: black;
@@ -95,7 +91,7 @@ body {
   text-align: right;
 }
 
-.nav_down a {
+#nav_down a {
   font-weight: bold !important;
   padding: 3px 6px;
   border-right: 1px solid #666 !important;
@@ -103,25 +99,29 @@ body {
   color: black;
 }
 
-.nav_down a:hover {
+#nav_down a:hover {
   color: blue;
 }
 
-.nav_down form {
+#nav_down form {
   /* Keep everything on the same line */
   display: inline;
 }
 
-.nav_down form .mm_input {
-  width: 102px;
-  font-size: 11px;
-  border: 1px solid #999;
-  height: 11px;
+/* Note that you should honor the following selectors here if using Google's
+CSE; a) a minimum width of 118px; b) background url image (Google's branding as
+per TOS). */
+#nav_down .search_input {
+  width: 200px;
+  height: 25px;
+
+  /* Spacing in between navi links & input element */
+  margin-left: 20px;
+  border: 1px solid #666;
 }
 
-.nav_down .form-mm .small {
-  font-size: 12px;
-  font-weight: bold;
+.content h1, h2 {
+  font-family: Lora, serif;
 }
 
 .toc {
@@ -202,7 +202,6 @@ body {
 }
 
 .contact_form input, select {
-  /*width: 102px;*/
   /*background: #707C78;*/
   font-size: 16px;
   border:1px solid #999;
@@ -210,6 +209,26 @@ body {
   font-style: italic;
   font-weight: bold;
   color: gray;
+}
+
+.contact_form #contact_first_name, #contact_last_name, #contact_email, #contact_confirm_email {
+  width: 250px;
+}
+
+.contact_form #contact_phone {
+  width: 150px;
+}
+
+.contact_form #contact_phone_ext {
+  width: 94px;
+}
+
+.contact_form #contact_state {
+  width: 250px;
+}
+
+.contact_form #contact_zipcode {
+  width: 100px;
 }
 
 .contact_form input:focus {
@@ -228,13 +247,6 @@ body {
 
   /* Light Tan */
   background-color: #ffc;
-}
-
-/* TODO: Rename me */
-#name {
-  font-weight: bold;
-  font-style: italic;
-  color: gray;
 }
 
 .req {

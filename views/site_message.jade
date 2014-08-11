@@ -1,4 +1,4 @@
-if flash != null
+if flash != null && flash.type === 'alert-danger'
   div.alert(class='#{flash.type}')
     ul
     - for (var i = 0; i < flash.messages.length; i++) {

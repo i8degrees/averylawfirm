@@ -1,17 +1,8 @@
-/* Google Custom Search */
-#searchbar
+/* Google Custom Search Branding (required) */
+#google_cse
 {
-    /* TODO: Use these attributes for the blur event */
-
-    /*font-weight: bold;*/
-    /*font-style: italic;*/
-    /*color: gray;*/
-
-    /* ...and then these attributes below for the focus event */
-
-    width:118px;
-    height:16px;
-
+    /* Same as background image */
+    width: 118px;
     background: url(http://www.google.com/cse/intl/en/images/google_custom_search_watermark.gif) 0% 50% no-repeat rgb(255, 255, 255);
-    -webkit-appearance:none;
+    -webkit-appearance: none;
 }

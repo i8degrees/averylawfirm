@@ -1,3 +1,35 @@
+//- helper functions
+
+//- param state The state text label and form value to use
+mixin state_selector(state)
+  - var s = null;
+  if flash != null && flash.type === 'alert-danger' && post_data.state === state
+    option(value= state, 'selected')= state
+  else
+    option(value= state)= state
+
+//- param default_state Default text label to use
+//- param default_value Default form value to submitted
+mixin state_default_selector(default_state, default_value)
+  if flash != null && flash.type === 'alert-danger' && post_data.state === default_value
+    option(value= default_value, 'selected')= default_state
+  else
+    option(value= default_value)= default_state
+
+//- param id    CSS selector ID for the input element
+//- param type  The toggled on value for this input element
+mixin contact_preference(id, type)
+  if flash != null && flash.type === 'alert-danger' && post_data.contact_pref === type
+    input(id= id, class='', type='radio', name='contact_pref', value=type, checked )
+  else
+    input(id= id, class='', type='radio', name='contact_pref', value=type )
+
+mixin tos_checkbox
+  if flash != null && flash.type === 'alert-danger' && post_data.tos === 'agree'
+    input(id='tos', class='', type='checkbox', name='tos', value='agree', required data-required-msg=req_input_errs['tos'], checked )
+  else
+    input(id='tos', class='', type='checkbox', name='tos', value='agree', required data-required-msg=req_input_errs['tos'] )
+
 extends layout
 
 block head
@@ -26,38 +58,52 @@ block content
     main
       p(style='font-size: 1.25em; font-weight: 400;') If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.
 
+    // Validation errors (server-side)
+    include site_message.jade
+
     :markdown
       Labels marked with <span class='req'>*</span> indicates required information.
 
-    // Validation errors
-    include site_message.jade
-
     div(class='contact_form')
-      form(action='contact', method='POST')
+
+      //- TODO: Finish HTML5 hooks for custom client-side validation
+      form(action='contact', method='POST',novalidate)
         fieldset
           legend Personal Information
           table
             tr
               td(class='align_right')
-                label(for='contact_first_name') Name
+                label(for='contact_first_name') First Name
                 span(class='req') *
-                label(hidden='true', for='contact_last_name')
               td
-                input(id='contact_first_name', class='', type='text', name='first_name', size=25, spellcheck='false', required data-required-msg=req_input_errs['first_name'], placeholder='First name' )
-                // FIXME: size should match first name
-                input(id='contact_last_name', class='', type='text', name='last_name', size=20, spellcheck='false', required data-required-msg=req_input_errs['last_name'], placeholder='Last name' )
+                if flash != null && flash.type === 'alert-danger' && post_data.first_name != ''
+                  input(id='contact_first_name', class='', type='text', name='first_name', spellcheck='false', required data-required-msg=req_input_errs['first_name'], value=post_data.first_name )
+                else
+                  input(id='contact_first_name', class='', type='text', name='first_name', spellcheck='false', required data-required-msg=req_input_errs['first_name'], placeholder='First name' )
+            tr
+              td(class='align_right')
+                label(for='contact_last_name') Last Name
+                span(class='req') *
+              td
+                if flash != null && flash.type === 'alert-danger' && post_data.last_name != ''
+                  input(id='contact_last_name', class='', type='text', name='last_name', spellcheck='false', required data-required-msg=req_input_errs['last_name'], value=post_data.last_name )
+                else
+                  input(id='contact_last_name', class='', type='text', name='last_name', spellcheck='false', required data-required-msg=req_input_errs['last_name'], placeholder='Last name' )
             tr
               td(class='align_right')
                 label(for='contact_email') Email Address
                 span(class='req') *
               td
-                input(id='contact_email', class='', type='email', name='email', size=25, required data-required-msg=req_input_errs['email'], placeholder='example@domain.com')
+                if flash != null && flash.type === 'alert-danger' && post_data.email != ''
+                  input(id='contact_email', class='', type='email', name='email', required data-required-msg=req_input_errs['email'], value=post_data.email )
+                else
+                  input(id='contact_email', class='', type='email', name='email', required data-required-msg=req_input_errs['email'], placeholder='example@domain.com' )
             tr
               td(class='align_right')
                 label(for='contact_confirm_email') Confirm Email
                 span(class='req') *
               td
-                input(id='contact_confirm_email', class='', type='email', name='confirm_email', size=25, required data-required-msg=req_input_errs['confirm_email'] )
+                input(id='contact_confirm_email', class='', type='email', name='confirm_email', required data-required-msg=req_input_errs['confirm_email'] )
             tr
               td(class='align_right')
                 label(for='contact_phone') Phone
@@ -65,8 +111,15 @@ block content
                 span(class='req') *
 
               td
-                input(id='contact_phone', class='', type='tel', name='phone', maxlength=14, required data-required-msg=req_input_errs['phone'], placeholder='(xxx) xxx-xxxx' )
-                input(id='contact_phone_ext', class='', type='tel', name='phone_ext', size=4, placeholder='Ext' )
+                if flash != null && flash.type === 'alert-danger' && post_data.phone != ''
+                  input(id='contact_phone', class='', type='tel', name='phone', maxlength=14, required data-required-msg=req_input_errs['phone'], value=post_data.phone )
+                else
+                  input(id='contact_phone', class='', type='tel', name='phone', maxlength=14, required data-required-msg=req_input_errs['phone'], placeholder='(xxx) xxx-xxxx' )
+
+                if flash != null && flash.type === 'alert-danger' && post_data.phone_ext != ''
+                  input(id='contact_phone_ext', class='', type='tel', name='phone_ext', value=post_data.phone_ext )
+                else
+                  input(id='contact_phone_ext', class='', type='tel', name='phone_ext', placeholder='Ext' )
             tr
               td(class='align_right')
                 label(for='contact_state') State & Zip
@@ -74,87 +127,100 @@ block content
                 label(hidden='true', for='contact_zipcode')
               td
                 select(id='contact_state', class='', name='state', required data-required-msg=req_input_errs['state'] )
-                  option(value='DID NOT RESPOND', selected='selected') Select State
-                  option(value='Alabama') Alabama
-                  option(value='Alaska') Alaska
-                  option(value='Arizona') Arizona
-                  option(value='Arkansas') Arkansas
-                  option(value='California') California
-                  option(value='Colorado') Colorado
-                  option(value='Connecticut') Connecticut
-                  option(value='Delaware') Delaware
-                  option(value='Florida') Florida
-                  option(value='Georgia') Georgia
-                  option(value='Hawaii') Hawaii
-                  option(value='Idaho') Idaho
-                  option(value='Illinois') Illinois
-                  option(value='Indiana') Indiana
-                  option(value='Iowa') Iowa
-                  option(value='Kansas') Kansas
-                  option(value='Kentucky') Kentucky
-                  option(value='Louisiana') Louisiana
-                  option(value='Maine') Maine
-                  option(value='Maryland') Maryland
-                  option(value='Massachusetts') Massachusetts
-                  option(value='Michigan') Michigan
-                  option(value='Minnesota') Minnesota
-                  option(value='Mississippi') Mississippi
-                  option(value='Missouri') Missouri
-                  option(value='Montana') Montana
-                  option(value='Nebraska') Nebraska
-                  option(value='Nevada') Nevada
-                  option(value='New Hampshire') New Hampshire
-                  option(value='New Jersey') New Jersey
-                  option(value='New Mexico') New Mexico
-                  option(value='New York') New York
-                  option(value='North Carolina') North Carolina
-                  option(value='North Dakota') North Dakota
-                  option(value='Ohio') Ohio
-                  option(value='Oklahoma') Oklahoma
-                  option(value='Oregon') Oregon
-                  option(value='Pennsylvania') Pennsylvania
-                  option(value='Puerto Rico') Puerto Rico
-                  option(value='Rhode Island') Rhode Island
-                  option(value='South Carolina') South Carolina
-                  option(value='South Dakota') South Dakota
-                  option(value='Tennessee') Tennessee
-                  option(value='Texas') Texas
-                  option(value='Utah') Utah
-                  option(value='Vermont') Vermont
-                  option(value='Virginia') Virginia
-                  option(value='Washington') Washington
-                  option(value='Washington DC') Washington DC
-                  option(value='West Virginia') West Virginia
-                  option(value='Wisconsin') Wisconsin
-                  option(value='Wyoming') Wyoming
-                input(id='contact_zipcode', class='', type='text', name='zipcode', size=14, maxlength=11, required data-required-msg=req_input_errs['zipcode'], placeholder='72901' )
+
+                  +state_selector('Select State')
+                  +state_selector('Alabama')
+                  +state_selector('Alaska')
+                  +state_selector('Arizona')
+                  +state_selector('Arkansas')
+                  +state_selector('California')
+                  +state_selector('Colorado')
+                  +state_selector('Connecticut')
+                  +state_selector('Delaware')
+                  +state_selector('Florida')
+                  +state_selector('Georgia')
+                  +state_selector('Hawaii')
+                  +state_selector('Idaho')
+                  +state_selector('Illinois')
+                  +state_selector('Indiana')
+                  +state_selector('Iowa')
+                  +state_selector('Kansas')
+                  +state_selector('Kentucky')
+                  +state_selector('Louisiana')
+                  +state_selector('Maine')
+                  +state_selector('Maryland')
+                  +state_selector('Massachusetts')
+                  +state_selector('Michigan')
+                  +state_selector('Minnesota')
+                  +state_selector('Mississippi')
+                  +state_selector('Missouri')
+                  +state_selector('Montana')
+                  +state_selector('Nebraska')
+                  +state_selector('Nevada')
+                  +state_selector('New Hampshire')
+                  +state_selector('New Jersey')
+                  +state_selector('New Mexico')
+                  +state_selector('New York')
+                  +state_selector('North Carolina')
+                  +state_selector('North Dakota')
+                  +state_selector('Ohio')
+                  +state_selector('Oklahoma')
+                  +state_selector('Oregon')
+                  +state_selector('Pennsylvania')
+                  +state_selector('Puerto Rico')
+                  +state_selector('Rhode Island')
+                  +state_selector('South Carolina')
+                  +state_selector('South Dakota')
+                  +state_selector('Tennessee')
+                  +state_selector('Texas')
+                  +state_selector('Utah')
+                  +state_selector('Vermont')
+                  +state_selector('Virginia')
+                  +state_selector('Washington')
+                  +state_selector('Washington DC')
+                  +state_selector('West Virginia')
+                  +state_selector('Wisconsin')
+                  +state_selector('Wyoming')
+
+                if flash != null && flash.type === 'alert-danger' && post_data.zipcode != ''
+                  input(id='contact_zipcode', class='', type='number', name='zipcode', maxlength=11, required data-required-msg=req_input_errs['zipcode'], value=post_data.zipcode )
+                else
+                  input(id='contact_zipcode', class='', type='number', name='zipcode', maxlength=11, required data-required-msg=req_input_errs['zipcode'], placeholder='72901' )
+
         fieldset
           legend Contact Preferences
           label How would you like to be contacted?
           br
-          input(id='contact_pref_email', class='', type='checkbox', name='contact_pref', value='email')
+
+          +contact_preference(contact_pref_email, 'email')
           label(for='contact_pref_email') Email
 
-          input(id='contact_pref_phone', class='', type='checkbox', name='contact_pref', value='phone')
+          +contact_preference(contact_pref_phone, 'phone')
           label(for='contact_pref_phone') Phone
+
         fieldset
           legend Inquiry
           label(for='contact_message') Brief description of your legal issue
           span(class='req') *
           br
-          textarea(id='contact_message', name='message', rows='10', cols='50', spellcheck='true', required data-required-msg=req_input_errs['message'] )
+
+          if flash != null && flash.type === 'alert-danger' && post_data.message != ''
+            textarea(id='contact_message', name='message', rows='10', cols='100', spellcheck='true', required data-required-msg=req_input_errs['message'] )= post_data.message
+          else
+            textarea(id='contact_message', name='message', rows='10', cols='100', spellcheck='true', required data-required-msg=req_input_errs['message'] )
 
           // DISCLAIMER
           ul
             li The use of the Internet or this form for communication with the firm or any individual member of the firm does not establish an attorney-client relationship. Confidential or time-sensitive information should not be sent through this form.
 
-          input(id='tos', class='', type='checkbox', name='tos', value='agree', required data-required-msg=req_input_errs['tos'] )
+          +tos_checkbox
           label(for='tos') I have read the disclaimer.
           span(class='req') *
+
           p
             a(href='privacy',target='self') Privacy Policy
 
-          button(id='blue_button', type='submit') Send Message
+          button(id='blue_button', type='submit', name='action', value='send_msg') Send Message
 
         br
         br
@@ -182,5 +248,24 @@ block content
 
       p The office is located inside the second building on the right on College Avenue past Dickson St., if you are coming from the North. Free parking is available in front for clients and prospective clients.
 
-block footer
+    //- FIXME:
+    script.
+      var elem = document.getElementById("contact_confirm_email");
+      elem.addEventListener("blur", verify_email);
 
+      function verify_email(input) {
+        input = input.srcElement;
+
+        console.log( input.value);
+        console.log( document.getElementById('contact_email').value );
+
+        if (input.value != document.getElementById('contact_email').value) {
+          // the provided value does *not* match the primary email address
+          input.setCustomValidity('Your e-mail address does not match.');
+        } else {
+          // input is valid -- reset the error message
+          input.setCustomValidity('');
+        }
+      }
+
+block footer

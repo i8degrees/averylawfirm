@@ -27,7 +27,7 @@ body {
 
   /* Debugging aid */
   /*background-color: #E7E7E7;*/
-  border: 1px dashed gray;
+  /*border: 1px dashed gray;*/
 }
 
 #navi_container {
@@ -45,7 +45,7 @@ body {
 
   /* Debugging aid */
   /*background-color: #E7E7E7;*/
-  border: 1px solid red;
+  /*border: 1px solid red;*/
 }
 
 #content_container {
@@ -59,7 +59,7 @@ body {
 
   /* Debugging aid */
   /*background-color: #E7E7E7;*/
-  border: 1px solid gray;
+  /*border: 1px solid gray;*/
 }
 
 /* BEGIN HEADER */
@@ -94,7 +94,7 @@ body {
 #nav_down a {
   font-weight: bold !important;
   padding: 3px 6px;
-  border-right: 1px solid #666 !important;
+  border-right: 1px solid #666;
   text-decoration: none;
   color: black;
 }
@@ -108,10 +108,9 @@ body {
   display: inline;
 }
 
-/* Note that you should honor the following selectors here if using Google's
-CSE; a) a minimum width of 118px; b) background url image (Google's branding as
-per TOS). */
 #nav_down .search_input {
+  /* Override width in #google_cse (google_cse.css); this is OK as long as we
+  honor the minimum width requirement of 118px */
   width: 200px;
   height: 25px;
 

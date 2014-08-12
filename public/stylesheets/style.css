@@ -1,6 +1,6 @@
 body {
   font-family: 'Open Sans', sans-serif;
-  /*font-size: 1.25em;*/
+  font-size: 1.25em;
 
   letter-spacing: 2%;
   line-height: 1.3em;
@@ -31,7 +31,7 @@ body {
 }
 
 #navi_container {
-  width: 75%;
+  /*width: 75%;*/
   margin-left: auto;
   margin-right: auto;
   padding: 25px;
@@ -78,6 +78,17 @@ body {
 .header a:hover {
   text-decoration: none;
   color: blue;
+}
+
+.pg_header {
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: 600;
+}
+
+.pg_header_blue {
+  color: #5eb0ea;
+  font-weight: 800;
 }
 
 /* BEGIN HEADER: NAVIGATION */
@@ -264,11 +275,14 @@ body {
   border: none;
   color: white !important;
   font-family: 'Open Sans', sans-serif;
-  font-size: 14px;
+  font-size: 1.0em;
   font-weight: 600;
   text-decoration: none;
   text-align: center;
   vertical-align: middle;
+
+  /* Spacing in between buttons */
+  margin-left: 20px;
 }
 
 #blue_button:hover {
@@ -297,9 +311,10 @@ body {
 
 #footer .disclaimer {
   text-align: center;
-  font-size: 1.0em;
+  font-size: 0.75em;
   font-style: italic !important;
   font-weight: 400;
+  text-transform: uppercase;
 }
 
 #footer .copyright {
@@ -310,3 +325,8 @@ body {
 }
 
 /* END: FOOTER */
+
+.note {
+  font-size: 0.9em;
+  font-style: italic;
+}

@@ -19,14 +19,15 @@ var email_addr = 'laura@averylawfirm.com';
 // };
 var flash = null;
 
-// FIXME: This breaks when submitting forms on contact page; we lose state of
-// the site_env var, and so things that are 'pose to be disabled come back to
-// life!
-//
 // Offline mode -- enable with the string literal 'offline', or pass a blank
 // string '' to disable; this controls whether or not to load content over the
 // net (i.e.: fonts, javasccripts, etc.).
 var site_env = 'offline';
+
+var ENV = {
+  app: app.get('env'),
+  site: site_env
+};
 
 // contact page form validity err labels
 var req_input_errs = {
@@ -47,19 +48,19 @@ var req_input_errs = {
 console.log('Site Mode: %s: ', site_env );
 
 router.get('/', function(req, res) {
-  res.render('index', { ENV: site_env, site_company: company_name });
+  res.render('index', { ENV: ENV, site_company: company_name } );
 });
 
 router.get('/index', function(req, res) {
-  res.render('index', { ENV: site_env, site_company: company_name });
+  res.render('index', { ENV: ENV, site_company: company_name } );
 });
 
 router.get('/about', function(req, res) {
-  res.render('index', { ENV: site_env, site_company: company_name });
+  res.render('index', { ENV: ENV, site_company: company_name } );
 });
 
 router.get('/contact', function(req, res) {
-  res.render('contact', { ENV: site_env, site_company: company_name, site_email: email_addr, req_input_errs: req_input_errs, flash: flash } );
+  res.render('contact', { ENV: ENV, site_company: company_name, site_email: email_addr, req_input_errs: req_input_errs, flash: flash } );
 });
 
 router.post('/contact', function(req, res) {
@@ -138,24 +139,24 @@ router.post('/contact', function(req, res) {
     if( app.get('env') === 'development' ) {
       // console.log(errors);
     }
-    res.render('contact', { ENV: site_env, site_company: company_name, site_email: email_addr, req_input_errs: req_input_errs, flash: { type: 'alert-danger', messages: errors }, post_data: req.body } );
+    res.render('contact', { ENV: ENV, site_company: company_name, site_email: email_addr, req_input_errs: req_input_errs, flash: { type: 'alert-danger', messages: errors }, post_data: req.body } );
   }
   else {
     console.log('success!');
-    res.render('contact_success', { ENV: { dev: app.get('env'), site_env: site_env }, site_company: company_name, site_email: email_addr, req_input_errs: req_input_errs, flash: flash, post_data: req.body } );
+    res.render('contact_success', { ENV: ENV, site_company: company_name, site_email: email_addr, post_data: req.body } );
   }
 });
 
 router.get('/privacy', function(req, res) {
-  res.render('privacy', { ENV: site_env, site_company: company_name, md:md } );
+  res.render('privacy', { ENV: ENV, site_company: company_name, md:md } );
 });
 
 router.get('/practice', function(req, res) {
-  res.render('practice', { ENV: site_env, site_company: company_name, md:md } );
+  res.render('practice', { ENV: ENV, site_company: company_name, md:md } );
 });
 
 router.get('/search_results', function(req, res) {
-  res.render('search_results', { ENV: site_env, site_company: company_name, md:md, cse_query: req.query['q'] } );
+  res.render('search_results', { ENV: ENV, site_company: company_name, md:md, cse_query: req.query['q'] } );
 });
 
 module.exports = router;

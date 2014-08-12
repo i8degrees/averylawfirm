@@ -17,7 +17,7 @@ html
 
     meta(name='viewport', content='width=device-width')
 
-    if ENV != 'offline'
+    if ENV['site'] != 'offline'
       link(href='stylesheets/google_cse.css', rel='stylesheet', type='text/css', media='screen')
 
     // CSS
@@ -28,12 +28,12 @@ html
     link(href='stylesheets/mobile.css', rel='stylesheet', type='text/css', media='only screen and (max-width: 480px), only screen and (max-device-width: 480px)')
 
     // Fonts
-    if ENV != 'offline'
+    if ENV['site'] != 'offline'
       //- link(href='http://fonts.googleapis.com/css?family=Open+Sans:italic,400,600,800', rel='stylesheet', type='text/css')
       //- link(href='http://fonts.googleapis.com/css?family=Lora:italic,400,600,800', rel='stylesheet', type='text/css')
 
     // JavaScript
-    if ENV != 'offline'
+    if ENV['site'] != 'offline'
       //- script(src='javascripts/google_search.js')
 
     //- Additional items (appended per page)

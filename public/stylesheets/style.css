@@ -1,12 +1,9 @@
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 1.25em;
-
   letter-spacing: 2%;
   line-height: 1.3em;
   color: black;
-
-  margin: 25px;
   background-color: white;
 
   /* Debugging aid */
@@ -15,33 +12,16 @@ body {
 }
 
 #page_container {
-  /*width: 1024px;*/
-  /*width: 100%;*/
-  /* Experimental width */
-  /*width: 75%;*/
-
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0;
-  background-color: white;
+  width: 100%;
 
   /* Debugging aid */
-  /*background-color: #E7E7E7;*/
   /*border: 1px dashed gray;*/
 }
 
 #navi_container {
-  /*width: 75%;*/
-  margin-left: auto;
-  margin-right: auto;
   padding: 25px;
   border: none;
   background-color: white;
-
-  /* Keep everything on the same line */
-  /* NOTE: The content container ID's top-left border is cut off if we force
-  inline at this point */
-  /*display: inline;*/
 
   /* Debugging aid */
   /*background-color: #E7E7E7;*/
@@ -49,12 +29,8 @@ body {
 }
 
 #content_container {
-  /*width: 75%;*/
-  /* Experimental width */
-  width: 100%;
-
-  margin-left: auto;
-  margin-right: auto;
+  margin: 25px;
+  padding: 0;
   background-color: white;
 
   /* Debugging aid */
@@ -84,6 +60,7 @@ body {
   text-align: center;
   font-size: 2.5em;
   font-weight: 600;
+  line-height: 1.3em;
 }
 
 .pg_header_blue {
@@ -131,6 +108,7 @@ body {
 }
 
 .content h1, h2 {
+  width: 100%;
   font-family: Lora, serif;
 }
 
@@ -163,14 +141,14 @@ body {
 /* END HEADER: NAVIGATION */
 /* END HEADER */
 
-.site_messages {
+/*.site_messages {
   width: 800px;
   background-color: #FFFFFF;
   color: red;
   text-align: center;
   float: left;
   font-weight: bold !important;
-}
+}*/
 
 #search_button {
   border: none;
@@ -186,12 +164,6 @@ body {
 
 .contact_form legend {
   font-weight: bold;
-}
-
-.contact_form img.disclaimer {
-  float: left;
-  /* FIXME */
-  margins: 0 1em 0 0;
 }
 
 .align_left {
@@ -211,14 +183,30 @@ body {
   vertical-align: middle;
 }
 
-.contact_form input, select {
+.contact_form input, select, textarea {
   /*background: #707C78;*/
   font-size: 16px;
   border:1px solid #999;
   height: 24px;
-  font-style: italic;
   font-weight: bold;
-  color: gray;
+}
+
+.contact_form select {
+  height: 24px;
+  font-weight: normal;
+}
+
+.contact_form textarea {
+  font-weight: normal;
+}
+
+/* Container to hold both the form input element and applicable error message */
+.contact_form #input_container {
+  width: 400px;
+}
+
+.contact_form .input_err {
+  border: 1px solid red;
 }
 
 .contact_form #contact_first_name, #contact_last_name, #contact_email, #contact_confirm_email {
@@ -226,11 +214,7 @@ body {
 }
 
 .contact_form #contact_phone {
-  width: 150px;
-}
-
-.contact_form #contact_phone_ext {
-  width: 94px;
+  width: 100px;
 }
 
 .contact_form #contact_state {
@@ -241,20 +225,18 @@ body {
   width: 100px;
 }
 
-.contact_form input:focus {
-  /*font-size: 14px;*/
-  /*height: 14px;*/
-  font-style: normal;
+.contact_form #contact_message {
+  /* Use the allocated size of the input container */
+  width: 100%;
+  height: 120px;
+}
 
+.contact_form input:focus {
   /* Light Tan */
   background-color: #ffc;
 }
 
 .contact_form textarea:focus {
-  /*font-size: 14px;*/
-  /*height: 14px;*/
-  font-style: normal;
-
   /* Light Tan */
   background-color: #ffc;
 }
@@ -263,6 +245,15 @@ body {
   /*font-size: 1em;*/
   color: red;
   font-weight: bold;
+}
+
+.err {
+  font-size: 0.9em;
+  font-weight: bold;
+  text-align: center;
+  color: red;
+  /*padding-left: 20px;*/
+  /*border: 2px dashed red;*/
 }
 
 #blue_button {
@@ -306,12 +297,16 @@ body {
 /* BEGIN: FOOTER */
 
 #footer {
+  width: auto;
   margin-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 #footer .disclaimer {
   text-align: center;
-  font-size: 0.75em;
+  font-size: 0.9em;
   font-style: italic !important;
   font-weight: 400;
   text-transform: uppercase;

@@ -4,12 +4,21 @@
     font-size: 1.0em;
   }
 
+  #page_container {
+    width: 430px;
+  }
+
+  #content_container {
+    width: 430px;
+  }
+
   #navi_container {
-    width: 100%;
-    padding: 0px;
+    width: 480px;
+    padding: 0;
   }
 
   #nav_down {
+    line-height: 2.5em;
     text-align: left;
   }
 
@@ -25,5 +34,37 @@
   #search_button {
     background: none;
     display: none;
+  }
+
+  .contact_form fieldset {
+    width: 100%;
+  }
+
+  .contact_form .input_container {
+    width: 250px;
+  }
+
+  .contact_form #contact_first_name, #contact_last_name, #contact_email, #contact_confirm_email {
+    width: 175px;
+  }
+
+  .contact_form #contact_phone {
+    width: 100px;
+  }
+
+  .contact_form #contact_state {
+    width: 175px;
+  }
+
+  .contact_form #contact_zipcode {
+    width: 50px;
+  }
+
+  .contact_form #contact_message {
+    height: 240px;
+  }
+
+  #footer {
+    width: 480px;
   }
 }

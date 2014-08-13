@@ -70,3 +70,17 @@ function set_default_value_if_null( target, default_value )
     set_value( target, default_value )
   }
 }
+
+/* Test for the element's support of an attribute */
+/* css-tricks.com: "Test if Element Supports Attribute" */
+function attribute_exists(element, attr) {
+  var test = document.createElement(element);
+
+  if( attr in test ) {
+    // return false;
+    return true;
+  }
+  else {
+    return false;
+  }
+}

@@ -29,15 +29,15 @@ var ENV = {
   site: site_env
 };
 
+// TODO: clean up err messages
+//
 // contact page form validity err labels
 var req_input_errs = {
   first_name: 'Please leave your first name.',
   last_name: 'Please leave your last name.',
-  email_address: 'Please leave your e-mail address.',
-  // TODO: clean up err message
-  confirm_email: 'Your e-mail address does not match.',
+  email: 'Please leave your e-mail address.',
+  // confirm_email: 'Your e-mail address does not match.',
   phone: 'Your ten (10) digit phone number is required.',
-  phone: 'Your phone extension can only include numbers.',
   state: 'Your state is required.',
   zipcode: 'Your five (5) digit zip code is required.',
   contact_pref: 'Please choose your contact preference.',
@@ -67,9 +67,8 @@ router.post('/contact', function(req, res) {
   var first_name = req.body.first_name;
   var last_name = req.body.last_name;
   var email = req.body.email;
-  var confirm_email = req.body.confirm_email;
+  // var confirm_email = req.body.confirm_email;
   var phone = req.body.phone;
-  var phone_ext = req.body.phone_ext;
   var state = req.body.state;
   var zipcode = req.body.zipcode;
   var contact_pref = req.body.contact_pref;
@@ -114,12 +113,11 @@ router.post('/contact', function(req, res) {
   req.checkBody( 'first_name', req_input_errs['first_name'] ).notEmpty();
   req.checkBody( 'last_name', req_input_errs['last_name'] ).notEmpty();
   req.checkBody( 'email', req_input_errs['email'] ).notEmpty();
-  req.checkBody( 'confirm_email', req_input_errs['confirm_email'] ).eq(email);
+  // req.checkBody( 'confirm_email', req_input_errs['confirm_email'] ).eq(email);
 
   // TODO: phone && phone extension
   req.checkBody( 'phone', req_input_errs['phone'] ).notEmpty();
   // req.checkBody( 'phone', req_input_errs['phone'] ).isInt();
-  // req.checkBody( 'phone_ext', req_input_errs['phone_ext'] ).isInt();
 
   req.checkBody( 'state', req_input_errs['state'] ).neq('DID NOT RESPOND');
   // req.checkBody( 'zipcode', req_input_errs['zipcode'] ).isInt();

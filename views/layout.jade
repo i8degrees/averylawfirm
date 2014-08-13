@@ -33,16 +33,17 @@ html
       //- link(href='http://fonts.googleapis.com/css?family=Lora:italic,400,600,800', rel='stylesheet', type='text/css')
 
     // JavaScript
+    script(src='javascripts/helpers.js')
     if ENV['site'] != 'offline'
       //- script(src='javascripts/google_search.js')
+    script.
+      document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
 
     //- Additional items (appended per page)
     block head
 
   body
-
     div(id='page_container')
-
       header(id='navi_container')
 
         div(class='header')
@@ -71,18 +72,16 @@ html
         //- Additional items (appended per page)
         block content
 
-    footer(id='footer')
-      nav
+      footer(id='footer')
         hr
-        br
-
-        //- FIXME:
-        div(id='nav_down',style='text-align: center;')
-          - each link in navi_links
-            a(href=link.href) #{link.title}
-
-        br
-        br
+        header(id='navi_container')
+          //- FIXME:
+          nav(id='nav_down', style='text-align: center;')
+            br
+            - each link in navi_links
+              a(href=link.href) #{link.title}
+            br
+            br
 
         strong DISCLAIMER:
           span(class='disclaimer')  THIS SITE IS FOR INFORMATIONAL PURPOSES ONLY; ITS CONTENTS DO NOT CONSTITUTE LEGAL ADVICE OR AN ATTORNEY-CLIENT RELATIONSHIP BETWEEN #{site_company} OR ITS ATTORNEYS AND ANY RECEIVER. THE INFORMATION PROVIDED ON THESE PAGES IS GENERAL ONLY, AND YOU SHOULD NOT ACT UPON THIS INFORMATION WITHOUT CONSULTING WITH AN ATTORNEY. IF YOU SEND ANY CONFIDENTIAL INFORMATION TO US AND YOU ARE NOT A CLIENT OF OUR LAW FIRM, THE INFORMATION SHALL LOSE ITS CONFIDENTIAL STATUS. FURTHERMORE, IF THE UNSOLICITED INFORMATION YOU SEND TO OUR LAW FIRM IS BENEFICIAL TO OUR CLIENTS AND ADVERSE TO YOU, THE INFORMATION YOU PROVIDE MAY BE USED EVEN IF IT IS CONTRARY TO YOUR INTERESTS.
@@ -92,9 +91,5 @@ html
 
         p(class='copyright') Copyright (c) 2014 #{site_company} ALL RIGHTS RESERVED
 
-    // Defer loading JavaScript until the last moment possible; this fixes a
-    // visual glitch with the search input box and navigational links.
-    script(src='javascripts/helpers.js')
-
-    //- Additional items (appended per page)
-    block footer
+        //- Additional items (appended per page)
+        block footer

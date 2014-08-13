@@ -1,39 +1,44 @@
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
 
-  body {
+  #page {
+    width: 480px;
     font-size: 1.0em;
   }
 
-  #page_container {
-    width: 430px;
-  }
-
-  #content_container {
-    width: 430px;
-  }
-
-  #navi_container {
-    width: 480px;
+  #header {
+    width: inherit;
     padding: 0;
   }
 
-  #nav_down {
+  #nav {
     line-height: 2.5em;
     text-align: left;
   }
 
-  #nav_down a {
+  #nav a {
     display: block;
     border-right: none;
   }
 
-  #nav_down .search_input {
+  #nav .search_input {
     display: none;
   }
 
   #search_button {
     background: none;
     display: none;
+  }
+
+  #content_container {
+    /*width: 430px;*/
+    width: inherit;
+    /* Why is this necessary for everything but the contact page??? */
+    padding-right: 25px;
+  }
+
+  #footer {
+    width: inherit;
+    padding-right: 0px;
   }
 
   .contact_form fieldset {
@@ -62,9 +67,5 @@
 
   .contact_form #contact_message {
     height: 240px;
-  }
-
-  #footer {
-    width: 480px;
   }
 }

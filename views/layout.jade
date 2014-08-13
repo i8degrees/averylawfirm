@@ -1,6 +1,6 @@
 
 //- http://stackoverflow.com/questions/5697863/dynamic-links-with-jade
-- var navi_links = [ { title: 'About', href: 'about' }, { title: 'Areas of Practice', href: 'practice' }, { title: 'Contact', href: 'contact' }, { title: 'Blog', href: 'index' } ];
+- var nav_links = [ { title: 'About', href: 'about' }, { title: 'Areas of Practice', href: 'practice' }, { title: 'Contact', href: 'contact' }, { title: 'Blog', href: 'index' } ];
 
 doctype html
 html
@@ -12,7 +12,7 @@ html
     meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
     meta(name='description', content= site_company)
 
-    // TODO: Add additional keywords
+    //- TODO: Add additional keywords
     meta(name='keywords', content= 'avery law firm, law practice, law')
 
     meta(name='viewport', content='width=device-width')
@@ -42,57 +42,64 @@ html
     script.
       document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
 
-    //- Additional items (appended per page)
+    //- Additional head-level block (specific per page)
     block head
 
-  body
-    div(id='page_container')
-      header(id='navi_container')
+  body(id='page')
+      header
+        div(id='header')
 
-        div(class='header')
-          h1
-            a( href='index')= site_company
+          div(class='site_header')
+            h1
+              a(href='index')= site_company
 
-            //- FIXME:
-            //- img( align='', src='images/logo_small.png', alt='')
+              //- FIXME:
+              //- img( align='', src='images/logo_small.png', alt='')
 
-          nav(id='nav_down')
-            - each link in navi_links
-              a(href=link.href) #{link.title}
+          nav
+            div(id='nav')
+              - each link in nav_links
+                a(href=link.href) #{link.title}
 
-            form(action='/search_results', method='get')
-              input(id='google_cse', class='search_input', type='search', name='q', spellcheck='false', autocomplete='off', accesskey='s', onfocus='', onblur='' )
-              button(id='search_button', type='submit')
+              form(action='/search_results', method='get')
+                input(id='google_cse', class='search_input', type='search', name='q', spellcheck='false', autocomplete='off', accesskey='s', onfocus='', onblur='' )
+                button(id='search_button', type='submit')
 
-            //- div(align='center',class='site_message')
-              //- p ERROR MSG
+              //- div(align='center',class='site_message')
+                //- p ERROR MSG
 
-          //- div(class='toc')
-            //- - each link in topics
-              a(href=link.href) #{link.title}
+            //- div(class='toc')
+              //- - each link in topics
+                a(href=link.href) #{link.title}
+
+            //- Additional header-level elements (specific per page)
+            block header
 
       div(id='content_container')
-        //- Additional items (appended per page)
+        //- Page content (specific per page)
         block content
 
-      footer(id='footer')
-        hr
-        header(id='navi_container')
-          //- FIXME:
-          nav(id='nav_down', style='text-align: center;')
-            br
-            - each link in navi_links
-              a(href=link.href) #{link.title}
-            br
-            br
+      footer
+        div(id='footer')
+          hr
+          header
+            div(id='nav_container')
+              nav
+                //- FIXME:
+                div(id='nav', style='text-align: center;')
+                  br
+                  - each link in nav_links
+                    a(href=link.href) #{link.title}
+                  br
+                  br
 
-        strong DISCLAIMER:
-          span(class='disclaimer')  THIS SITE IS FOR INFORMATIONAL PURPOSES ONLY; ITS CONTENTS DO NOT CONSTITUTE LEGAL ADVICE OR AN ATTORNEY-CLIENT RELATIONSHIP BETWEEN #{site_company} OR ITS ATTORNEYS AND ANY RECEIVER. THE INFORMATION PROVIDED ON THESE PAGES IS GENERAL ONLY, AND YOU SHOULD NOT ACT UPON THIS INFORMATION WITHOUT CONSULTING WITH AN ATTORNEY. IF YOU SEND ANY CONFIDENTIAL INFORMATION TO US AND YOU ARE NOT A CLIENT OF OUR LAW FIRM, THE INFORMATION SHALL LOSE ITS CONFIDENTIAL STATUS. FURTHERMORE, IF THE UNSOLICITED INFORMATION YOU SEND TO OUR LAW FIRM IS BENEFICIAL TO OUR CLIENTS AND ADVERSE TO YOU, THE INFORMATION YOU PROVIDE MAY BE USED EVEN IF IT IS CONTRARY TO YOUR INTERESTS.
+          strong DISCLAIMER:
+            span(class='disclaimer')  THIS SITE IS FOR INFORMATIONAL PURPOSES ONLY; ITS CONTENTS DO NOT CONSTITUTE LEGAL ADVICE OR AN ATTORNEY-CLIENT RELATIONSHIP BETWEEN #{site_company} OR ITS ATTORNEYS AND ANY RECEIVER. THE INFORMATION PROVIDED ON THESE PAGES IS GENERAL ONLY, AND YOU SHOULD NOT ACT UPON THIS INFORMATION WITHOUT CONSULTING WITH AN ATTORNEY. IF YOU SEND ANY CONFIDENTIAL INFORMATION TO US AND YOU ARE NOT A CLIENT OF OUR LAW FIRM, THE INFORMATION SHALL LOSE ITS CONFIDENTIAL STATUS. FURTHERMORE, IF THE UNSOLICITED INFORMATION YOU SEND TO OUR LAW FIRM IS BENEFICIAL TO OUR CLIENTS AND ADVERSE TO YOU, THE INFORMATION YOU PROVIDE MAY BE USED EVEN IF IT IS CONTRARY TO YOUR INTERESTS.
 
-        br
-        br
+          br
+          br
 
-        p(class='copyright') Copyright (c) 2014 #{site_company} ALL RIGHTS RESERVED
+          p(class='copyright') Copyright (c) 2014 #{site_company} ALL RIGHTS RESERVED
 
-        //- Additional items (appended per page)
-        block footer
+          //- Additional footer-level elements (specific per page)
+          block footer

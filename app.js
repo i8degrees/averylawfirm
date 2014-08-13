@@ -1,3 +1,4 @@
+// Site dependencies
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
@@ -5,9 +6,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
-
 var routes = require('./routes/index');
 
+// Local site dependencies
+var ENV = require('./lib/env');
+
+// Site environment; this is a control flag for whether or not to allow loading
+// of resources from the public networks (i.e.: Internet).
+//
+// The default site environment is to allow remote resource loading -- 'online'.
+ENV['site'] = 'offline';
+
+// Site configuration (listening port, site model, routes and so on)
 var app = express();
 
 // view engine setup
@@ -29,6 +39,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 
+// Local site library configuration
+app.use(function(req, res, next ) {
+  res.locals.ENV = ENV;
+  next();
+});
+
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -45,7 +61,8 @@ if (app.get('env') === 'development') {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
-            error: err
+            error: err,
+            ENV: ENV
         });
     });
 
@@ -59,7 +76,8 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
-        error: {}
+        error: {},
+        ENV: ENV
     });
 });
 
@@ -72,6 +90,7 @@ if(app.get('env') === 'development') {
 }
 
 var server = app.listen(port, function() {
-  console.log('Environment: %s', app.get('env') );
   console.log('Listening on port %d', server.address().port);
+  console.log('App environment: %s', ENV['app'] );
+  console.log('Site environment: %s: ', ENV['site'] );
 });

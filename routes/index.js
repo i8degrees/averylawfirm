@@ -1,3 +1,4 @@
+// Site dependencies
 var express = require('express');
 var app = express();
 var router = express.Router();
@@ -7,6 +8,9 @@ var validator = require('express-validator');
 //
 // See also: http://stackoverflow.com/questions/7549627/passing-raw-markdown-text-to-jade
 var md = require("node-markdown").Markdown;
+
+// Local site dependencies
+var ENV = require('../lib/env');
 
 var company_name = 'Avery Law Firm';
 var email_addr = 'laura@averylawfirm.com';
@@ -18,16 +22,6 @@ var email_addr = 'laura@averylawfirm.com';
 //   } ]
 // };
 var flash = null;
-
-// Offline mode -- enable with the string literal 'offline', or pass a blank
-// string '' to disable; this controls whether or not to load content over the
-// net (i.e.: fonts, javasccripts, etc.).
-var site_env = 'offline';
-
-var ENV = {
-  app: app.get('env'),
-  site: site_env
-};
 
 // TODO: clean up err messages
 //
@@ -44,8 +38,6 @@ var req_input_errs = {
   message: 'Please leave a message.',
   tos: 'You must agree to our disclaimer.'
 };
-
-console.log('Site Mode: %s: ', site_env );
 
 router.get('/', function(req, res) {
   res.render('index', { ENV: ENV, site_company: company_name } );

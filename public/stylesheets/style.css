@@ -233,6 +233,11 @@
   color: blue;
 }
 
+/* We want the site header to be a stateless hyper-link (no changes in color) */
+.site_header a:visited {
+  color: blue;
+}
+
 .align_left {
   text-align: left;
 }

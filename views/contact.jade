@@ -53,8 +53,7 @@ block content
 
     br
 
-    a(id= topics[0].id)
-    h1 #{topics[0].title}
+    h1(id= topics[0].id)= topics[0].title
 
     main
       p If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.
@@ -265,8 +264,7 @@ block content
         br
 
     section
-      a(id= topics[1].id)
-      h2 #{topics[1].title}
+      h2(id= topics[1].id)= topics[1].title
 
       table(border='0', align='center', cellspacing=25)
         tr

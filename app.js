@@ -48,7 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // initialized -- see above) at app.locals.settings.
 //
 // Global access from within Jade templates is (automatically) granted at
-// locals.* and locals.settings.
+// locals.settings.
 app.set('site_company', 'Avery Law Firm');
 
 // TODO: This is a stubbed e-mail address; replace with the actual one before

@@ -1,13 +1,19 @@
+mixin print_err_code(code, err)
+  if locals.settings.env === 'development'
+    h1= code + ' ' + err
+  else
+    h1= err
+
 extends layout
 
 block title
 
   //- Defined err status code
   if error.status
-    title= error.status + ' ' + message
+    title= message
   else
     //- Undefined err status code
-    title= '500' + ' ' + 'Application Error'
+    title= 'Application Error'
 
 block head
 
@@ -17,12 +23,12 @@ block content
 
   .container
 
-    //- Defined err status code
-    if error.status
-      h1= error.status + ' ' + message
+    case error.status
 
-      //- Handle 404 err status code by trying to provide some assistance
-      if error.status === 404
+      when 404
+        //- Handle 404 err status code by trying to provide some assistance
+
+        +print_err_code(error.status, message)
 
         // TODO: Frown face image?
         p :-(
@@ -39,20 +45,16 @@ block content
 
         if locals.settings.remote
           script(src='http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js')
-      else
+
+        //- Handle undefined err status code
+      default
+
+        +print_err_code(500, 'Application Error')
+
         //- Handle defined err status code with a generic message.
         // TODO: Frown face image?
         p :-(
         p Sorry, but the page has erred on us.
 
-    else
-      //- Handle *assumed* 500 err status code with err stack trace if we are
-      //- in development mode.
-      h1= '500' + ' ' + 'Application Error'
-
-      // TODO: Frown face image?
-      p :-(
-      p Sorry, but the page has erred on us.
-
-      if locals.settings.env === 'development'
-        pre #{error.stack}
+    if locals.settings.env === 'development'
+      pre #{error.stack}

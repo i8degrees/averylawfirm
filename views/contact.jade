@@ -32,9 +32,14 @@ mixin tos_checkbox
 
 extends layout
 
-block head
+block title
 
+  //- Must be declared within a block
   - var topics = [ { title: 'Contact Us', href: '#contact', id: 'contact' }, { title: 'Location', href: '#location', id: 'location' } ];
+
+  title= topics[0].title
+
+block head
 
 block content
 
@@ -274,7 +279,7 @@ block content
 
       br
 
-      if ENV['site'] != 'offline'
+      if locals.settings.remote
         iframe(width='480', height='320', frameborder='0', style='border: 0;', src='https://www.google.com/maps/embed/v1/place?q=103%20n%20college%20ave%20%235%20fayetteville%2C%20ar&key=AIzaSyC3Z3Zn32hQBcvqoCc8033jHMFhfVE6NhY')
 
       br

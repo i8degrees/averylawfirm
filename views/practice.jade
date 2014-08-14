@@ -1,8 +1,13 @@
 extends layout
 
-block head
+block title
 
+  //- Must be declared within a block
   - var topics = [ { title: 'Areas of Practice', href: '#intro', id: 'intro' }, { title: 'Family Law', href: '#familylaw', id: 'familylaw' }, { title: 'Criminal Defense', href: '#criminaldefense', id: 'criminaldefense' }, { title: 'Social Security Disability', href: '#social_security_disability', id: 'social_security_disability' }, { title: 'Peronal Injury', href: '#personal_injury', id: 'personal_injury' }, { title: 'Bankruptcy', href: '#bankruptcy', id: 'bankruptcy' } ];
+
+  title= topics[0].title
+
+block head
 
 block content
 

@@ -1,4 +1,4 @@
-// Site dependencies
+// Site dependencies; should always match the dependencies in package.json
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
@@ -8,16 +8,21 @@ var bodyParser = require('body-parser');
 var validator = require('express-validator');
 var routes = require('./routes/index');
 
-// Local site dependencies
-var ENV = require('./lib/env');
-
-// Site environment; this is a control flag for whether or not to allow loading
-// of resources from the public networks (i.e.: Internet).
+// Markdown filter
 //
-// The default site environment is to allow remote resource loading -- 'online'.
-ENV['site'] = 'offline';
+// This will be available to all routes via res.locals.md.
+//
+// Usage from within the Jade template:
+//
+// locals.md!=md('Hello, [world](/index)!')
+//
+// See also: http://stackoverflow.com/questions/7549627/passing-raw-markdown-text-to-jade
+var md = require("node-markdown").Markdown;
 
-// Site configuration (listening port, site model, routes and so on)
+// Local site dependencies
+var form_helpers = require('./lib/form_helpers');
+
+// Site configuration (configuration, port, site model, routes and so on)
 var app = express();
 
 // view engine setup
@@ -37,13 +42,53 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+// Global site settings
+//
+// These are globally accessible when the app var has been declared and
+// initialized -- see above) at app.locals.settings.
+//
+// Global access from within Jade templates is (automatically) granted at
+// locals.* and locals.settings.
+app.set('site_company', 'Avery Law Firm');
 
-// Local site library configuration
-app.use(function(req, res, next ) {
-  res.locals.ENV = ENV;
+// TODO: This is a stubbed e-mail address; replace with the actual one before
+// production deployment!
+app.set('email_address', 'laura@averylawfirm.com');
+
+// Site environment; this is a control flag for whether or not to allow loading
+// of resources from the public networks (i.e.: Internet).
+app.set('remote', false );
+
+// http://stackoverflow.com/questions/5697863/dynamic-links-with-jade
+var nav_links = {
+    about: {
+      title: 'About',
+      href: '/about'
+    },
+    practice: {
+      title: 'Areas of Practice',
+      href: '/practice'
+    },
+    contact: {
+      title: 'Contact',
+      href: '/contact'
+    },
+    blog: {
+      title: 'Blog',
+      href: '/index'
+    }
+};
+
+app.set('nav_links', nav_links );
+
+// Local site library configuration; **must** go before router!
+app.use( function(req, res, next) {
+  res.locals.md = md;
+
   next();
 });
+
+app.use('/', routes);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -61,8 +106,7 @@ if (app.get('env') === 'development') {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
-            error: err,
-            ENV: ENV
+            error: err
         });
     });
 
@@ -77,20 +121,21 @@ app.use(function(err, req, res, next) {
     res.render('error', {
         message: err.message,
         error: {},
-        ENV: ENV
     });
 });
 
 module.exports = app;
 
+// Heroku deployments expect port 5000
 var port = Number(process.env.PORT || 5000);
 
+// Local site development router-friendly port for forwarding through NAT
 if(app.get('env') === 'development') {
   port = 8222;
 }
 
 var server = app.listen(port, function() {
-  console.log('Listening on port %d', server.address().port);
-  console.log('App environment: %s', ENV['app'] );
-  console.log('Site environment: %s: ', ENV['site'] );
+  console.log('Listening at TCP/IP %s: %s:%d', server.address().family, server.address().address, server.address().port);
+  console.log('Site environment: %s', app.get('env') );
+  console.log('Remote resource fetching: %s ', app.get('remote') );
 });

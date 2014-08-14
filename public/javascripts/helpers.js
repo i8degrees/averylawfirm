@@ -77,6 +77,7 @@ function attribute_exists(element, attr) {
   var test = document.createElement(element);
 
   if( attr in test ) {
+    // Used for testing functionality
     // return false;
     return true;
   }

@@ -1,8 +1,13 @@
 extends layout
 
-block head
+block title
 
+  //- Must be declared within a block
   - var topics = [ { title: 'Privacy Policy', href: '#privacy', id: 'privacy' } ];
+
+  title= topics[0].title
+
+block head
 
 block content
 

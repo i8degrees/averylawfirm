@@ -1,7 +1,10 @@
 extends layout
 
+//- Use default provisioned title
+
 block head
 
+  //- Must be declared within a block
   - var topics = [ { title: 'Avery Law Firm', href: '#intro', id: 'intro' }, { title: 'About', href: '#about', id: 'about' }, { title: 'Fees', href: '#fees', id: 'fees' }, { title: 'Sub-topic 3', href: '#topic3', id: 'topic3' }, { title: 'Sub-topic 4', href: '#topic4', id: 'topic4' }, { title: 'Sub-topic 5', href: '#topic5', id: 'topic5' }, { title: 'Sub-topic 6', href: '#topic6', id: 'topic6' } ];
 
 block content

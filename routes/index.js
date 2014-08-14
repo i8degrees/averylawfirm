@@ -4,16 +4,7 @@ var app = express();
 var router = express.Router();
 var validator = require('express-validator');
 
-// Markdown filter
-//
-// See also: http://stackoverflow.com/questions/7549627/passing-raw-markdown-text-to-jade
-var md = require("node-markdown").Markdown;
-
 // Local site dependencies
-var ENV = require('../lib/env');
-
-var company_name = 'Avery Law Firm';
-var email_addr = 'laura@averylawfirm.com';
 
 // var flash = {
 //   type: 'alert-success',
@@ -40,19 +31,19 @@ var req_input_errs = {
 };
 
 router.get('/', function(req, res) {
-  res.render('index', { ENV: ENV, site_company: company_name } );
+  res.render('index');
 });
 
 router.get('/index', function(req, res) {
-  res.render('index', { ENV: ENV, site_company: company_name } );
+  res.render('index');
 });
 
 router.get('/about', function(req, res) {
-  res.render('index', { ENV: ENV, site_company: company_name } );
+  res.render('index');
 });
 
 router.get('/contact', function(req, res) {
-  res.render('contact', { ENV: ENV, site_company: company_name, site_email: email_addr, req_input_errs: req_input_errs, flash: flash } );
+  res.render('contact', { req_input_errs: req_input_errs, flash: flash } );
 });
 
 router.post('/contact', function(req, res) {
@@ -129,24 +120,25 @@ router.post('/contact', function(req, res) {
     if( app.get('env') === 'development' ) {
       // console.log(errors);
     }
-    res.render('contact', { ENV: ENV, site_company: company_name, site_email: email_addr, req_input_errs: req_input_errs, flash: { type: 'alert-danger', messages: errors }, post_data: req.body } );
-  }
-  else {
-    console.log('success!');
-    res.render('contact_success', { ENV: ENV, site_company: company_name, site_email: email_addr, post_data: req.body } );
+    res.render('contact', { req_input_errs: req_input_errs, flash: { type: 'alert-danger', messages: errors }, post_data: req.body } );
+  } else {
+    console.log('Success!');
+
+    // TODO: Redirect instead???
+    res.render('contact_success', { post_data: req.body } );
   }
 });
 
 router.get('/privacy', function(req, res) {
-  res.render('privacy', { ENV: ENV, site_company: company_name, md:md } );
+  res.render('privacy');
 });
 
 router.get('/practice', function(req, res) {
-  res.render('practice', { ENV: ENV, site_company: company_name, md:md } );
+  res.render('practice');
 });
 
 router.get('/search_results', function(req, res) {
-  res.render('search_results', { ENV: ENV, site_company: company_name, md:md, cse_query: req.query['q'] } );
+  res.render('search_results', { cse_query: req.query['q'] } );
 });
 
 module.exports = router;

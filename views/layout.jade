@@ -1,23 +1,21 @@
-
-//- http://stackoverflow.com/questions/5697863/dynamic-links-with-jade
-- var nav_links = [ { title: 'About', href: '/about' }, { title: 'Areas of Practice', href: '/practice' }, { title: 'Contact', href: '/contact' }, { title: 'Blog', href: '/index' } ];
-
 doctype html
 html
   head
-    - if( site_company != null )
-      title= site_company
+
+    //- Set default page title in case we forget to
+    block title
+      title= locals.settings.site_company
 
     // Meta
     meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
-    meta(name='description', content= site_company)
+    meta(name='description', content= locals.settings.site_company)
 
     //- TODO: Add additional keywords
-    meta(name='keywords', content= 'avery law firm, law practice, law')
+    meta(name='keywords', content= locals.settings.site_company+', law practice, law')
 
     meta(name='viewport', content='width=device-width')
 
-    if ENV['site'] != 'offline'
+    if locals.settings.remote
       link(href='/stylesheets/google_cse.css', rel='stylesheet', type='text/css', media='screen')
 
     // CSS
@@ -28,17 +26,17 @@ html
     link(href='/stylesheets/mobile.css', rel='stylesheet', type='text/css', media='only screen and (max-width: 480px), only screen and (max-device-width: 480px)')
 
     // Fonts
-    if ENV['site'] != 'offline'
+    if locals.settings.remote
       link(href='http://fonts.googleapis.com/css?family=Open+Sans:italic,400,600,800', rel='stylesheet', type='text/css')
       link(href='http://fonts.googleapis.com/css?family=Lora:italic,400,600,800', rel='stylesheet', type='text/css')
 
     // JavaScript
     script(src='/javascripts/helpers.js')
 
-    if ENV['site'] != 'offline'
+    if locals.settings.remote
       script(src='/javascripts/google_search.js')
 
-    if ENV['app'] === 'development'
+    if locals.env === 'development'
     script.
       document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
 
@@ -51,14 +49,14 @@ html
 
           div(class='site_header sky_blue')
             h1
-              a(href='/index')= site_company
+              a(href='/index')= locals.settings.site_company
 
               //- FIXME:
               //- img( align='', src='/images/logo_small.png', alt='')
 
           nav
             div(id='nav')
-              - each link in nav_links
+              - each link in locals.settings.nav_links
                 a(href=link.href) #{link.title}
 
               form(action='/search_results', method='get')
@@ -88,18 +86,18 @@ html
                 //- FIXME:
                 div(id='nav', style='text-align: center;')
                   br
-                  - each link in nav_links
+                  - each link in locals.settings.nav_links
                     a(href=link.href) #{link.title}
                   br
                   br
 
           strong DISCLAIMER:
-            span(class='disclaimer')  THIS SITE IS FOR INFORMATIONAL PURPOSES ONLY; ITS CONTENTS DO NOT CONSTITUTE LEGAL ADVICE OR AN ATTORNEY-CLIENT RELATIONSHIP BETWEEN #{site_company} OR ITS ATTORNEYS AND ANY RECEIVER. THE INFORMATION PROVIDED ON THESE PAGES IS GENERAL ONLY, AND YOU SHOULD NOT ACT UPON THIS INFORMATION WITHOUT CONSULTING WITH AN ATTORNEY. IF YOU SEND ANY CONFIDENTIAL INFORMATION TO US AND YOU ARE NOT A CLIENT OF OUR LAW FIRM, THE INFORMATION SHALL LOSE ITS CONFIDENTIAL STATUS. FURTHERMORE, IF THE UNSOLICITED INFORMATION YOU SEND TO OUR LAW FIRM IS BENEFICIAL TO OUR CLIENTS AND ADVERSE TO YOU, THE INFORMATION YOU PROVIDE MAY BE USED EVEN IF IT IS CONTRARY TO YOUR INTERESTS.
+            span(class='disclaimer')  THIS SITE IS FOR INFORMATIONAL PURPOSES ONLY; ITS CONTENTS DO NOT CONSTITUTE LEGAL ADVICE OR AN ATTORNEY-CLIENT RELATIONSHIP BETWEEN #{locals.settings.site_company} OR ITS ATTORNEYS AND ANY RECEIVER. THE INFORMATION PROVIDED ON THESE PAGES IS GENERAL ONLY, AND YOU SHOULD NOT ACT UPON THIS INFORMATION WITHOUT CONSULTING WITH AN ATTORNEY. IF YOU SEND ANY CONFIDENTIAL INFORMATION TO US AND YOU ARE NOT A CLIENT OF OUR LAW FIRM, THE INFORMATION SHALL LOSE ITS CONFIDENTIAL STATUS. FURTHERMORE, IF THE UNSOLICITED INFORMATION YOU SEND TO OUR LAW FIRM IS BENEFICIAL TO OUR CLIENTS AND ADVERSE TO YOU, THE INFORMATION YOU PROVIDE MAY BE USED EVEN IF IT IS CONTRARY TO YOUR INTERESTS.
 
           br
           br
 
-          p(class='copyright') Copyright (c) 2014 #{site_company} ALL RIGHTS RESERVED
+          p(class='copyright') Copyright (c) 2014 #{locals.settings.site_company} ALL RIGHTS RESERVED
 
           //- Additional footer-level elements (specific per page)
           block footer

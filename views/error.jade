@@ -1,11 +1,15 @@
 extends layout
 
-block head
+block title
 
+  //- Defined err status code
   if error.status
-    title= error.status
+    title= error.status + ' ' + message
   else
-    title Application Error
+    //- Undefined err status code
+    title= '500' + ' ' + 'Application Error'
+
+block head
 
   link(rel='stylesheet', href='/stylesheets/error_404.css')
 
@@ -33,7 +37,7 @@ block content
           var GOOG_FIXURL_LANG = 'en';
           var GOOG_FIXURL_SITE = (navigator.language || '').slice(0,2),GOOG_FIXURL_SITE = location.host;
 
-        if ENV['site'] != 'offline'
+        if locals.settings.remote
           script(src='http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js')
       else
         //- Handle defined err status code with a generic message.
@@ -50,5 +54,5 @@ block content
       p :-(
       p Sorry, but the page has erred on us.
 
-      if ENV['app'] === 'development'
+      if locals.env === 'development'
         pre #{error.stack}

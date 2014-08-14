@@ -1,6 +1,6 @@
 
 //- http://stackoverflow.com/questions/5697863/dynamic-links-with-jade
-- var nav_links = [ { title: 'About', href: 'about' }, { title: 'Areas of Practice', href: 'practice' }, { title: 'Contact', href: 'contact' }, { title: 'Blog', href: 'index' } ];
+- var nav_links = [ { title: 'About', href: '/about' }, { title: 'Areas of Practice', href: '/practice' }, { title: 'Contact', href: '/contact' }, { title: 'Blog', href: '/index' } ];
 
 doctype html
 html
@@ -18,14 +18,14 @@ html
     meta(name='viewport', content='width=device-width')
 
     if ENV['site'] != 'offline'
-      link(href='stylesheets/google_cse.css', rel='stylesheet', type='text/css', media='screen')
+      link(href='/stylesheets/google_cse.css', rel='stylesheet', type='text/css', media='screen')
 
     // CSS
-    link(href='stylesheets/common.css', rel='stylesheet', type='text/css', media='screen')
-    link(href='stylesheets/style.css', rel='stylesheet', type='text/css', media='screen')
+    link(href='/stylesheets/common.css', rel='stylesheet', type='text/css', media='screen')
+    link(href='/stylesheets/style.css', rel='stylesheet', type='text/css', media='screen')
 
     // Use mobile styling for both device and small desktop windows
-    link(href='stylesheets/mobile.css', rel='stylesheet', type='text/css', media='only screen and (max-width: 480px), only screen and (max-device-width: 480px)')
+    link(href='/stylesheets/mobile.css', rel='stylesheet', type='text/css', media='only screen and (max-width: 480px), only screen and (max-device-width: 480px)')
 
     // Fonts
     if ENV['site'] != 'offline'
@@ -33,10 +33,10 @@ html
       link(href='http://fonts.googleapis.com/css?family=Lora:italic,400,600,800', rel='stylesheet', type='text/css')
 
     // JavaScript
-    script(src='javascripts/helpers.js')
+    script(src='/javascripts/helpers.js')
 
     if ENV['site'] != 'offline'
-      script(src='javascripts/google_search.js')
+      script(src='/javascripts/google_search.js')
 
     if ENV['app'] === 'development'
     script.
@@ -51,10 +51,10 @@ html
 
           div(class='site_header sky_blue')
             h1
-              a(href='index')= site_company
+              a(href='/index')= site_company
 
               //- FIXME:
-              //- img( align='', src='images/logo_small.png', alt='')
+              //- img( align='', src='/images/logo_small.png', alt='')
 
           nav
             div(id='nav')

@@ -46,8 +46,8 @@ block content
       </p>
 
     div(align='center')
-      a(id='blue_button', href='#contact') Contact
-      a(id='blue_button', href='#location') Location
+      a(id='blue_button', href=topics[0].href) Contact
+      a(id='blue_button', href=topics[1].href) Location
 
     br
 
@@ -252,7 +252,7 @@ block content
           span(class='req') *
 
           p
-            a(href='privacy', target='self') Privacy Policy
+            a(href='/privacy', target='self') Privacy Policy
 
           p(class='note') (Opens in a new window)
 

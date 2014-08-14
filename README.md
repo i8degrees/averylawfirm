@@ -11,8 +11,6 @@ Local site configuration notes.
     * [nodemon](https://www.npmjs.org/package/nodemon)
     * [pow](http://pow.cx/)
     * [LiveReload app](http://go.livereload.com/)
-        * [LiveReload Sublime Text 2/3 package](https://github.com/dz0ny/LiveReload-sublimetext2)
-        * [LiveReload browser extensions](http://go.livereload.com/)
 
 ### Local Development Site Setup
 
@@ -46,7 +44,7 @@ cd averylawfirm.git/
 npm install
 
 # Run a local web server on port 8222 in the background
-npm start &
+NODE_ENV=development npm start &
 ```
 
 **Note:** The app's local web server is configured to use port 8222 and must not be in use; see also: app.js.
@@ -61,7 +59,7 @@ Simply swap out the use of ```npm start``` with:
 
 ```
 # averylawfirm.git
-nodemon app.js
+NODE_ENV=development nodemon app.js
 ```
 
 ##### Pow

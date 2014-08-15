@@ -158,9 +158,6 @@ if (app.get('env') === 'development') {
             error: err
         });
     });
-
-    // Human-friendly (indented) HTML output from Jade templates
-    app.locals.pretty = true;
 }
 
 // production error handler
@@ -172,6 +169,23 @@ app.use(function(err, req, res, next) {
         error: { status: err.status }
     });
 });
+
+if( app.get('env') === 'development' ) {
+
+  // Human-friendly (indented) HTML output from Jade templates
+  app.locals.pretty = true;
+
+  // Additional Jade control options
+  app.locals.compileDebug = true;
+} else {
+  // Computer-friendly (no whitespace)
+  //
+  // Note that this is the current default; I reset it here to be safe.
+  app.locals.pretty = false;
+
+  // Additional Jade control options
+  app.locals.compileDebug = false;
+}
 
 module.exports = app;
 

@@ -4,32 +4,6 @@ var app = express();
 var router = express.Router();
 var validator = require('express-validator');
 
-// Local site dependencies
-
-// var flash = {
-//   type: 'alert-success',
-//   messages: [ {
-//     msg: 'Successful form submission'
-//   } ]
-// };
-var flash = null;
-
-// TODO: clean up err messages
-//
-// contact page form validity err labels
-var req_input_errs = {
-  first_name: 'Please leave your first name.',
-  last_name: 'Please leave your last name.',
-  email: 'Please leave your e-mail address.',
-  // confirm_email: 'Your e-mail address does not match.',
-  phone: 'Your ten (10) digit phone number is required.',
-  state: 'Your state is required.',
-  zipcode: 'Your five (5) digit zip code is required.',
-  contact_pref: 'Please choose your contact preference.',
-  message: 'Please leave a message.',
-  tos: 'You must agree to our disclaimer.'
-};
-
 router.get('/', function(req, res) {
   res.render('index');
 });
@@ -43,20 +17,27 @@ router.get('/about', function(req, res) {
 });
 
 router.get('/contact', function(req, res) {
-  res.render('contact', { req_input_errs: req_input_errs, flash: flash } );
+  res.render('contact', { input_errs: res.locals.input_errs['contact'] } );
 });
 
 router.post('/contact', function(req, res) {
-  var first_name = req.body.first_name;
-  var last_name = req.body.last_name;
-  var email = req.body.email;
-  // var confirm_email = req.body.confirm_email;
-  var phone = req.body.phone;
-  var state = req.body.state;
-  var zipcode = req.body.zipcode;
-  var contact_pref = req.body.contact_pref;
-  var message = req.body.message;
-  var tos = req.body.tos;
+
+  // Convenience vars
+  var first_name = req.body.contact['first_name'];
+  var last_name = req.body.contact['last_name'];
+  var email = req.body.contact['email'];
+  // var confirm_email = req.body.contact['confirm_email'];
+  var phone_area = req.body.contact['phone_area'];
+  var phone_prefix = req.body.contact['phone_prefix'];
+  var phone_suffix = req.body.contact['phone_suffix'];
+  var phone_ext = req.body.contact['phone_ext'];
+  var state = req.body.contact['state'];
+  var zipcode = req.body.contact['zipcode'];
+  var preference = req.body.contact['pref'];
+  var message = req.body.contact['message'];
+  var tos = req.body.contact['tos'];
+
+  var input_errs = res.locals.input_errs['contact'];
 
   // Equality check
   validator.validator.extend('eq', function(str, comp) {
@@ -73,45 +54,38 @@ router.post('/contact', function(req, res) {
   });
 
   // OR equality check
-  validator.validator.extend('meq', function(str, comp1, comp2 ) {
-    if( str === comp1 || str === comp2  ) return true;
+  // validator.validator.extend('meq', function(str, comp1, comp2 ) {
+  //   if( str === comp1 || str === comp2  ) return true;
 
-    return false;
-  });
-
-  //- FIXME:
-  // Non-empty, five (5) digit number check
-  validator.validator.extend('zip', function(str) {
-
-    // return( str === '' && typeof str === 'number' && str.length == 5 );
-    // console.log( typeof str === 'number' ? true : false );
-
-    // TODO: Try match reg exp:
-    // console.log("zip: %d", str[0].match('[0-9]') && str[1].match('[0-9]'));
-
-    return( str.length == 5 );
-  });
+  //   return false;
+  // });
 
   // Do user input sanity checks
-  req.checkBody( 'first_name', req_input_errs['first_name'] ).notEmpty();
-  req.checkBody( 'last_name', req_input_errs['last_name'] ).notEmpty();
-  req.checkBody( 'email', req_input_errs['email'] ).notEmpty();
-  // req.checkBody( 'confirm_email', req_input_errs['confirm_email'] ).eq(email);
+  req.checkBody( 'contact.first_name', input_errs['first_name'] ).len(1,255);
+  req.checkBody( 'contact.last_name', input_errs['last_name'] ).len(1,255);
+  req.checkBody( 'contact.email', input_errs['email'] ).len(1,255);
+  // req.checkBody( 'contact.confirm_email', input_errs['confirm_email'] ).eq(email);
 
-  // TODO: phone && phone extension
-  req.checkBody( 'phone', req_input_errs['phone'] ).notEmpty();
-  // req.checkBody( 'phone', req_input_errs['phone'] ).isInt();
+  // FIXME: Figure out how to chain isInt && len together without creating
+  // separate err messages for them.
+  req.checkBody( 'contact.phone_area', input_errs['phone_area'] ).isInt();
+  req.checkBody( 'contact.phone_prefix', input_errs['phone_prefix'] ).isInt();
+  req.checkBody( 'contact.phone_suffix', input_errs['phone_suffix'] ).isInt();
 
-  req.checkBody( 'state', req_input_errs['state'] ).neq('DID NOT RESPOND');
-  // req.checkBody( 'zipcode', req_input_errs['zipcode'] ).isInt();
+  // Optional field; check only if input has been entered
+  if( phone_ext != '' ) {
+    req.checkBody( 'contact.phone_ext', input_errs['phone_ext']).isInt();
+  }
 
-  //- FIXME:
-  req.checkBody( 'zipcode', req_input_errs['zipcode'] ).zip();
+  req.checkBody( 'contact.state', input_errs['state'] ).neq('Select State');
 
-  req.checkBody( 'contact_pref', req_input_errs['contact_pref'] ).meq('email', 'phone');
+  // FIXME: Figure out how to chain isInt && len together without creating
+  // separate err messages for them.
+  req.checkBody( 'contact.zipcode', input_errs['zipcode'] ).isInt();
 
-  req.checkBody( 'message', req_input_errs['message'] ).notEmpty();
-  req.checkBody( 'tos', req_input_errs['tos'] ).eq('agree');
+  req.checkBody( 'contact.pref', input_errs['pref'] ).neq('Select Preference');
+  req.checkBody( 'contact.message', input_errs['message'] ).len(1,8192);
+  req.checkBody( 'contact.tos', input_errs['tos'] ).eq('agree');
 
   // Check the validation object for errors
   var errors = req.validationErrors();
@@ -120,12 +94,16 @@ router.post('/contact', function(req, res) {
     if( app.get('env') === 'development' ) {
       // console.log(errors);
     }
-    res.render('contact', { req_input_errs: req_input_errs, flash: { type: 'alert-danger', messages: errors }, post_data: req.body } );
-  } else {
-    console.log('Success!');
 
-    // TODO: Redirect instead???
-    res.render('contact_success', { post_data: req.body } );
+    res.locals.notifications = { type: 'err', messages: errors };
+    res.locals.contact = req.body.contact;
+
+    res.render('contact', { input_errs: res.locals.input_errs['contact'] } );
+  } else {
+    // console.log('Success!');
+
+    res.locals.contact = req.body.contact;
+    res.render('contact_success' );
   }
 });
 

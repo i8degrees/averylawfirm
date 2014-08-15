@@ -84,6 +84,55 @@ app.set('nav_links', nav_links );
 // Local site library configuration; **must** go before router!
 app.use( function(req, res, next) {
   res.locals.md = md;
+  res.locals.form_helpers = form_helpers;
+
+  // Avoid ReferenceError by creating the container used by the form elements
+  // after form submission (HTTP 'POST') ahead of time; this is necessary so we
+  // can pass the object to the Jade template for a HTTP 'GET' of the contact
+  // page without first checking if the req.body.<field> object exists.
+  //
+  // See also: http://dailyjs.com/2012/09/13/express-3-csrf-tutorial/
+  res.locals.contact = {};
+
+  // Simple server-side site messaging
+  res.locals.notifications = {
+    // Type of message
+    //
+    // The value should be one of the following strings: success, err.
+    type: 'success',
+
+    // Array of messages
+    //
+    // The value should be object(s) containing the message string, labeled
+    // 'msg'.
+    //
+    // i.e.: messages: [ { msg: 'err string 1' }, { msg: 'err string 2' } ]
+    messages: [ ]
+  };
+
+  // TODO: clean up err messages
+  //
+  // contact page form validity err labels
+  res.locals.input_errs = {
+    contact: {
+      first_name: 'Please leave your first name.',
+      last_name: 'Please leave your last name.',
+      email: 'Please leave your e-mail address.',
+      // Not used
+      confirm_email: 'Your e-mail address does not match.',
+      phone: 'Your ten digit phone number is required.',
+      phone_area: 'Your three digit area code is required.',
+      phone_prefix: 'Your three digit phone prefix is required.',
+      phone_suffix: 'Your four digit phone suffix is required.',
+      // Optional
+      phone_ext: 'Your phone extension can only contain numbers.',
+      state: 'Your state is required.',
+      zipcode: 'Your five digit zip code is required.',
+      pref: 'Please choose your contact preference.',
+      message: 'Please leave a message.',
+      tos: 'You must agree to our disclaimer.'
+    }
+  };
 
   next();
 });

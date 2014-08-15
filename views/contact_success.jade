@@ -30,28 +30,28 @@ block content
     if locals.settings.env === 'development'
       table
         tr
-          td(class='align_right') First Name
-          td= post_data.first_name
+          td(class='align_right bold') First Name
+          td= contact['first_name']
         tr
-          td(class='align_right') Last Name
-          td= post_data.last_name
+          td(class='align_right bold') Last Name
+          td= contact['last_name']
         tr
-          td(class='align_right') Email Address
-          td= post_data.email
+          td(class='align_right bold') Email Address
+          td= contact['email']
         tr
-          td(class='align_right') Phone
-          td= post_data.phone
+          td(class='align_right bold') Phone Number
+          td= locals.form_helpers.phone_number_prettify( contact['phone_area'], contact['phone_prefix'], contact['phone_suffix'] )
         tr
-          td(class='align_right') State
-          td= post_data.state
+          td(class='align_right bold') State
+          td= contact['state']
         tr
-          td(class='align_right') Zipcode
-          td= post_data.zipcode
+          td(class='align_right bold') Zipcode
+          td= contact['zipcode']
         tr
-          td(class='align_right') Contact Preference
-          td= post_data.contact_pref
+          td(class='align_right bold') Contact Preference
+          td= contact['pref']
         tr
-          td(class='align_right') Message
-          td= post_data.message
+          td(class='align_right bold') Message
+          td= contact['message']
 
 block footer

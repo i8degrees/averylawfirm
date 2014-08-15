@@ -57,7 +57,7 @@ app.set('email_address', 'laura@averylawfirm.com');
 
 // Site environment; this is a control flag for whether or not to allow loading
 // of resources from the public networks (i.e.: Internet).
-app.set('remote', false );
+app.set('remote', true );
 
 // http://stackoverflow.com/questions/5697863/dynamic-links-with-jade
 var nav_links = {

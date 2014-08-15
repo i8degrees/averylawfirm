@@ -25,7 +25,8 @@ html
     // Use mobile styling for both device and small desktop windows
     link(href='/stylesheets/mobile.css', rel='stylesheet', type='text/css', media='only screen and (max-width: 480px), only screen and (max-device-width: 480px)')
 
-    // Fonts
+    // Google Web Fonts
+    // http://www.google.com/fonts/
     if locals.settings.remote
       link(href='http://fonts.googleapis.com/css?family=Open+Sans:italic,400,600,800', rel='stylesheet', type='text/css')
       link(href='http://fonts.googleapis.com/css?family=Lora:italic,400,600,800', rel='stylesheet', type='text/css')
@@ -74,6 +75,7 @@ html
             block header
 
       div(id='content_container')
+
         //- Page content (specific per page)
         block content
 

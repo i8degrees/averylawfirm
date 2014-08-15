@@ -107,7 +107,11 @@
 .contact_form fieldset {
   border: none;
   border-top: 1px solid black;
-  width: 50%;
+  /*width: 50%;*/
+  /* This seems to improve display on an iPad (Mini) */
+  width: 75%;
+  /*max-width: 75%;*/
+  /*width: inherit;*/
 }
 
 .contact_form legend {
@@ -163,6 +167,11 @@
   height: 120px;
 }
 
+.contact_form #tos {
+  /* Spacing in between the TOS checkbox and privacy policy link */
+  margin-bottom: 25px;
+}
+
 .contact_form input:focus {
   /* Light Tan */
   background-color: #ffc;
@@ -204,6 +213,12 @@
 }
 
 .contact_form li {
+  /* Spacing in between disclaimer and textarea */
+  margin-top: 25px;
+
+  /* Spacing in disclaimer and checkbox */
+  padding-bottom: 25px;
+
   /* 48 (width of image) + 24 (48/2) */
   padding-left: 72px;
 
@@ -270,9 +285,9 @@
 .err {
   font-size: 0.9em;
   font-weight: bold;
-  text-align: center;
+  text-align: left;
   color: red;
-  /*padding-left: 20px;*/
+  padding-left: 5px;
   /*border: 2px dashed red;*/
 }
 

@@ -33,6 +33,11 @@ html
       link(href='http://fonts.googleapis.com/css?family=Lora:italic,400,600,800', rel='stylesheet', type='text/css')
 
     // JavaScript
+    if locals.settings.env === 'development'
+      script(src='/javascripts/modernizr_v2.8.3.js')
+    else
+      script(src='/javascripts/modernizr_v2.8.3.min.js')
+
     script(src='/javascripts/helpers.js')
 
     if locals.settings.remote

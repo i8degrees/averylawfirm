@@ -83,7 +83,7 @@
 
 /* Top-level footer container */
 #footer {
-  /*width: auto;*/
+  clear: both;
   padding-bottom: 25px;
   padding-left: 25px;
   padding-right: 25px;
@@ -121,6 +121,8 @@
 .contact_form table, th {
   border: 0px solid black;
   vertical-align: middle;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .contact_form input, select, textarea {
@@ -215,6 +217,14 @@
   margin-left: 20px;
 }
 
+.margin-bottom-offset25 {
+  margin-bottom: 25px;
+}
+
+.margin-bottom-offset50 {
+  margin-bottom: 50px;
+}
+
 #blue_button:hover {
   background: #468CCF !important;
 }
@@ -278,6 +288,14 @@
   text-align: right;
 }
 
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
 .heading {
   text-align: center;
   font-size: 2.5em;
@@ -287,6 +305,10 @@
 
 .bold {
   font-weight: 800;
+}
+
+.semi-bold {
+  font-weight: 600;
 }
 
 .req {

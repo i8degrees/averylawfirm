@@ -56,5 +56,5 @@ block content
         p :-(
         p Sorry, but the page has erred on us.
 
-    if locals.settings.env === 'development'
+    if locals.settings.env === 'development' || locals.settings.env === 'testing'
       pre #{error.stack}

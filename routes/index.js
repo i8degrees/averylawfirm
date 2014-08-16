@@ -2,6 +2,7 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
+var jade = require('jade');
 var validator = require('express-validator');
 
 router.get('/', function(req, res) {
@@ -21,6 +22,9 @@ router.get('/contact', function(req, res) {
 });
 
 router.post('/contact', function(req, res) {
+
+  // Save the state of the form input fields upon submission
+  res.locals.contact = req.body.contact;
 
   // Convenience vars
   var first_name = req.body.contact['first_name'];
@@ -95,16 +99,45 @@ router.post('/contact', function(req, res) {
       // console.log(errors);
     }
 
+    // Render the whole page again, with passing of the validation errors for
+    // display back to the end-user.
     res.locals.notifications = { type: 'err', messages: errors };
-    res.locals.contact = req.body.contact;
-
     res.render('contact', { input_errs: res.locals.input_errs['contact'] } );
-  } else {
-    // console.log('Success!');
+  }
+  else {
+    // Successful form validation logic
 
-    res.locals.contact = req.body.contact;
+    // Generate plain-text and HTML emails from a template with the user's
+    // input data; it is up to the end-user's email client which to render.
+    //
+    // Note that these calls are synchronous.
+    var text = jade.renderFile("./views/email_text_template.jade", res.locals );
+    var html = jade.renderFile("./views/email_html_template.jade", res.locals );
+
+    var mail = {
+      to: 'i8degrees@gmail.com',
+      from: 'i8degrees@gmail.com',
+      subject: 'Contact Form Inquiry',
+      text: text,
+      html: html
+    };
+
+    // Dummy email objects if in development environment
+    var email = new res.locals.sendgrid.Email( mail );
+    console.log( email );
+
+    res.locals.sendgrid.send( email, function(err, json ) {
+      if( err ) {
+        console.error("[SendGrid]: %s", err );
+      }
+      else {
+        console.log( json );
+      }
+    });
+
     res.render('contact_success' );
   }
+
 });
 
 router.get('/privacy', function(req, res) {

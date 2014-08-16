@@ -6,6 +6,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
+
+// SMTP provider for contact page; this is initialized to either a mock object
+// or the real deal, depending on the environment.
+var sendgrid = null;
+
 var routes = require('./routes/index');
 
 // Markdown filter
@@ -147,6 +152,24 @@ app.use( function(req, res, next) {
     }
   };
 
+  // SendGrid setup; this will send an email upon a successful form submission.
+  //
+  // We always provide a mock object instead when in development mode.
+  //
+  // See README.md for testing and production setup instructions.
+  if( app.get('env') === 'development' ) {
+    sendgrid = {
+      send: function send( payload, callback ) {
+        return payload;
+      },
+      Email: function Email( dummy ) { return dummy; }
+    };
+  } else {
+    sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD );
+  }
+
+  res.locals.sendgrid = sendgrid;
+
   next();
 });
 
@@ -163,7 +186,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if( app.get('env') === 'development' || app.get('env') === 'testing' ) {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
@@ -190,7 +213,8 @@ if( app.get('env') === 'development' ) {
 
   // Additional Jade control options
   app.locals.compileDebug = true;
-} else {
+
+} else {  // Assume production mode (live, public site)
   // Computer-friendly (no whitespace)
   //
   // Note that this is the current default; I reset it here to be safe.

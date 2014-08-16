@@ -80,6 +80,48 @@ You should now be able to access the local site at the following URLs if everyth
 
 * See the project's config.ru in the project root directory.
 
+### Testing Site Setup
+
+* Port 5000 is used.
+
+* All site pages generated from Jade templates:
+    * Exclude LiveReload script.
+    * Minified Modernizr script is used.
+    
+* Error page:
+    * Error status number is not shown.
+    
+* Contact page:
+    * Email will be sent out upon successful form submission.
+
+```
+ NODE_ENV=testing SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js
+```
+
+**Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.
+
+### Production Site Setup
+
+* Port 5000 is used.
+
+* All site pages generated from Jade templates:
+    * Exclude LiveReload script.
+    * Minified Modernizr script is used.
+    
+* Error page:
+    * Error status number is not shown.
+    * Error stack traces are disabled.
+    
+* Contact page:
+    * Email will be sent out upon successful form submission.
+    * No dumping of form submission input on successful form submission.
+
+```
+ NODE_ENV=production SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js
+```
+
+**Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.
+
 ### Further Reading
 
 * [Official Express guide](http://expressjs.com/guide.html)

@@ -225,6 +225,14 @@
   margin-bottom: 50px;
 }
 
+.padding-top-offset10 {
+  padding-top: 10px;
+}
+
+.padding-top-offset20 {
+  padding-top: 20px;
+}
+
 #blue_button:hover {
   background: #468CCF !important;
 }
@@ -338,6 +346,10 @@
 .note {
   font-size: 0.9em;
   font-style: italic;
+}
+
+.label {
+  width: inherit;
 }
 
 /* CSS that is not in use */

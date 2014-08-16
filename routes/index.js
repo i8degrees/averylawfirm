@@ -119,4 +119,8 @@ router.get('/search_results', function(req, res) {
   res.render('search_results', { cse_query: req.query['q'] } );
 });
 
+router.get('/locations', function(req, res) {
+  res.render('locations');
+});
+
 module.exports = router;

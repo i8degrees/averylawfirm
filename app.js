@@ -69,6 +69,10 @@ var nav_links = {
       title: 'Areas of Practice',
       href: '/practice'
     },
+    locations: {
+      title: 'Locations',
+      href: '/locations'
+    },
     contact: {
       title: 'Contact',
       href: '/contact'

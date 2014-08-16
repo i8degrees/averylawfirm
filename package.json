@@ -7,6 +7,7 @@
     "type": "git",
     "url": "https://github.com/i8degrees/averylawfirm"
   },
+  "private": true,
   "bugs": {
     "url": "https://github.com/i8degrees/averylawfirm/issues"
   },
@@ -29,6 +30,6 @@
     "sendgrid": "~1.2.0"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "0.10.30"
   }
 }

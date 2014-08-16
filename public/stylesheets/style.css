@@ -84,6 +84,7 @@
 /* Top-level footer container */
 #footer {
   clear: both;
+  /* Space offset for very bottom of page */
   padding-bottom: 25px;
   padding-left: 25px;
   padding-right: 25px;
@@ -215,6 +216,10 @@
 
   /* Spacing in between buttons */
   margin-left: 20px;
+}
+
+.margin-top-offset20 {
+  margin-top: 20px;
 }
 
 .margin-bottom-offset25 {

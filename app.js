@@ -50,6 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Global access from within Jade templates is (automatically) granted at
 // locals.settings.
 app.set('site_company', 'Avery Law Firm');
+app.set('site_developer', { name: 'Jeffrey Carpenter', email: 'i8degrees@gmail.com', website: 'https://github.com/i8degrees/' } );
 
 // TODO: This is a stubbed e-mail address; replace with the actual one before
 // production deployment!
@@ -83,7 +84,15 @@ var nav_links = {
     }
 };
 
+var site_links = {
+  privacy: {
+      title: 'Privacy Policy',
+      href: '/privacy'
+    }
+};
+
 app.set('nav_links', nav_links );
+app.set('site_links', site_links );
 
 // Local site library configuration; **must** go before router!
 app.use( function(req, res, next) {

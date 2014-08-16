@@ -34,6 +34,7 @@ block head
 
 block content
 
+  //- TODO: Remove (non-existent selector)
   div(class='content', align='left')
 
     unless locals.form_helpers.has_errs( locals.notifications )
@@ -220,10 +221,6 @@ block content
 
           label(for='tos') I have read the above disclaimer.
           span(class='req') *
-
-          p
-            a(href='/privacy', target='self') Privacy Policy
-          p(class='note') (Opens in a new window)
 
         button(id='blue_button', class='margin-bottom-offset25', type='submit', name='action', value='send_msg') Send Message
 

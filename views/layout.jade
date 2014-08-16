@@ -88,24 +88,16 @@ html
       footer
         div(id='footer')
           hr
-          header
-            div(id='nav_container')
-              nav
-                //- FIXME:
-                div(id='nav', style='text-align: center;')
-                  br
-                  - each link in locals.settings.nav_links
-                    a(href=link.href) #{link.title}
-                  br
-                  br
-
-          strong DISCLAIMER:
+          div(class='margin-top-offset20 margin-bottom-offset25')
+            strong DISCLAIMER:
             span(class='disclaimer')  THIS SITE IS FOR INFORMATIONAL PURPOSES ONLY; ITS CONTENTS DO NOT CONSTITUTE LEGAL ADVICE OR AN ATTORNEY-CLIENT RELATIONSHIP BETWEEN #{locals.settings.site_company} OR ITS ATTORNEYS AND ANY RECEIVER. THE INFORMATION PROVIDED ON THESE PAGES IS GENERAL ONLY, AND YOU SHOULD NOT ACT UPON THIS INFORMATION WITHOUT CONSULTING WITH AN ATTORNEY. IF YOU SEND ANY CONFIDENTIAL INFORMATION TO US AND YOU ARE NOT A CLIENT OF OUR LAW FIRM, THE INFORMATION SHALL LOSE ITS CONFIDENTIAL STATUS. FURTHERMORE, IF THE UNSOLICITED INFORMATION YOU SEND TO OUR LAW FIRM IS BENEFICIAL TO OUR CLIENTS AND ADVERSE TO YOU, THE INFORMATION YOU PROVIDE MAY BE USED EVEN IF IT IS CONTRARY TO YOUR INTERESTS.
 
-          br
-          br
+          p( class='copyright' ) &copy; 2014 #{locals.settings.site_company} | &#32;
+            a( href= locals.settings.site_links['privacy'].href )= locals.settings.site_links['privacy'].title
 
-          p(class='copyright') Copyright (c) 2014 #{locals.settings.site_company} ALL RIGHTS RESERVED
+          div(class='align_right')
+            span(class='align_right copyright') Site design &copy; 2014 &#32;
+              a( href= locals.settings.site_developer['website'] )= locals.settings.site_developer['name']
 
           //- Additional footer-level elements (specific per page)
           block footer

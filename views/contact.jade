@@ -46,8 +46,8 @@ block content
     h1(id= topics[0].id)= topics[0].title
 
     unless locals.form_helpers.has_errs( locals.notifications )
-      main
-        p If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.
+      //- main
+        //- p If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.
 
     if locals.form_helpers.has_errs( locals.notifications )
       p(id='errors')= locals.form_helpers.count_errs( locals.notifications ) + ' validation errors have been found. Please review your submission and resubmit.'
@@ -222,7 +222,7 @@ block content
           label(for='tos') I have read the above disclaimer.
           span(class='req') *
 
-        button(id='blue_button', class='margin-bottom-offset25', type='submit', name='action', value='send_msg') Send Message
+        button(class='blue-button border-rounded margin-bottom-offset25', type='submit', name='action', value='send_msg') Send Message
 
         //- script(src='/javascripts/ie-behavior.js')
         //- script.

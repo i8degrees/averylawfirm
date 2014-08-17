@@ -119,12 +119,12 @@
   font-weight: bold;
 }
 
-.contact_form table, th {
+/*.contact_form table, th {
   border: 0px solid black;
   vertical-align: middle;
   margin-left: auto;
   margin-right: auto;
-}
+}*/
 
 .contact_form input, select, textarea {
   /*background: #707C78;*/
@@ -148,33 +148,42 @@
 }
 
 .contact_form #contact_first_name, #contact_last_name, #contact_email, #contact_confirm_email {
-  width: 250px;
+  /*width: 250px;*/
+  width: 322px;
+  height: 38px;
 }
 
 .contact_form #phone_area {
   width: 30px;
+  height: 38px;
 }
 
 .contact_form #phone_prefix {
   width: 30px;
+  height: 38px;
 }
 
 .contact_form #phone_suffix {
   width: 40px;
+  height: 38px;
 }
 
 .contact_form #phone_ext {
   width: 40px;
   /* Spacing in between the extension and phone suffix */
   margin-left: 10px;
+
+  height: 38px;
 }
 
 .contact_form #contact_state, #pref {
   width: 250px;
+  height: 38px;
 }
 
 .contact_form #contact_zipcode {
   width: 100px;
+  height: 38px;
 }
 
 .contact_form #contact_message {
@@ -198,12 +207,15 @@
   background-color: #ffc;
 }
 
-#blue_button {
-  /* sky blue */
-  background-color: #5eb0ea;
+.border-rounded {
   -moz-border-radius: 21px;
   -webkit-border-radius: 21px;
   border-radius: 21px;
+}
+
+.blue-button {
+  /* sky blue */
+  background-color: #5eb0ea;
   padding: 14px 28px;
   border: none;
   color: white !important;
@@ -238,7 +250,7 @@
   padding-top: 20px;
 }
 
-#blue_button:hover {
+.blue-button:hover {
   background: #468CCF !important;
 }
 

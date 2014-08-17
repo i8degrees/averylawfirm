@@ -50,15 +50,15 @@
   }
 
   .contact_form #contact_first_name, #contact_last_name, #contact_email, #contact_confirm_email {
-    width: 175px;
+    /*width: 175px; */
   }
 
   .contact_form #contact_state {
-    width: 175px;
+    /*width: 175px;*/
   }
 
   .contact_form #contact_zipcode {
-    width: 50px;
+    /*width: 50px;*/
   }
 
   .contact_form #contact_message {

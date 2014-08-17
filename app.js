@@ -13,6 +13,9 @@ var sendgrid = null;
 
 var routes = require('./routes/index');
 
+// Additional routes
+var practice = require('./routes/practice');
+
 // Markdown filter
 //
 // This will be available to all routes via res.locals.md.
@@ -69,10 +72,11 @@ app.set('remote', true );
 var nav_links = {
     about: {
       title: 'About',
-      href: '/about'
+      href: '/index'
     },
     practice: {
       title: 'Areas of Practice',
+      // href: '/practice?id=0'
       href: '/practice'
     },
     locations: {
@@ -85,7 +89,7 @@ var nav_links = {
     },
     blog: {
       title: 'Blog',
-      href: '/index'
+      href: '/blog'
     }
 };
 
@@ -170,10 +174,24 @@ app.use( function(req, res, next) {
 
   res.locals.sendgrid = sendgrid;
 
+  // Page tracking (href, query, pathname)
+  res.locals.loc = req._parsedUrl;
+
+  // Breadcrumbs (navigation aid).
+  //
+  // Implements simple URL tracking.
+  //
+  // Usage from within the Jade template: locals.breadcrumbs
+  //
+  // breadcrumbs is an array object that should contain zero or more objects,
+  // with the member pairs: 'title' (string), 'href' (string), 'home' (string).
+  res.locals.breadcrumbs = [];
+
   next();
 });
 
 app.use('/', routes);
+app.use('/practice', practice );
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

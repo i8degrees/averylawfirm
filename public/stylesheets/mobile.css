@@ -10,23 +10,60 @@
     width: 100%;
   }
 
-  #nav {
+  .nav {
     line-height: 2.5em;
     text-align: left;
   }
 
-  #nav a {
+  .nav-link-parent {
     display: block;
     border-right: none;
   }
 
-  #nav .search_input {
+  /* Desktop only */
+  .nav .search_input {
     display: none;
   }
 
-  #search_button {
+  /* Desktop only */
+  .nav .search_button {
     background: none;
     display: none;
+  }
+
+  /* Mobile only */
+  .nav-link-child {
+    padding-left: 50px;
+    display: block;
+    text-decoration: none;
+  }
+
+  /* Mobile only */
+  .nav-link-child-active {
+    color: white;
+
+    /* Purple */
+    /*background-color: #6C6FED;*/
+
+    /* Dark blue */
+    background-color: #468CCF;
+  }
+
+  /* Desktop only */
+  .breadcrumb-link {
+    display: none;
+  }
+
+  /* Desktop only */
+  .breadcrumb-active {
+    display: none;
+  }
+
+  /* Desktop only */
+  .right-col {
+    width: inherit;
+    display: inherit;
+    float: inherit;
   }
 
   #content_container {

@@ -1,4 +1,4 @@
-// Site dependencies
+// Site (route) dependencies
 var express = require('express');
 var app = express();
 var router = express.Router();
@@ -114,6 +114,7 @@ router.post('/contact', function(req, res) {
     var text = jade.renderFile("./views/email_text_template.jade", res.locals );
     var html = jade.renderFile("./views/email_html_template.jade", res.locals );
 
+    // TODO: Use real email addresses; these are stubs.
     var mail = {
       to: 'i8degrees@gmail.com',
       from: 'i8degrees@gmail.com',
@@ -142,10 +143,6 @@ router.post('/contact', function(req, res) {
 
 router.get('/privacy', function(req, res) {
   res.render('privacy');
-});
-
-router.get('/practice', function(req, res) {
-  res.render('practice');
 });
 
 router.get('/search_results', function(req, res) {

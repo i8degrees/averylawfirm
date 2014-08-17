@@ -52,30 +52,40 @@ html
 
   body(id='page')
       header
-        div(id='header')
+        div(class='header')
+          h1
+            a(class='site-header-red site-header-link', href='/index')= locals.settings.site_company
 
-          div(class='site_header sky_blue')
-            h1
-              a(href='/index')= locals.settings.site_company
-
-              //- FIXME:
-              //- img( align='', src='/images/logo_small.png', alt='')
+            //- FIXME:
+            //- img( align='', src='/images/logo_small.png', alt='')
 
           nav
-            div(id='nav')
+            div(class='nav')
+
               - each link in locals.settings.nav_links
-                a(href=link.href) #{link.title}
+                //- NOTE (desktop): This breaks the highlighting of the practice
+                //- page when viewing children:
+                //- if link.href === locals.loc.href
+
+                //- NOTE: Styled for both mobile and desktop
+                if link.href === locals.loc.pathname
+                  a(class='nav-link-parent nav-link-parent-active', href=link.href) #{link.title}
+                else
+                  a(class='nav-link-parent', href=link.href) #{link.title}
+
+                // Breadcrumbs (child of parent page)
+                //
+                // NOTE: Mobile-only display
+                - for( var i = 0; i != locals.breadcrumbs.length; ++i )
+                  if link.href === locals.breadcrumbs[i].home
+                    a(class='nav-link-child nav-link-child-active', href= locals.breadcrumbs[i].href )= locals.breadcrumbs[i].title
 
               form(action='/search_results', method='get')
-                input(id='google_cse', class='search_input', type='search', name='q', spellcheck='false', autocomplete='off', accesskey='s', onfocus='', onblur='' )
-                button(id='search_button', type='submit')
-
-              //- div(align='center',class='site_message')
-                //- p ERROR MSG
-
-            //- div(class='toc')
-              //- - each link in topics
-                a(href=link.href) #{link.title}
+                //- input(id='google_cse', class='search_input', type='search', name='q', spellcheck='false', autocomplete='off', accesskey='s', onfocus='', onblur='' )
+                //- button(id='search_button', type='submit')
+                //- FIXME:
+                input(class='search_input', type='search', name='q', spellcheck='false', autocomplete='off', accesskey='s', onfocus='', onblur='' )
+                button(class='search_button', type='submit')
 
             //- Additional header-level elements (specific per page)
             block header
@@ -87,7 +97,6 @@ html
 
       footer
         div(id='footer')
-          hr
           div(class='margin-top-offset20 margin-bottom-offset25')
             strong DISCLAIMER:
             span(class='disclaimer')  THIS SITE IS FOR INFORMATIONAL PURPOSES ONLY; ITS CONTENTS DO NOT CONSTITUTE LEGAL ADVICE OR AN ATTORNEY-CLIENT RELATIONSHIP BETWEEN #{locals.settings.site_company} OR ITS ATTORNEYS AND ANY RECEIVER. THE INFORMATION PROVIDED ON THESE PAGES IS GENERAL ONLY, AND YOU SHOULD NOT ACT UPON THIS INFORMATION WITHOUT CONSULTING WITH AN ATTORNEY. IF YOU SEND ANY CONFIDENTIAL INFORMATION TO US AND YOU ARE NOT A CLIENT OF OUR LAW FIRM, THE INFORMATION SHALL LOSE ITS CONFIDENTIAL STATUS. FURTHERMORE, IF THE UNSOLICITED INFORMATION YOU SEND TO OUR LAW FIRM IS BENEFICIAL TO OUR CLIENTS AND ADVERSE TO YOU, THE INFORMATION YOU PROVIDE MAY BE USED EVEN IF IT IS CONTRARY TO YOUR INTERESTS.

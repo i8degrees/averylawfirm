@@ -5,9 +5,9 @@
     font-size: 1.0em;
   }
 
-  #header {
-    width: inherit;
-    padding: 0;
+  .header {
+    /* FIXME */
+    width: 100%;
   }
 
   #nav {
@@ -32,13 +32,10 @@
   #content_container {
     /*width: 430px;*/
     width: inherit;
-    /* Why is this necessary for everything but the contact page??? */
-    padding-right: 25px;
   }
 
   #footer {
-    width: inherit;
-    padding-right: 0px;
+    width: 100%;
   }
 
   .contact_form fieldset {

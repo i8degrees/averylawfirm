@@ -77,17 +77,15 @@
   /*border: 1px solid gray;*/
 }
 
-#content_container h1, h2 {
+#content_container h1, h2, h3, h4, h5, h6 {
   font-family: Lora, serif;
 }
 
 /* Top-level footer container */
 #footer {
   clear: both;
-  /* Space offset for very bottom of page */
-  padding-bottom: 25px;
-  padding-left: 25px;
-  padding-right: 25px;
+
+  padding: 25px;
 }
 
 #footer .disclaimer {

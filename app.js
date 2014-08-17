@@ -11,10 +11,10 @@ var validator = require('express-validator');
 // or the real deal, depending on the environment.
 var sendgrid = null;
 
+// Site routes
 var routes = require('./routes/index');
-
-// Additional routes
 var practice = require('./routes/practice');
+var contact = require('./routes/contact');
 
 // Markdown filter
 //
@@ -190,8 +190,9 @@ app.use( function(req, res, next) {
   next();
 });
 
-app.use('/', routes);
+app.use('/', routes );
 app.use('/practice', practice );
+app.use('/contact', contact );
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

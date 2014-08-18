@@ -88,7 +88,7 @@ html
                 //- input(id='google_cse', class='search_input', type='search', name='q', spellcheck='false', autocomplete='off', accesskey='s', onfocus='', onblur='' )
                 //- button(id='search_button', type='submit')
                 //- FIXME:
-                input(class='search_input', type='search', name='q', spellcheck='false', autocomplete='off', accesskey='s', onfocus='', onblur='' )
+                input(class='search_input', type='search', name='q', spellcheck='false', autocomplete='off', accesskey='s', placeholder='Search our site' )
                 button(class='search_button', type='submit')
 
             //- Additional header-level elements (specific per page)
@@ -114,3 +114,20 @@ html
 
           //- Additional footer-level elements (specific per page)
           block footer
+
+    // Additional JavaScripts (deferred loading)
+    if locals.settings.env === 'development'
+      //- script(src="/javascripts/libs/jquery-1.11.1.js")
+    else
+      //- script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+
+    if locals.settings.remote
+      // Google Analytics
+      script.
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-53873847-1', 'auto');
+        ga('send', 'pageview');

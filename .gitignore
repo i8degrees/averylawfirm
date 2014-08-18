@@ -9,7 +9,7 @@ node_modules
 *.bck
 tmp
 public/testme.html
-public/stylesheets/testme.css
+public/css/testme.css
 
 # OS X Finder metadata
 *.DS_Store

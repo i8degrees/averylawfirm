@@ -24,14 +24,14 @@ html
     block meta
 
     if locals.settings.remote
-      link(href='/stylesheets/google_cse.css', rel='stylesheet', type='text/css', media='screen')
+      link(href='/css/google_cse.css', rel='stylesheet', type='text/css', media='screen')
 
     // CSS
-    link(href='/stylesheets/common.css', rel='stylesheet', type='text/css', media='screen')
-    link(href='/stylesheets/style.css', rel='stylesheet', type='text/css', media='screen')
+    link(href='/css/common.css', rel='stylesheet', type='text/css', media='screen')
+    link(href='/css/style.css', rel='stylesheet', type='text/css', media='screen')
 
     // Use mobile styling for both device and small desktop windows
-    link(href='/stylesheets/mobile.css', rel='stylesheet', type='text/css', media='only screen and (max-width: 768px), only screen and (max-device-width: 768px)')
+    link(href='/css/mobile.css', rel='stylesheet', type='text/css', media='only screen and (max-width: 768px), only screen and (max-device-width: 768px)')
 
     // Google Web Fonts
     // http://www.google.com/fonts/
@@ -44,14 +44,14 @@ html
 
     // JavaScript
     if locals.settings.env === 'development'
-      script(src='/javascripts/modernizr_v2.8.3.js')
+      script(src='/js/lib/modernizr_v2.8.3.js')
     else
-      script(src='/javascripts/modernizr_v2.8.3.min.js')
+      script(src='/js/lib/modernizr_v2.8.3.min.js')
 
-    script(src='/javascripts/helpers.js')
+    script(src='/js/helpers.js')
 
     if locals.settings.remote
-      script(src='/javascripts/google_search.js')
+      script(src='/js/google_search.js')
 
     if locals.settings.env === 'development'
       script.
@@ -123,9 +123,9 @@ html
 
     // Additional JavaScripts (deferred loading)
     if locals.settings.env === 'development'
-      //- script(src="/javascripts/libs/jquery-1.11.1.js")
+      //- script(src="/js/lib/jquery-1.11.1.js")
     else
-      //- script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+      //- script(src="//ajax.googleapis.com/ajax/lib/jquery/1.11.1/jquery.min.js")
 
     if locals.settings.remote
       // Google Analytics

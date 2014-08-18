@@ -1,12 +1,18 @@
 /* Top-level style container */
-#page {
+.page {
   width: 100%;
+  margin: 0;
+  padding: 0;
   font-family: 'Open Sans', sans-serif;
-  font-size: 1.25em;
-  letter-spacing: 2%;
-  line-height: 1.3em;
+  font-size: 150%;
+  /*letter-spacing: 1.0px;*/
+  line-height: 1.4em;
   color: black;
   background-color: white;
+
+  /* Horizontal center */
+  margin-left: auto;
+  margin-right: auto;
 
   /* Gray */
   /*background-color: #EBEBEA;*/
@@ -20,8 +26,7 @@
 
 /* Top-level header container */
 .header {
-  /* FIXME */
-  padding: 25px;
+  padding: 2%;
 
   border: none;
   /*background-color: white;*/
@@ -39,7 +44,7 @@
 /* Top-level navigation container */
 .nav {
   font-weight: 600;
-  font-size: 1.15em;
+  font-size: 115%;
 
   /* Controls both the navigation links & search input */
   text-align: right;
@@ -54,11 +59,10 @@
 .nav-link-parent {
   font-weight: 600;
   padding: 3px 12px;
-/*padding: 3px 6px;*/
-/*border-right: 1px solid #666;*/
   text-decoration: none;
   color: black;
   /*color: white;*/
+  /*border-right: 1px solid #666;*/
 }
 
 .nav-link-parent:hover {
@@ -112,9 +116,13 @@
   display: none;
 }
 
-#content_container {
-  margin: 25px;
-  padding: 0;
+.content_container {
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 2%;
+  margin-right: 2%;
+  /*padding: 0;*/
+
   /*background-color: white;*/
 
   /* Gray */
@@ -124,15 +132,16 @@
   /*border: 1px solid gray;*/
 }
 
-#content_container h1, h2, h3, h4, h5, h6 {
+.content_container h1, h2, h3, h4, h5, h6 {
   font-family: Lora, serif;
 }
 
 /* Top-level footer container */
-#footer {
+.footer {
   clear: both;
 
-  padding: 25px;
+  padding: 2%;
+  font-size: 90%;
 
   /* Gray */
   background-color: #EBEBEA;
@@ -142,17 +151,17 @@
 
 }
 
-#footer .disclaimer {
+.footer .disclaimer {
   text-align: center;
-  font-size: 0.9em;
+  font-size: 90%;
   font-style: italic !important;
   font-weight: 400;
   text-transform: uppercase;
 }
 
-#footer .copyright {
+.footer .copyright {
   text-align: center;
-  font-size: 1.0em;
+  font-size: 100%;
   font-style: normal !important;
   font-weight: 400;
 }
@@ -160,11 +169,8 @@
 .contact_form fieldset {
   border: none;
   border-top: 1px solid black;
-  /*width: 50%;*/
-  /* This seems to improve display on an iPad (Mini) */
-  width: 75%;
-  /*max-width: 75%;*/
-  /*width: inherit;*/
+
+  max-width: 50%;
 }
 
 .contact_form legend {
@@ -180,7 +186,7 @@
 
 .contact_form input, select, textarea {
   /*background: #707C78;*/
-  font-size: 16px;
+  font-size: 100%;
   height: 24px;
   font-weight: bold;
 }
@@ -195,8 +201,8 @@
 }
 
 /* Container to hold both the form input element and applicable error message */
-.contact_form #input_container {
-  width: 400px;
+.contact_form .input_container {
+  width: 100%;
 }
 
 .contact_form #contact_first_name, #contact_last_name, #contact_email, #contact_confirm_email {
@@ -244,11 +250,6 @@
   height: 120px;
 }
 
-.contact_form #tos {
-  /* Spacing in between the TOS checkbox and privacy policy link */
-  margin-bottom: 25px;
-}
-
 .contact_form input:focus {
   /* Light Tan */
   background-color: #ffc;
@@ -272,7 +273,7 @@
   border: none;
   color: white !important;
   font-family: 'Open Sans', sans-serif;
-  font-size: 1.0em;
+  font-size: 100%;
   font-weight: 600;
   text-decoration: none;
   text-align: center;
@@ -312,12 +313,16 @@
   margin: 0;
 }
 
+/* FIXME: Use a floated image instead; this should help improve rendering of
+the disclaimer text within the form. */
 .contact_form li {
+  font-size: 90%;
+
   /* Spacing in between disclaimer and textarea */
-  margin-top: 25px;
+  margin-top: 5%;
 
   /* Spacing in disclaimer and checkbox */
-  padding-bottom: 25px;
+  padding-bottom: 5%;
 
   /* 48 (width of image) + 24 (48/2) */
   padding-left: 72px;
@@ -364,7 +369,7 @@
 
 .heading {
   text-align: center;
-  font-size: 2.5em;
+  font-size: 250%;
   font-weight: 600;
   line-height: 1.3em;
 }
@@ -378,13 +383,13 @@
 }
 
 .req {
-  /*font-size: 1em;*/
+  /*font-size: 100;*/
   color: red;
   font-weight: bold;
 }
 
 .err {
-  font-size: 0.9em;
+  font-size: 90%;
   font-weight: bold;
   text-align: left;
   color: red;
@@ -392,17 +397,19 @@
   /*border: 2px dashed red;*/
 }
 
-.red_border {
+/* Experimental (breaks Mobile Safari select input fields) */
+/* Return value must be enabled in lib/form_helpers.js */
+.red-border {
   border: 1px solid red;
   /*outline: 1px solid red;*/
 }
 
-.gray_border {
+.gray-border {
   border: 1px solid #999;
 }
 
 .note {
-  font-size: 0.9em;
+  font-size: 90%;
   font-style: italic;
 }
 
@@ -446,4 +453,17 @@
   width: 20%;
   float: right;
   margin-top: auto;
+}
+
+/* Google Static Map */
+/* Note that this is relying on the web browser to rescale our image by a
+factor of 1.5 from its original dimensions (320x240) */
+.google_map {
+  width: 150%;
+  height: 150%;
+}
+
+.map_caption {
+  width: 150%;
+  text-align: center;
 }

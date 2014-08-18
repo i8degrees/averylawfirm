@@ -14,7 +14,11 @@ html
     //- TODO: Add additional keywords
     meta(name='keywords', content= locals.settings.site_company+', law practice, law')
 
-    meta(name='viewport', content='width=device-width')
+    // Required for Mobile Safari to present to us correctly at 1:1 scale
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+
+    // Enable ClearType font rendering for MS IE
+    meta(http-equiv="cleartype" content="on")
 
     if locals.settings.remote
       link(href='/stylesheets/google_cse.css', rel='stylesheet', type='text/css', media='screen')
@@ -24,7 +28,7 @@ html
     link(href='/stylesheets/style.css', rel='stylesheet', type='text/css', media='screen')
 
     // Use mobile styling for both device and small desktop windows
-    link(href='/stylesheets/mobile.css', rel='stylesheet', type='text/css', media='only screen and (max-width: 480px), only screen and (max-device-width: 480px)')
+    link(href='/stylesheets/mobile.css', rel='stylesheet', type='text/css', media='only screen and (max-width: 768px), only screen and (max-device-width: 768px)')
 
     // Google Web Fonts
     // http://www.google.com/fonts/
@@ -50,7 +54,7 @@ html
     //- Additional head-level block (specific per page)
     block head
 
-  body(id='page')
+  body(class='page')
       header
         div(class='header')
           h1
@@ -90,14 +94,14 @@ html
             //- Additional header-level elements (specific per page)
             block header
 
-      div(id='content_container')
+      div(class='content_container')
 
         //- Page content (specific per page)
         block content
 
       footer
-        div(id='footer')
-          div(class='margin-top-offset20 margin-bottom-offset25')
+        div(class='footer')
+          div(class='padding-top-offset20 margin-bottom-offset25')
             strong DISCLAIMER:
             span(class='disclaimer')  THIS SITE IS FOR INFORMATIONAL PURPOSES ONLY; ITS CONTENTS DO NOT CONSTITUTE LEGAL ADVICE OR AN ATTORNEY-CLIENT RELATIONSHIP BETWEEN #{locals.settings.site_company} OR ITS ATTORNEYS AND ANY RECEIVER. THE INFORMATION PROVIDED ON THESE PAGES IS GENERAL ONLY, AND YOU SHOULD NOT ACT UPON THIS INFORMATION WITHOUT CONSULTING WITH AN ATTORNEY. IF YOU SEND ANY CONFIDENTIAL INFORMATION TO US AND YOU ARE NOT A CLIENT OF OUR LAW FIRM, THE INFORMATION SHALL LOSE ITS CONFIDENTIAL STATUS. FURTHERMORE, IF THE UNSOLICITED INFORMATION YOU SEND TO OUR LAW FIRM IS BENEFICIAL TO OUR CLIENTS AND ADVERSE TO YOU, THE INFORMATION YOU PROVIDE MAY BE USED EVEN IF IT IS CONTRARY TO YOUR INTERESTS.
 

@@ -34,227 +34,224 @@ block head
 
 block content
 
-  //- TODO: Remove (non-existent selector)
-  div(class='content', align='left')
+  unless locals.form_helpers.has_errs( locals.notifications )
+    :markdown
+      <p class='heading'>
+      How can we <span class='bold sky_blue'>help you?</span>
+      </p>
 
-    unless locals.form_helpers.has_errs( locals.notifications )
-      :markdown
-        <p class='heading'>
-        How can we <span class='bold sky_blue'>help you?</span>
-        </p>
+  h1(id= topics[0].id)= topics[0].title
 
-    h1(id= topics[0].id)= topics[0].title
+  unless locals.form_helpers.has_errs( locals.notifications )
+    //- main
+      //- p If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.
 
-    unless locals.form_helpers.has_errs( locals.notifications )
-      //- main
-        //- p If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.
+  if locals.form_helpers.has_errs( locals.notifications )
+    p(id='errors')= locals.form_helpers.count_errs( locals.notifications ) + ' validation errors have been found. Please review your submission and resubmit.'
 
-    if locals.form_helpers.has_errs( locals.notifications )
-      p(id='errors')= locals.form_helpers.count_errs( locals.notifications ) + ' validation errors have been found. Please review your submission and resubmit.'
+  //- Validation errors (server-side)
+  //- include site_message.jade
 
-    //- Validation errors (server-side)
-    //- include site_message.jade
+  unless locals.form_helpers.has_errs( locals.notifications )
+    :markdown
+      <strong>Note:</strong>
+      Labels marked with <span class='req'>*</span> indicates required information.
 
-    unless locals.form_helpers.has_errs( locals.notifications )
-      :markdown
-        <strong>Note:</strong>
-        Labels marked with <span class='req'>*</span> indicates required information.
+  div(class='contact_form')
 
-    div(class='contact_form')
+    //- TODO: Finish HTML5 hooks for custom client-side validation
+    form(action='contact', method='POST',novalidate)
+      fieldset
+        legend Your Personal Information
 
-      //- TODO: Finish HTML5 hooks for custom client-side validation
-      form(action='contact', method='POST',novalidate)
-        fieldset
-          legend Your Personal Information
+        div(class='input_container')
 
-          div(id='input_container')
-
-            div(class='label padding-top-offset20')
-              +check_err(input_errs['first_name'])
-              label(for='contact_first_name') First Name
-              span(class='req') *
-            input(id='contact_first_name', class= locals.form_helpers.class_selector( locals.notifications, input_errs['first_name'] ), type='text', name='contact[first_name]', spellcheck='false', required data-required-msg= input_errs['first_name'], placeholder='First name', value= contact['first_name'], maxlength=255 )
-
-            div(class='label padding-top-offset20')
-              +check_err(input_errs['last_name'])
-              label(for='contact_last_name') Last Name
-              span(class='req') *
-            input(id='contact_last_name', class= locals.form_helpers.class_selector( locals.notifications, input_errs['last_name'] ), type='text', name='contact[last_name]', spellcheck='false', required data-required-msg= input_errs['last_name'], placeholder='Last name', value= contact['last_name'], maxlength=255 )
-
-            div(class='label padding-top-offset20')
-              +check_err(input_errs['email'])
-              label(for='contact_email') Email Address
-              span(class='req') *
-            input(id='contact_email', class= locals.form_helpers.class_selector( locals.notifications, input_errs['email'] ), type='email', name='contact[email]', required data-required-msg= input_errs['email'], placeholder='example@domain.com', value= contact['email'], maxlength=255 )
-
-            //- If we ever use this field again, we must first update it to new
-            //- template vars!
-            //-
-            //- br
-            //- +check_err(input_errs['confirm_email'])
-            //- label(for='contact_confirm_email') Confirm Email
-            //- span(class='req') *
-            //- br
-            //- if notifications != null && notifications.type === 'err' && post_data.email != ''
-            //-   input(id='contact_confirm_email', class='', type='email', name='confirm_email', required data-required-msg=input_errs['confirm_email'], value=post_data.email )
-            //- else
-            //-   input(id='contact_confirm_email', class='', type='email', name='confirm_email', required data-required-msg=input_errs['confirm_email'], placeholder='example@domain.com' )
-
-            div(class='label padding-top-offset20')
-              +check_err(input_errs['phone_area'])
-              +check_err(input_errs['phone_prefix'])
-              +check_err(input_errs['phone_suffix'])
-              +check_err(input_errs['phone_ext'])
-              label(for='phone_area') Phone Number
-
-              // Pass validation hack (shame on me!)
-              label(for='phone_prefix', hidden=true)
-              label(for='phone_suffix', hidden=true)
-              label(for='phone_ext', hidden=true)
-              span(class='req') *
-
-            div(class='note') (extension is optional)
-            |  (
-            input(id='phone_area', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_area'] ), type='tel', name='contact[phone_area]', maxlength=3, required data-required-msg= input_errs['phone_area'], placeholder='479', value= contact['phone_area'] )
-            |  )
-            input(id='phone_prefix', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_prefix'] ), type='tel', name='contact[phone_prefix]', maxlength=3, required data-required-msg= input_errs['phone_prefix'], placeholder='555', value= contact['phone_prefix'] )
-            |  -
-            input(id='phone_suffix', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_suffix'] ), type='tel', name='contact[phone_suffix]', maxlength=4, required data-required-msg= input_errs['phone_suffix'], placeholder='1244', value= contact['phone_suffix'] )
-            input(id='phone_ext', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_ext'] ), type='tel', name='contact[phone_ext]', maxlength=10, required data-required-msg= input_errs['phone_ext'], placeholder='Ext', value= contact['phone_ext'] )
-
-            div(class='label padding-top-offset20')
-              +check_err(input_errs['state'])
-              label(for='contact_state') State
-              span(class='req') *
-            select(id='contact_state', class= locals.form_helpers.class_selector( locals.notifications, input_errs['state'] ), name='contact[state]', required data-required-msg= input_errs['state'] )
-              +select_option('Select State', contact['state'] )
-              +select_option('Alabama', contact['state'] )
-              +select_option('Alaska', contact['state'] )
-              +select_option('Arizona', contact['state'] )
-              +select_option('Arkansas', contact['state'] )
-              +select_option('California', contact['state'] )
-              +select_option('Colorado', contact['state'] )
-              +select_option('Connecticut', contact['state'] )
-              +select_option('Delaware', contact['state'] )
-              +select_option('Florida', contact['state'] )
-              +select_option('Georgia', contact['state'] )
-              +select_option('Hawaii', contact['state'] )
-              +select_option('Idaho', contact['state'] )
-              +select_option('Illinois', contact['state'] )
-              +select_option('Indiana', contact['state'] )
-              +select_option('Iowa', contact['state'] )
-              +select_option('Kansas', contact['state'] )
-              +select_option('Kentucky', contact['state'] )
-              +select_option('Louisiana', contact['state'] )
-              +select_option('Maine', contact['state'] )
-              +select_option('Maryland', contact['state'] )
-              +select_option('Massachusetts', contact['state'] )
-              +select_option('Michigan', contact['state'] )
-              +select_option('Minnesota', contact['state'] )
-              +select_option('Mississippi', contact['state'] )
-              +select_option('Missouri', contact['state'] )
-              +select_option('Montana', contact['state'] )
-              +select_option('Nebraska', contact['state'] )
-              +select_option('Nevada', contact['state'] )
-              +select_option('New Hampshire', contact['state'] )
-              +select_option('New Jersey', contact['state'] )
-              +select_option('New Mexico', contact['state'] )
-              +select_option('New York', contact['state'] )
-              +select_option('North Carolina', contact['state'] )
-              +select_option('North Dakota', contact['state'] )
-              +select_option('Ohio', contact['state'] )
-              +select_option('Oklahoma', contact['state'] )
-              +select_option('Oregon', contact['state'] )
-              +select_option('Pennsylvania', contact['state'] )
-              +select_option('Puerto Rico', contact['state'] )
-              +select_option('Rhode Island', contact['state'] )
-              +select_option('South Carolina', contact['state'] )
-              +select_option('South Dakota', contact['state'] )
-              +select_option('Tennessee', contact['state'] )
-              +select_option('Texas', contact['state'] )
-              +select_option('Utah', contact['state'] )
-              +select_option('Vermont', contact['state'] )
-              +select_option('Virginia', contact['state'] )
-              +select_option('Washington', contact['state'] )
-              +select_option('Washington DC', contact['state'] )
-              +select_option('West Virginia', contact['state'] )
-              +select_option('Wisconsin', contact['state'] )
-              +select_option('Wyoming', contact['state'] )
-
-            div(class='label padding-top-offset20')
-              +check_err(input_errs['zipcode'])
-              label(for='contact_zipcode') Postal Code
-              span(class='req') *
-            //- Yes, 'tel' type is not a typo; a) 'number' type does not bring
-            //- up the numbers-only keypad under Mobile Safari (iOS); b) Google
-            //- Chrome erases our input upon submission if non-numeric input is
-            //- entered.
-            input(id='contact_zipcode', class= locals.form_helpers.class_selector( locals.notifications, input_errs['zipcode'] ), type='tel', name='contact[zipcode]', maxlength=5, required data-required-msg= input_errs['zipcode'], placeholder='72735', value= contact['zipcode'] )
-
-        fieldset
-          legend Your Contact Preference
-
-          div(class='label')
-            +check_err(input_errs['pref'])
-            label(for='pref') How would you like to be contacted?
+          div(class='label padding-top-offset20')
+            +check_err(input_errs['first_name'])
+            label(for='contact_first_name') First Name
             span(class='req') *
-          select(id='pref', class= locals.form_helpers.class_selector( locals.notifications, input_errs['pref'] ), name='contact[pref]', required data-required-msg= input_errs['pref'] )
-            +select_option('Select Preference', contact['pref'] )
-            +select_option('Email', contact['pref'] )
-            +select_option('Phone', contact['pref'] )
+          input(id='contact_first_name', class= locals.form_helpers.class_selector( locals.notifications, input_errs['first_name'] ), type='text', name='contact[first_name]', spellcheck='false', required data-required-msg= input_errs['first_name'], placeholder='First name', value= contact['first_name'], maxlength=255 )
 
-        fieldset
-          legend Your Inquiry
-
-          div(class='label')
-            +check_err(input_errs['message'])
-            label(for='contact_message') Brief description of your legal issue
+          div(class='label padding-top-offset20')
+            +check_err(input_errs['last_name'])
+            label(for='contact_last_name') Last Name
             span(class='req') *
-          textarea(id='contact_message', class= locals.form_helpers.class_selector( locals.notifications, input_errs['message'] ), name='contact[message]', spellcheck='true', required data-required-msg= input_errs['message'],maxlength=8192 )= contact['message']
+          input(id='contact_last_name', class= locals.form_helpers.class_selector( locals.notifications, input_errs['last_name'] ), type='text', name='contact[last_name]', spellcheck='false', required data-required-msg= input_errs['last_name'], placeholder='Last name', value= contact['last_name'], maxlength=255 )
 
-          // DISCLAIMER
-          ul
-            li The use of the Internet or this form for communication with the firm or any individual member of the firm does not establish an attorney-client relationship. Confidential or time-sensitive information should not be sent through this form.
+          div(class='label padding-top-offset20')
+            +check_err(input_errs['email'])
+            label(for='contact_email') Email Address
+            span(class='req') *
+          input(id='contact_email', class= locals.form_helpers.class_selector( locals.notifications, input_errs['email'] ), type='email', name='contact[email]', required data-required-msg= input_errs['email'], placeholder='example@domain.com', value= contact['email'], maxlength=255 )
 
-          +check_err(input_errs['tos'])
-          input(id='tos', class= locals.form_helpers.class_selector( locals.notifications, input_errs['last_name'] ), type='checkbox', name='contact[tos]', value='agree', required data-required-msg= input_errs['tos'], checked= contact['tos'] )
+          //- If we ever use this field again, we must first update it to new
+          //- template vars!
+          //-
+          //- br
+          //- +check_err(input_errs['confirm_email'])
+          //- label(for='contact_confirm_email') Confirm Email
+          //- span(class='req') *
+          //- br
+          //- if notifications != null && notifications.type === 'err' && post_data.email != ''
+          //-   input(id='contact_confirm_email', class='', type='email', name='confirm_email', required data-required-msg=input_errs['confirm_email'], value=post_data.email )
+          //- else
+          //-   input(id='contact_confirm_email', class='', type='email', name='confirm_email', required data-required-msg=input_errs['confirm_email'], placeholder='example@domain.com' )
 
-          label(for='tos') I have read the above disclaimer.
+          div(class='label padding-top-offset20')
+            +check_err(input_errs['phone_area'])
+            +check_err(input_errs['phone_prefix'])
+            +check_err(input_errs['phone_suffix'])
+            +check_err(input_errs['phone_ext'])
+            label(for='phone_area') Phone Number
+
+            // Pass validation hack (shame on me!)
+            label(for='phone_prefix', hidden=true)
+            label(for='phone_suffix', hidden=true)
+            label(for='phone_ext', hidden=true)
+            span(class='req') *
+
+          div(class='note') (extension is optional)
+          |  (
+          input(id='phone_area', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_area'] ), type='tel', name='contact[phone_area]', maxlength=3, required data-required-msg= input_errs['phone_area'], placeholder='479', value= contact['phone_area'] )
+          |  )
+          input(id='phone_prefix', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_prefix'] ), type='tel', name='contact[phone_prefix]', maxlength=3, required data-required-msg= input_errs['phone_prefix'], placeholder='555', value= contact['phone_prefix'] )
+          |  -
+          input(id='phone_suffix', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_suffix'] ), type='tel', name='contact[phone_suffix]', maxlength=4, required data-required-msg= input_errs['phone_suffix'], placeholder='1244', value= contact['phone_suffix'] )
+          input(id='phone_ext', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_ext'] ), type='tel', name='contact[phone_ext]', maxlength=10, required data-required-msg= input_errs['phone_ext'], placeholder='Ext', value= contact['phone_ext'] )
+
+          div(class='label padding-top-offset20')
+            +check_err(input_errs['state'])
+            label(for='contact_state') State
+            span(class='req') *
+          select(id='contact_state', class= locals.form_helpers.class_selector( locals.notifications, input_errs['state'] ), name='contact[state]', required data-required-msg= input_errs['state'] )
+            +select_option('Select State', contact['state'] )
+            +select_option('Alabama', contact['state'] )
+            +select_option('Alaska', contact['state'] )
+            +select_option('Arizona', contact['state'] )
+            +select_option('Arkansas', contact['state'] )
+            +select_option('California', contact['state'] )
+            +select_option('Colorado', contact['state'] )
+            +select_option('Connecticut', contact['state'] )
+            +select_option('Delaware', contact['state'] )
+            +select_option('Florida', contact['state'] )
+            +select_option('Georgia', contact['state'] )
+            +select_option('Hawaii', contact['state'] )
+            +select_option('Idaho', contact['state'] )
+            +select_option('Illinois', contact['state'] )
+            +select_option('Indiana', contact['state'] )
+            +select_option('Iowa', contact['state'] )
+            +select_option('Kansas', contact['state'] )
+            +select_option('Kentucky', contact['state'] )
+            +select_option('Louisiana', contact['state'] )
+            +select_option('Maine', contact['state'] )
+            +select_option('Maryland', contact['state'] )
+            +select_option('Massachusetts', contact['state'] )
+            +select_option('Michigan', contact['state'] )
+            +select_option('Minnesota', contact['state'] )
+            +select_option('Mississippi', contact['state'] )
+            +select_option('Missouri', contact['state'] )
+            +select_option('Montana', contact['state'] )
+            +select_option('Nebraska', contact['state'] )
+            +select_option('Nevada', contact['state'] )
+            +select_option('New Hampshire', contact['state'] )
+            +select_option('New Jersey', contact['state'] )
+            +select_option('New Mexico', contact['state'] )
+            +select_option('New York', contact['state'] )
+            +select_option('North Carolina', contact['state'] )
+            +select_option('North Dakota', contact['state'] )
+            +select_option('Ohio', contact['state'] )
+            +select_option('Oklahoma', contact['state'] )
+            +select_option('Oregon', contact['state'] )
+            +select_option('Pennsylvania', contact['state'] )
+            +select_option('Puerto Rico', contact['state'] )
+            +select_option('Rhode Island', contact['state'] )
+            +select_option('South Carolina', contact['state'] )
+            +select_option('South Dakota', contact['state'] )
+            +select_option('Tennessee', contact['state'] )
+            +select_option('Texas', contact['state'] )
+            +select_option('Utah', contact['state'] )
+            +select_option('Vermont', contact['state'] )
+            +select_option('Virginia', contact['state'] )
+            +select_option('Washington', contact['state'] )
+            +select_option('Washington DC', contact['state'] )
+            +select_option('West Virginia', contact['state'] )
+            +select_option('Wisconsin', contact['state'] )
+            +select_option('Wyoming', contact['state'] )
+
+          div(class='label padding-top-offset20')
+            +check_err(input_errs['zipcode'])
+            label(for='contact_zipcode') Postal Code
+            span(class='req') *
+          //- Yes, 'tel' type is not a typo; a) 'number' type does not bring
+          //- up the numbers-only keypad under Mobile Safari (iOS); b) Google
+          //- Chrome erases our input upon submission if non-numeric input is
+          //- entered.
+          input(id='contact_zipcode', class= locals.form_helpers.class_selector( locals.notifications, input_errs['zipcode'] ), type='tel', name='contact[zipcode]', maxlength=5, required data-required-msg= input_errs['zipcode'], placeholder='72735', value= contact['zipcode'] )
+
+      fieldset
+        legend Your Contact Preference
+
+        div(class='label')
+          +check_err(input_errs['pref'])
+          label(for='pref') How would you like to be contacted?
           span(class='req') *
+        select(id='pref', class= locals.form_helpers.class_selector( locals.notifications, input_errs['pref'] ), name='contact[pref]', required data-required-msg= input_errs['pref'] )
+          +select_option('Select Preference', contact['pref'] )
+          +select_option('Email', contact['pref'] )
+          +select_option('Phone', contact['pref'] )
 
-        button(class='blue-button border-rounded margin-bottom-offset25', type='submit', name='action', value='send_msg') Send Message
+      fieldset
+        legend Your Inquiry
 
-        //- script(src='/javascripts/ie-behavior.js')
-        //- script.
-        //-   // http://modernizr.com/docs/
-        //-   Modernizr.load([
-        //-     // Functional polyfills
-        //-     {
-        //-       test : Modernizr.placeholder,
-        //-       // HTML5 Placeholder Attribute Polyfill (IE-only Behavior)
-        //-       // https://github.com/UmbraEngineering/Placeholder
-        //-       nope : '/javascripts/ie-behavior.js',
-        //-       complete : function () {
-        //-         // ...
-        //-       }
-        //-     }
-        //-   ]);
+        div(class='label')
+          +check_err(input_errs['message'])
+          label(for='contact_message') Brief description of your legal issue
+          span(class='req') *
+        textarea(id='contact_message', class= locals.form_helpers.class_selector( locals.notifications, input_errs['message'] ), name='contact[message]', spellcheck='true', required data-required-msg= input_errs['message'],maxlength=8192 )= contact['message']
 
-      //- FIXME:
+        // DISCLAIMER
+        ul
+          li The use of the Internet or this form for communication with the firm or any individual member of the firm does not establish an attorney-client relationship. Confidential or time-sensitive information should not be sent through this form.
+
+        +check_err(input_errs['tos'])
+        input(id='tos', class= locals.form_helpers.class_selector( locals.notifications, input_errs['last_name'] ), type='checkbox', name='contact[tos]', value='agree', required data-required-msg= input_errs['tos'], checked= contact['tos'] )
+
+        label(for='tos') I have read the above disclaimer.
+        span(class='req') *
+
+      button(class='blue-button border-rounded margin-bottom-offset25', type='submit', name='action', value='send_msg') Send Message
+
+      //- script(src='/javascripts/ie-behavior.js')
       //- script.
-      //-   var elem = document.getElementById("contact_confirm_email");
-      //-   elem.addEventListener("blur", verify_email);
-      //-   function verify_email(input) {
-      //-     input = input.srcElement;
-      //-     console.log( input.value);
-      //-     console.log( document.getElementById('contact_email').value );
-      //-     if (input.value != document.getElementById('contact_email').value) {
-      //-       // the provided value does *not* match the primary email address
-      //-       input.setCustomValidity('Your e-mail address does not match.');
-      //-     } else {
-      //-       // input is valid -- reset the error message
-      //-       input.setCustomValidity('');
+      //-   // http://modernizr.com/docs/
+      //-   Modernizr.load([
+      //-     // Functional polyfills
+      //-     {
+      //-       test : Modernizr.placeholder,
+      //-       // HTML5 Placeholder Attribute Polyfill (IE-only Behavior)
+      //-       // https://github.com/UmbraEngineering/Placeholder
+      //-       nope : '/javascripts/ie-behavior.js',
+      //-       complete : function () {
+      //-         // ...
+      //-       }
       //-     }
-      //-   }
+      //-   ]);
+
+    //- FIXME:
+    //- script.
+    //-   var elem = document.getElementById("contact_confirm_email");
+    //-   elem.addEventListener("blur", verify_email);
+    //-   function verify_email(input) {
+    //-     input = input.srcElement;
+    //-     console.log( input.value);
+    //-     console.log( document.getElementById('contact_email').value );
+    //-     if (input.value != document.getElementById('contact_email').value) {
+    //-       // the provided value does *not* match the primary email address
+    //-       input.setCustomValidity('Your e-mail address does not match.');
+    //-     } else {
+    //-       // input is valid -- reset the error message
+    //-       input.setCustomValidity('');
+    //-     }
+    //-   }
 
 block footer

@@ -291,9 +291,7 @@
   border-radius: 21px;
 }
 
-.blue-button {
-  /* sky blue */
-  background-color: #5eb0ea;
+.button {
   padding: 14px 28px;
   border: none;
   color: white !important;
@@ -306,6 +304,10 @@
 
   /* Spacing in between buttons */
   margin-left: 20px;
+}
+
+.button:hover {
+  background: #468CCF !important;
 }
 
 .margin-top-offset20 {
@@ -364,10 +366,6 @@
   padding-bottom: 25px;
 }
 
-.blue-button:hover {
-  background: #468CCF !important;
-}
-
 .contact_form ul {
   list-style: none;
   padding: 0;
@@ -392,8 +390,16 @@
 
 /* Helpers */
 
-.sky_blue {
+.sky-blue {
   color: #5eb0ea;
+}
+
+.sky-blue-bg {
+  background-color: #5eb0ea;
+}
+
+.orange-grad {
+  background: linear-gradient(to bottom, #FA9334, #F4712B);
 }
 
 .align_left {

@@ -39,7 +39,7 @@ block content
   unless locals.form_helpers.has_errs( locals.notifications )
     :markdown
       <p class='heading'>
-      How can we <span class='bold sky_blue'>help you?</span>
+      How can we <span class='bold sky-blue'>help you?</span>
       </p>
 
   h1(id= topics[0].id)= topics[0].title
@@ -225,7 +225,7 @@ block content
         label(for='tos') I have read the above disclaimer.
         span(class='req') *
 
-      button(class='blue-button border-rounded margin-top-offset25 margin-bottom-offset25', type='submit', name='action', value='send_msg') Send Message
+      button(class='button orange-grad border-rounded margin-top-offset25 margin-bottom-offset25', type='submit', name='action', value='send_msg') Send Message
 
       //- script.
       //-   // http://modernizr.com/docs/

@@ -212,6 +212,9 @@ block content
           span(class='req') *
         textarea(id='contact_message', class= locals.form_helpers.class_selector( locals.notifications, input_errs['message'] ), name='contact[message]', spellcheck='true', required data-required-msg= input_errs['message'],maxlength=8192 )= contact['message']
 
+      fieldset
+        legend Legal Disclaimer
+
         // DISCLAIMER
         ul
           li The use of the Internet or this form for communication with the firm or any individual member of the firm does not establish an attorney-client relationship. Confidential or time-sensitive information should not be sent through this form.
@@ -222,7 +225,7 @@ block content
         label(for='tos') I have read the above disclaimer.
         span(class='req') *
 
-      button(class='blue-button border-rounded margin-bottom-offset25', type='submit', name='action', value='send_msg') Send Message
+      button(class='blue-button border-rounded margin-top-offset25 margin-bottom-offset25', type='submit', name='action', value='send_msg') Send Message
 
       //- script.
       //-   // http://modernizr.com/docs/

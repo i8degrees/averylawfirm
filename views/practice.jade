@@ -37,6 +37,9 @@ block content
       else
         h1 Invalid Topic
         p Sorry, we could not find your requested topic!
+
+        //- This should not happen! I'd suspect: a) something screwy in the
+        //- routing -- see practice.js; b) potential security breach attempt
         - console.info( "INFO: Topic data from \"%s\" (ID=%d) cannot be rendered: invalid data file.", topic.title, id );
 
       //- Parent page handling

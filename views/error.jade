@@ -15,46 +15,51 @@ block title
     //- Undefined err status code
     title= 'Application Error'
 
+block fonts
+
+  if locals.settings.remote
+    link(href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono', rel='stylesheet', type='text/css')
+
 block head
 
   link(rel='stylesheet', href='/stylesheets/error_404.css')
 
 block content
 
-  .container
+  case error.status
 
-    case error.status
+    when 404
+      //- Handle 404 err status code by trying to provide some assistance
 
-      when 404
-        //- Handle 404 err status code by trying to provide some assistance
+      +print_err_code(error.status, message)
 
-        +print_err_code(error.status, message)
+      // TODO: Frown face image?
+      p :-(
+      p Sorry, but the page you were trying to view does not exist.
+      p It looks like this was the result of either:
+      ul
+        li a mistyped address
+        li an out-of-date link
+      script.
+        // Google 404 Widget helper
+        // https://support.google.com/webmasters/answer/136085
+        var GOOG_FIXURL_LANG = 'en';
+        var GOOG_FIXURL_SITE = (navigator.language || '').slice(0,2),GOOG_FIXURL_SITE = location.host;
 
-        // TODO: Frown face image?
-        p :-(
-        p Sorry, but the page you were trying to view does not exist.
-        p It looks like this was the result of either:
-        ul
-          li a mistyped address
-          li an out-of-date link
-        script.
-          // Google 404 Widget helper
-          // https://support.google.com/webmasters/answer/136085
-          var GOOG_FIXURL_LANG = 'en';
-          var GOOG_FIXURL_SITE = (navigator.language || '').slice(0,2),GOOG_FIXURL_SITE = location.host;
+      if locals.settings.remote
+        script(src='http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js')
 
-        if locals.settings.remote
-          script(src='http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js')
+      //- Handle undefined err status code
+    default
 
-        //- Handle undefined err status code
-      default
+      +print_err_code(500, 'Application Error')
 
-        +print_err_code(500, 'Application Error')
+      //- Handle defined err status code with a generic message.
+      // TODO: Frown face image?
 
-        //- Handle defined err status code with a generic message.
-        // TODO: Frown face image?
-        p :-(
-        p Sorry, but the page has erred on us.
+      p :-(
+      p Sorry, but the page has erred on us.
 
-    if locals.settings.env === 'development' || locals.settings.env === 'testing'
-      pre #{error.stack}
+  if locals.settings.env === 'development' || locals.settings.env === 'testing'
+    hr
+    pre(class='code-box') #{error.stack}

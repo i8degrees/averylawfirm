@@ -467,3 +467,10 @@ factor of 1.5 from its original dimensions (320x240) */
   width: 150%;
   text-align: center;
 }
+
+.code-box {
+  border: 2px solid grey;
+  background: white;
+  border-radius: 0;
+  margin-bottom: 10px;
+}

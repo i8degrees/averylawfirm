@@ -24,11 +24,11 @@
   /*border: 1px dashed gray;*/
 }
 
-/* Top-level header container */
+/* Top-level header container (includes navigation) */
 .header {
-  padding: 2%;
+  /* Necessary for the company header to fit */
+  padding-top: 4%;
 
-  border: none;
   /*background-color: white;*/
 
   /* Gray */
@@ -37,12 +37,38 @@
   /* Green */
   background-color: #C3DFB7;
 
+  border: none;
+
   /* Debugging aid */
   /*border: 1px solid red;*/
 }
 
+.company-header {
+  /* We want the site header to be a stateless hyper-link (no change in color) */
+  text-decoration: none;
+
+  font-family: 'Arbutus Slab', serif;
+  /*font-family: 'Adamina', serif;*/
+  /*font-family: 'Lora', serif;*/
+
+  font-size: 200%;
+
+  /* Red */
+  color: #ff2f2c;
+
+  padding-left: 2%;
+}
+
 /* Top-level navigation container */
 .nav {
+  /* This controls the vertical spacing in between the company header and
+  navigation; ~2% minimum is necessary on the mobile profile */
+  padding-top: 4%;
+  padding-bottom: 2%;
+
+  /* ...navigational items start falling off otherwise! */
+  padding-right: 2%;
+
   font-weight: 600;
   font-size: 115%;
 
@@ -58,7 +84,7 @@
 
 .nav-link-parent {
   font-weight: 600;
-  padding: 3px 12px;
+  padding: 8px 12px;
   text-decoration: none;
   color: black;
   /*color: white;*/
@@ -66,8 +92,7 @@
 }
 
 .nav-link-parent:hover {
-  /*color: blue;*/
-  /*color: white;*/
+  color: white;
 
   /* Sky blue */
   /*background-color: #5eb0ea;*/
@@ -327,6 +352,10 @@
   padding-left: 20px;
 }
 
+.padding-bottom-offset10 {
+  padding-bottom: 10px;
+}
+
 .padding-bottom-offset20 {
   padding-bottom: 20px;
 }
@@ -365,16 +394,6 @@
 
 .sky_blue {
   color: #5eb0ea;
-}
-
-.site-header-red {
-  /* Red */
-  color: #ff2f2c;
-}
-
-/* We want the site header to be a stateless hyper-link (no changes in color) */
-.site-header-link {
-  text-decoration: none;
 }
 
 .align_left {

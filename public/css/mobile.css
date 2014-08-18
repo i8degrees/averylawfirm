@@ -9,6 +9,9 @@
     /* Nice and easy to touch click */
     line-height: 2.5em;
     text-align: left;
+
+    /* Reset padding so we can highlight 100% of the nav-link block */
+    padding-right: 0%;
   }
 
   .nav-link-parent {

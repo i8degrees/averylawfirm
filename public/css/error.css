@@ -29,6 +29,7 @@ html, input {
 input::-moz-focus-inner { padding: 0; border: 0; }
 
 pre {
+  /* Depends on local installation of Droid Sans Mono */
   font-family: 'Droid Sans Mono', monospace;
   font-size: 100%;
   overflow: auto;

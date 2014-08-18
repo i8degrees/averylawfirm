@@ -7,6 +7,10 @@ var validator = require('express-validator');
 
 // contact GET view
 router.get('/', function(req, res) {
+
+  // Mock error object that we can pass while doing layout work:
+  // res.locals.notifications = { type: 'err', messages: [ { msg: res.locals.input_errs['contact'].first_name }, { msg: res.locals.input_errs['contact'].message } ] };
+
   res.render('contact', { input_errs: res.locals.input_errs['contact'] } );
 });
 

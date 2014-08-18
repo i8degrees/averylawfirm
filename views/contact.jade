@@ -19,7 +19,9 @@ mixin select_option( label, form_var )
 //-                   the errors object.
 mixin check_err( input_field )
   if locals.form_helpers.has_err( locals.notifications, input_field )
-    div( class='err' )= input_field
+    div( class='err' )
+      img(style='padding-right: 8px;', src='/images/error_16.png', alt='Error Icon')
+      = input_field
 
 extends layout
 
@@ -47,7 +49,8 @@ block content
       //- p If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.
 
   if locals.form_helpers.has_errs( locals.notifications )
-    p(id='errors')= locals.form_helpers.count_errs( locals.notifications ) + ' validation errors have been found. Please review your submission and resubmit.'
+    img(class='float-left', src='/images/alert.png', alt='Alert Icon')
+    p= locals.form_helpers.count_errs( locals.notifications ) + ' submission errors have been found.'
 
   //- Validation errors (server-side)
   //- include site_message.jade
@@ -57,7 +60,7 @@ block content
       <strong>Note:</strong>
       Labels marked with <span class='req'>*</span> indicates required information.
 
-  div(class='contact_form')
+  div(class='contact_form float-left-reset')
 
     //- TODO: Finish HTML5 hooks for custom client-side validation
     form(action='contact', method='POST',novalidate)

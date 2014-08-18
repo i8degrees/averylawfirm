@@ -174,7 +174,7 @@
 }
 
 .contact_form legend {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 /*.contact_form table, th {
@@ -303,6 +303,34 @@
   padding-top: 20px;
 }
 
+.padding-top-offset25 {
+  padding-top: 25px;
+}
+
+.padding-right-offset16 {
+  padding-right: 16px;
+}
+
+.padding-right-offset25 {
+  padding-right: 25px;
+}
+
+.padding-left-offset10 {
+  padding-left: 10px;
+}
+
+.padding-left-offset20 {
+  padding-left: 20px;
+}
+
+.padding-bottom-offset20 {
+  padding-bottom: 20px;
+}
+
+.padding-bottom-offset25 {
+  padding-bottom: 25px;
+}
+
 .blue-button:hover {
   background: #468CCF !important;
 }
@@ -365,6 +393,18 @@ the disclaimer text within the form. */
 
 .float-right {
   float: right;
+}
+
+.float-left-reset {
+  clear: left;
+}
+
+.float-right-reset {
+  clear: right;
+}
+
+.float-reset {
+  clear: both;
 }
 
 .heading {

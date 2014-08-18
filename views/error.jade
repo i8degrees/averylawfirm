@@ -4,6 +4,11 @@ mixin print_err_code(code, err)
   else
     h1= err
 
+mixin print_err_message( msg )
+  div(class='float-left')
+    img(class='padding-right-offset16', src="/images/frown_64.png", alt="Frown Face" )
+  p(class='padding-bottom-offset25')= msg
+
 extends layout
 
 block title
@@ -32,10 +37,8 @@ block content
       //- Handle 404 err status code by trying to provide some assistance
 
       +print_err_code(error.status, message)
+      +print_err_message("Sorry, but the page you were trying to view does not exist.")
 
-      // TODO: Frown face image?
-      p :-(
-      p Sorry, but the page you were trying to view does not exist.
       p It looks like this was the result of either:
       ul
         li a mistyped address
@@ -53,12 +56,7 @@ block content
     default
 
       +print_err_code(500, 'Application Error')
-
-      //- Handle defined err status code with a generic message.
-      // TODO: Frown face image?
-
-      p :-(
-      p Sorry, but the page has erred on us.
+      +print_err_message("Sorry, but the page has erred on us.")
 
   if locals.settings.env === 'development' || locals.settings.env === 'testing'
     hr

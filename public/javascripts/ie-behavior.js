@@ -1,10 +1,9 @@
 //
-// HTML5 Placeholder Attribute Polyfill (IE Behavior)
+// HTML5 Placeholder Attribute Polyfill (Simple)
 //
 // Author: James Brumond <james@jbrumond.me> (http://www.jbrumond.me)
 //
 // Source: https://github.com/UmbraEngineering/Placeholder
-//
 
 (function(window, document, undefined) {
 
@@ -15,21 +14,46 @@
     return;
   }
 
-  // This method is called by the behavior expression to do the actual polyfilling
-  document.placeholderPolyfill = function(elem) {
-    return polyfillElement(elem);
+  // Fetch NodeLists of the needed element types
+  var inputs = document.getElementsByTagName('input');
+  var textareas = document.getElementsByTagName('textarea');
+
+  //
+  // Define the exposed polyfill methods for manual calls
+  //
+  document.placeholderPolyfill = function(elems) {
+    elems = elems ? validElements(elems) : validElements(inputs, textareas);
+    each(elems, polyfillElement);
   };
 
   // Expose whether or not the polyfill is in use (false means native support)
   document.placeholderPolyfill.active = true;
 
-  // Add the needed CSS
-  var css = firstStylesheet();
-  css.addRule('.-placeholder', 'color: #888;', 0);
-  css.addRule('input', 'behavior: expression(document.placeholderPolyfill(this))', 0);
-  css.addRule('textarea', 'behavior: expression(document.placeholderPolyfill(this))', 0);
-  css.addRule('input', '-ms-behavior: expression(document.placeholderPolyfill(this))', 0);
-  css.addRule('textarea', '-ms-behavior: expression(document.placeholderPolyfill(this))', 0);
+  // Run automatically
+  document.placeholderPolyfill();
+
+// -------------------------------------------------------------
+
+  // Use mutation events for auto-updating
+  if (document.addEventListener) {
+    document.addEventListener('DOMAttrModified', document.placeholderPolyfill);
+    document.addEventListener('DOMNodeInserted', document.placeholderPolyfill);
+  }
+
+  // Use onpropertychange for auto-updating
+  else if (document.attachEvent && 'onpropertychange' in document) {
+    document.attachEvent('onpropertychange', document.placeholderPolyfill);
+  }
+
+  // No event-based auto-update
+  else {
+    // pass
+  }
+
+// -------------------------------------------------------------
+
+  // Add some basic default styling for placeholders
+  firstStylesheet().addRule('.-placeholder', 'color: #888;', 0);
 
 // -------------------------------------------------------------
 
@@ -37,15 +61,12 @@
   // Polyfill a single, specific element
   //
   function polyfillElement(elem) {
-    if (! isValidElement(elem)) {return;}
-
     // If the element is already polyfilled, skip it
     if (elem.__placeholder != null) {
       // Make sure that if the placeholder is already shown, that it is at least up-to-date
       if (elem.__placeholder) {
         elem.value = getPlaceholder();
       }
-
       return;
     }
 
@@ -66,12 +87,26 @@
     }
 
     // Define the events that cause these functions to be fired
-    addEvent(elem, 'keyup',           checkPlaceholder);
-    addEvent(elem, 'keyDown',         checkPlaceholder);
-    addEvent(elem, 'blur',            checkPlaceholder);
-    addEvent(elem, 'focus',           hidePlaceholder);
-    addEvent(elem, 'click',           hidePlaceholder);
-    addEvent(elem, 'propertychange',  updatePlaceholder);
+    addEvent(elem, 'keyup',    checkPlaceholder);
+    addEvent(elem, 'keyDown',  checkPlaceholder);
+    addEvent(elem, 'blur',     checkPlaceholder);
+    addEvent(elem, 'focus',    hidePlaceholder);
+    addEvent(elem, 'click',    hidePlaceholder);
+
+    // Use mutation events for auto-updating
+    if (elem.addEventListener) {
+      addEvent(elem, 'DOMAttrModified', updatePlaceholder);
+    }
+
+    // Use onpropertychange for auto-updating
+    else if (elem.attachEvent && 'onpropertychange' in elem) {
+      addEvent(elem, 'propertychange', updatePlaceholder);
+    }
+
+    // No event-based auto-update
+    else {
+      // pass
+    }
 
     function updatePlaceholder() {
       // Run this asynchronously to make sure all needed updates happen before we run checks
@@ -125,6 +160,23 @@
   }
 
 // -------------------------------------------------------------
+
+  //
+  // Build a list of valid (can have a placeholder) elements from the given parameters
+  //
+  function validElements() {
+    var result = [ ];
+
+    each(arguments, function(arg) {
+      if (typeof arg.length !== 'number') {
+        arg = [ arg ];
+      }
+
+      result.push.apply(result, filter(arg, isValidElement));
+    });
+
+    return result;
+  }
 
   //
   // Check if a given element supports the placeholder attribute

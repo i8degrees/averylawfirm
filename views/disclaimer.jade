@@ -1,0 +1,24 @@
+extends layout
+
+block title
+
+  title= topic.title + ' : ' + locals.settings.site_owner['company']
+
+block head
+
+block content
+
+  //- Try to load topic page; note that we must use a callback here so we
+  //- can see changes made to the Markdown files without restarting the
+  //- server.
+  if typeof topic.load === 'function'
+    locals.md!=locals.md( topic.load() )
+  else
+    h1 Invalid Topic
+    p Sorry, we could not find your requested topic!
+
+    //- This should not happen! I'd suspect: a) something screwy in the
+    //- routing -- see index.js; b) potential security breach attempt
+    - console.info( "INFO: Topic data from \"%s\" cannot be rendered: invalid data file.", topic.title );
+
+block footer

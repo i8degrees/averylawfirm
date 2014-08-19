@@ -16,6 +16,11 @@ var topics = {
     title: 'Privacy Policy',
     // id: 'privacy',
     load: function load() { return fs.readFileSync('./data/pages/privacy.md', opts ); }
+  },
+  disclaimer: {
+    title: 'Legal Disclaimer',
+    // id: 'disclaimer',
+    load: function load() { return fs.readFileSync('./data/pages/disclaimer.md', opts ); }
   }
 };
 
@@ -29,6 +34,10 @@ router.get('/index', function(req, res) {
 
 router.get('/about', function(req, res) {
   res.render('index', { topic: topics['about'] } );
+});
+
+router.get('/disclaimer', function(req, res) {
+  res.render('disclaimer', { topic: topics['disclaimer'] } );
 });
 
 router.get('/privacy', function(req, res) {

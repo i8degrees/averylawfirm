@@ -6,7 +6,7 @@ If you are seeking skilled and diligent representation in any type of case, cont
 
 # Fees
 
-One of the biggest questions you may have when hiring an attorney is how much it will cost and whether or not you can afford a lawyer’s services. Laura will not quote a fee until she has met with you to discuss your case in person. Each case is unique, and fees are based on the expected time involved, the complexity of the issues, and the desired outcome of your case. Laura offers a free initial consultation so that you can meet with her and discuss your questions, goals and expectations regarding your case.
+One of the biggest questions you may have when hiring an attorney is how much it will cost and whether or not you can afford a lawyer's services. Laura will not quote a fee until she has met with you to discuss your case in person. Each case is unique, and fees are based on the expected time involved, the complexity of the issues, and the desired outcome of your case. Laura offers a free initial consultation so that you can meet with her and discuss your questions, goals and expectations regarding your case.
 
 ## Sub-topic
 

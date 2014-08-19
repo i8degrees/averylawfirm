@@ -5,8 +5,11 @@
   padding: 0;
   font-family: 'Open Sans', sans-serif;
   font-size: 150%;
-  /*letter-spacing: 1.0px;*/
-  line-height: 1.4em;
+
+  /*line-height: 1.4em;*/
+  letter-spacing: 0.5px;
+  line-height: 1.8em;
+
   color: black;
   background-color: white;
 
@@ -22,6 +25,10 @@
 
   /* Debugging aid */
   /*border: 1px dashed gray;*/
+}
+
+.address {
+  font-family: 'Open Sans', sans-serif;
 }
 
 /* Top-level header container (includes navigation) */
@@ -155,10 +162,25 @@
 
   /* Debugging aid */
   /*border: 1px solid gray;*/
+
+  font-family: 'Lora', serif;
 }
 
 .content_container h1, h2, h3, h4, h5, h6 {
-  font-family: Lora, serif;
+  /*font-family: Lora, serif;*/
+  font-family: 'Open Sans', sans-serif;
+}
+
+.content_container h1 {
+  font-weight: 600;
+}
+
+.content_container h2, h3 {
+  font-weight: 500;
+}
+
+.content_container h4, h5, h6 {
+  font-weight: 400;
 }
 
 /* Top-level footer container */
@@ -189,6 +211,10 @@
   font-size: 100%;
   font-style: normal !important;
   font-weight: 400;
+}
+
+.contact_form {
+  font-family: 'Open Sans', sans-serif;
 }
 
 .contact_form fieldset {
@@ -373,6 +399,7 @@
 }
 
 .contact_form li {
+  /*font-family: 'Lora', serif;*/
   font-size: 90%;
 
   /* Spacing in between disclaimer and textarea */
@@ -439,6 +466,7 @@
   font-size: 250%;
   font-weight: 600;
   line-height: 1.3em;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .bold {
@@ -533,6 +561,7 @@ factor of 1.5 from its original dimensions (320x240) */
 .map_caption {
   width: 150%;
   text-align: center;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .code-box {

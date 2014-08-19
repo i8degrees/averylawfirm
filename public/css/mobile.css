@@ -78,6 +78,25 @@
     width: 200px;
   }
 
+  .contact_form #phone_area {
+    width: 30px;
+  }
+
+  .contact_form #phone_prefix {
+    width: 30px;
+  }
+
+  .contact_form #phone_suffix {
+    width: 40px;
+  }
+
+  .contact_form #phone_ext {
+    width: 30px;
+
+    /* Spacing in between the extension and phone suffix */
+    margin-left: 10px;
+  }
+
   .contact_form #contact_state {
     /*width: 175px;*/
   }
@@ -87,6 +106,7 @@
   }
 
   .contact_form #contact_message {
+    width: 96%;
     height: 240px;
   }
 

@@ -50,24 +50,25 @@ block content
 
   if locals.form_helpers.has_errs( locals.notifications )
     img(class='float-left', src='/images/alert.png', alt='Alert Icon')
-    p= locals.form_helpers.count_errs( locals.notifications ) + ' submission errors have been found.'
+    span(class='sans')
+      p= locals.form_helpers.count_errs( locals.notifications ) + ' submission errors have been found.'
 
   //- Validation errors (server-side)
   //- include site_message.jade
 
   unless locals.form_helpers.has_errs( locals.notifications )
-    :markdown
-      <strong>Note:</strong>
-      Labels marked with <span class='req'>*</span> indicates required information.
+    span(class='sans')
+      :markdown
+        <strong>Note:</strong>
+        Labels marked with <span class='req'>*</span> indicates required information.
 
   div(class='contact_form float-left-reset')
 
     //- TODO: Finish HTML5 hooks for custom client-side validation
     form(action='contact', method='POST',novalidate)
-      fieldset
-        legend Your Personal Information
-
-        div(class='input_container')
+      div(class='input_container')
+        fieldset
+          legend Your Personal Information
 
           div(class='label padding-top-offset20')
             +check_err(input_errs['first_name'])
@@ -222,7 +223,7 @@ block content
         +check_err(input_errs['tos'])
         input(id='tos', class= locals.form_helpers.class_selector( locals.notifications, input_errs['last_name'] ), type='checkbox', name='contact[tos]', value='agree', required data-required-msg= input_errs['tos'], checked= contact['tos'] )
 
-        label(for='tos') I have read the above disclaimer.
+        label(for='tos') I have read the disclaimer.
         span(class='req') *
 
       button(class='orange-button border-rounded margin-top-offset25 margin-bottom-offset25', type='submit', name='action', value='send_msg') Send Message

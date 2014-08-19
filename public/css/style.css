@@ -27,10 +27,6 @@
   /*border: 1px dashed gray;*/
 }
 
-.address {
-  font-family: 'Open Sans', sans-serif;
-}
-
 /* Top-level header container (includes navigation) */
 .header {
   /* Necessary for the company header to fit */
@@ -105,10 +101,25 @@
   /*background-color: #5eb0ea;*/
 }
 
-.nav form {
-  /* Keep everything on the same line */
-  /*display: inline;*/
-  display: block;
+.nav-link-parent-active {
+  color: white;
+
+  /* sky blue */
+  background-color: #5eb0ea;
+
+  /*color: #FF8E2C;*/
+  /* Orange */
+  /*background-color: #FF8E2C;*/
+}
+
+/* Mobile only */
+.nav-link-child {
+  display: none;
+}
+
+/* Mobile only */
+.nav-link-child-active {
+  display: none;
 }
 
 .search_input {
@@ -137,27 +148,6 @@
   border: none;
   height: 16px;
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6%2BR8AAAAlElEQVR42oWQQRHEIAxF10ElVAISVgo3bCABCUhYCZWAhEpAQpoD6bzJhNnDO0DyyA8fEXkppXyVCpLViDUfyqVIQN9JFMY637hrlCySFauL21E7KVWbAIGx56rnSLqc5KPXSLo3kySalPhTygFhRDtFC09EIsMeZJSGBj7Qveh3OJW89syImiH%2BIO2BOJX0XwA2%2BQEL4pAhSX4aBQAAAABJRU5ErkJggg%3D%3D) 0 0 no-repeat;
-}
-
-.nav-link-parent-active {
-  color: white;
-
-  /* sky blue */
-  background-color: #5eb0ea;
-
-  /*color: #FF8E2C;*/
-  /* Orange */
-  /*background-color: #FF8E2C;*/
-}
-
-/* Mobile only */
-.nav-link-child {
-  display: none;
-}
-
-/* Mobile only */
-.nav-link-child-active {
-  display: none;
 }
 
 .content_container {
@@ -544,6 +534,10 @@
 
 .label {
   width: inherit;
+}
+
+.address {
+  font-family: 'Open Sans', sans-serif;
 }
 
 /* Desktop only */

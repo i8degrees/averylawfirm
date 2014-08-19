@@ -20,12 +20,12 @@
   }
 
   /* Desktop only */
-  .nav .search_input {
+  .search_input {
     display: none;
   }
 
   /* Desktop only */
-  .nav .search_button {
+  .search_button {
     background: none;
     display: none;
   }

@@ -107,18 +107,30 @@
 
 .nav form {
   /* Keep everything on the same line */
-  display: inline;
+  /*display: inline;*/
+  display: block;
 }
 
-.nav .search_input {
+.search_input {
   /* Override width in #google_cse (google_cse.css); this is OK as long as we
   honor the minimum width requirement of 118px */
-  width: 200px;
-  height: 25px;
+  /*width: 200px;*/
+
+  width: 400px;
+  height: 38px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  /*font-style: italic;*/
+  font-size: 100%;
 
   /* Spacing in between navi links & input element */
-  margin-left: 20px;
+  /*margin-left: 20px;*/
   border: 1px solid #666;
+}
+
+.search_input:focus {
+  /* Light Tan */
+  background-color: #ffc;
 }
 
 .search_button {

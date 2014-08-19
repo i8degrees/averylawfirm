@@ -15,10 +15,10 @@ block title
 
   //- Defined err status code
   if error.status
-    title= message
+    title= message + ' : ' + locals.settings.site_owner['company']
   else
     //- Undefined err status code
-    title= 'Application Error'
+    title= 'Application Error' + ' : ' + locals.settings.site_owner['company']
 
 block fonts
 

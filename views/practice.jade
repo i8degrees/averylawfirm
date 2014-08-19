@@ -3,9 +3,9 @@ extends layout
 block title
 
   if topic.href != '/practice'
-    title= 'Areas of Practice' + ': ' + topic.title
+    title= topic.title + ' : ' + 'Areas of Practice'
   else
-    title= topic.title
+    title= 'Areas of Practice' + ' : ' + locals.settings.site_owner['company']
 
 block head
 

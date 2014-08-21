@@ -11,43 +11,27 @@ block head
 
 block content
 
-  //- :markdown
-    <p class='heading'>
-      ...How to <span class='bold sky-blue'>find</span> us
-    </p>
-
   :markdown
-    <h1 class='heading'>
+    <h1 class='heading1 align-text-center'>
       ...<span class='bold sky-blue'>Find</span> us
     </h1>
 
-  //- h1(id= topics[0].id)= topics[0].title
+  include contact_info
 
-  main
-    p( class='float-left') The office is located inside the second building to the right on College Avenue past Dickson St., if you are coming from the North. Free parking is available in front for clients and prospective clients.
+  div(class='section group')
 
-  div( style='width: 100%;' )
-    .float-right
+    div(class='col span1-of-2')
+      main
+        p The office is located inside the second building to the right on College Avenue past Dickson St., if you are coming from the North. Free parking is available in front for clients and prospective clients.
 
-      table( cellspacing=25 )
-        tr
-          td( class='address align_right semi-bold' ) Phone: +1 (479) 739-1903
-          td( class='address semi-bold' ) 103 N College Ave Ste 5
-        tr
-          td( class='address align_right semi-bold' ) Fax: +1 (479) 439-8283
-          td( class='address semi-bold' ) Fayetteville, AR 72701
-
-    .float-left
+    div(class='col span1-of-2 align-text-center')
 
       if locals.settings.remote
-
         //- https://developers.google.com/maps/documentation/staticmaps/
-        img( class='google_map', src='http://maps.googleapis.com/maps/api/staticmap?markers=103%20n%20college%20ave%20%235%20fayetteville%2C%20ar&zoom=16&size=320x240&maptype=roadmap&key=AIzaSyA5Za2tcxZBxwHDyN7OLvlhm6KJlm8x9w8', alt='Google Map: Office Location')
+        img(class='google_map', src='http://maps.googleapis.com/maps/api/staticmap?markers=103%20n%20college%20ave%20%235%20fayetteville%2C%20ar&zoom=16&size=320x240&maptype=roadmap&key=AIzaSyA5Za2tcxZBxwHDyN7OLvlhm6KJlm8x9w8', alt='Google Map: Office Location')
 
-        div( class='map_caption' )
-          a( href='http://maps.google.com/maps?ll=36.06402,-94.158191&z=16&t=m&hl=en-US&gl=US&mapclient=embed&q=103%20N%20College%20Ave%20%235%20Fayetteville%2C%20AR%2072701', target='_blank') Map and Directions
-          p( class='note' ) (Opens in a new window)
-
-    //- p( class='float-left') The office is located inside the second building to the right on College Avenue past Dickson St., if you are coming from the North. Free parking is available in front for clients and prospective clients.
+        div(class='map_caption sans align-center')
+          a(href='http://maps.google.com/maps?ll=36.06402,-94.158191&z=16&t=m&hl=en-US&gl=US&mapclient=embed&q=103%20N%20College%20Ave%20%235%20Fayetteville%2C%20AR%2072701', target='_blank') Map and Directions
+          p(class='note') (Opens in a new window)
 
 block footer

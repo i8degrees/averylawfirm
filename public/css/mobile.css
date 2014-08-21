@@ -88,14 +88,9 @@
   }
 
   /* Google Static Map */
-  /* Note that 320x240 is the native resolution of the image */
-  .google_map {
+  /* Use native resolution of the image */
+  .google_map, .map_caption {
     width: 100%;
     height: 100%;
-  }
-
-  .map_caption {
-    width: 100%;
-    text-align: center;
   }
 }

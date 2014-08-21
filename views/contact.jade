@@ -37,21 +37,27 @@ block head
 block content
 
   unless locals.form_helpers.has_errs( locals.notifications )
-    //- :markdown
-      <p class='heading'>
-      How can we <span class='bold sky-blue'>help you?</span>
-      </p>
-
     :markdown
-      <h1 class='heading'>
+      <h1 class='heading1 align-text-center'>
         How can we <span class='bold sky-blue'>help you?</span>
       </h1>
 
-  //- h1(id= topics[0].id)= topics[0].title
-
   unless locals.form_helpers.has_errs( locals.notifications )
-    //- main
-      //- p If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.
+
+    main
+      p If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.
+
+    :markdown
+      <h1 class='heading2 align-text-center'>
+        ...Via <span class='bold sky-blue'>Phone</span> or <span class='bold sky-blue'>Stop By</span>
+      </h1>
+
+    include contact_info
+
+    :markdown
+      <h1 class='heading2 align-text-center'>
+        ...or by <span class='bold sky-blue'>Web</span> Form
+      </h1>
 
   if locals.form_helpers.has_errs( locals.notifications )
     img(class='float-left', src='/images/alert.png', alt='Alert Icon')
@@ -62,7 +68,7 @@ block content
   //- include site_message.jade
 
   unless locals.form_helpers.has_errs( locals.notifications )
-    span(class='sans')
+    span(class='sans', style='font-size: 80%;')
       :markdown
         <strong>Note:</strong>
         Labels marked with <span class='req'>*</span> indicates required information.

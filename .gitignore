@@ -10,6 +10,7 @@ node_modules
 tmp
 public/testme.html
 public/css/testme.css
+public/css/testme.scss
 
 # OS X Finder metadata
 *.DS_Store

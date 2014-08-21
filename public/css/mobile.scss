@@ -1,6 +1,7 @@
 /* Small window & mobile friendly layout (optimized for a width of 320) */
 /*@media only screen and (max-width: 767px), only screen and (max-device-width: 767px) {*/
 @media only screen and (max-device-width: 767px) {
+
   .page {
     font-size: 100%;
   }
@@ -11,6 +12,7 @@
 
   .nav {
     /*text-align: left;*/
+
     /* Reset padding so we can highlight 100% of the nav-link block */
     /*padding-right: 0%;*/
   }
@@ -70,6 +72,7 @@
 
   .contact_form #phone_ext {
     width: 30px;
+
     /* Spacing in between the extension and phone suffix */
     margin-left: 10px;
   }

@@ -44,11 +44,20 @@ block content
 
       //- Parent page handling
       if topic.href === '/practice'
+        :markdown
+          <h1 class='heading1 align-text-center'>
+            What We <span class='bold sky-blue'>Practice</span>
+          </h1>
+
         - for( var i = 1; i != topics.length; ++i )
           // max-width should be a value that fits the width of the longest
           // title, so the full title fits within one line of text.
-          div(align='center')
-            div(style='max-width: 300px;')
+
+          div(align='left')
+            h2(class='heading2')= topics[i].title
+              //- a(href= topics[i].href)= topics[i].title
+
+            //- div(style='max-width: 300px;')
               a(class='blue-button border-rounded margin-bottom-offset25', style='display: block;', href= topics[i].href )= topics[i].title
 
 block footer

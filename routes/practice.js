@@ -12,8 +12,8 @@ router.get('/', function(req, res) {
   var topics = [
     {
       title: 'Areas of Practice',
-      // id: 'intro',
-      load: function load() { return fs.readFileSync('./data/pages/services/intro.md', opts ); }
+      // id: 'practice',
+      load: function load() { return fs.readFileSync('./data/pages/services/practice.md', opts ); }
     },
     {
       title: 'Family Law',

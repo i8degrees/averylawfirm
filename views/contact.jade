@@ -113,23 +113,23 @@ block content
             +check_err(input_errs['phone_area'])
             +check_err(input_errs['phone_prefix'])
             +check_err(input_errs['phone_suffix'])
-            +check_err(input_errs['phone_ext'])
+            //- +check_err(input_errs['phone_ext'])
             label(for='phone_area') Phone Number
 
             // Pass validation hack (shame on me!)
             label(for='phone_prefix', hidden=true)
             label(for='phone_suffix', hidden=true)
-            label(for='phone_ext', hidden=true)
+            //- label(for='phone_ext', hidden=true)
             span(class='req') *
 
-          div(class='note') (extension is optional)
+          //- div(class='note') (extension is optional)
           |  (
           input(id='phone_area', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_area'] ), type='tel', name='contact[phone_area]', maxlength=3, required data-required-msg= input_errs['phone_area'], placeholder='479', value= contact['phone_area'] )
           |  )
           input(id='phone_prefix', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_prefix'] ), type='tel', name='contact[phone_prefix]', maxlength=3, required data-required-msg= input_errs['phone_prefix'], placeholder='555', value= contact['phone_prefix'] )
           |  -
           input(id='phone_suffix', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_suffix'] ), type='tel', name='contact[phone_suffix]', maxlength=4, required data-required-msg= input_errs['phone_suffix'], placeholder='1244', value= contact['phone_suffix'] )
-          input(id='phone_ext', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_ext'] ), type='tel', name='contact[phone_ext]', maxlength=10, required data-required-msg= input_errs['phone_ext'], placeholder='Ext', value= contact['phone_ext'] )
+          //- input(id='phone_ext', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_ext'] ), type='tel', name='contact[phone_ext]', maxlength=10, required data-required-msg= input_errs['phone_ext'], placeholder='Ext', value= contact['phone_ext'] )
 
           div(class='label padding-top-offset20')
             +check_err(input_errs['state'])

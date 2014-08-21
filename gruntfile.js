@@ -19,5 +19,6 @@ module.exports = function(grunt) {
     }});
 
   grunt.registerTask('default',['sass']);
+  grunt.registerTask('heroku', ['sass:dist'] );
   grunt.loadNpmTasks('grunt-contrib-sass');
 }

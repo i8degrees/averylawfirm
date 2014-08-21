@@ -6,8 +6,7 @@ nav ul {
 /* Default link style */
 a {
   /*color: #333;*/
-  /* dark blue */
-  color: #1567C4;
+  color: #1567c4;
   text-decoration: none;
 }
 
@@ -122,8 +121,7 @@ a:hover {
 }
 
 .nav-primary a:hover {
-  /* dark blue */
-  color: #1567C4;
+  color: #1567c4;
 }
 
 .nav-primary .nav-current a {
@@ -131,8 +129,7 @@ a:hover {
 }
 
 .nav-primary .nav-current a:hover {
-  /* dark blue */
-  color: #1567C4;
+  color: #1567c4;
 }
 
 /* drop down menu formatting when all menu items won't fit in a single line */
@@ -196,7 +193,7 @@ a:hover {
     height: 2px;
     border-radius: 1px;
     /*background-color: black;*/
-    background-color: #1567C4;
+    background-color: #1567c4;
     margin-top: 4px;
     margin-bottom: 4px;
   }
@@ -211,7 +208,6 @@ a:hover {
   /* Apply an underline effect under the active page when not using mobile
   profile */
   .nav-primary .nav-current {
-    /* sky blue */
     border-bottom: 3px solid #5eb0ea;
   }
 
@@ -259,20 +255,12 @@ a:hover {
   padding-right: 6px;
   color: black;
   text-decoration: none;
-  /* sky blue */
-  /*background-color: #5eb0ea;*/
-  /*color: white;*/
-  /*font-weight: bold;*/
 }
 
 .breadcrumb-active {
   text-decoration: none;
   color: black;
   /*font-weight: 600;*/
-  /* sky blue */
-  /*background-color: #5eb0ea;*/
-  /* Dark blue */
-  /*background-color: #468CCF;*/
   /*color: white;*/
 }
 
@@ -443,7 +431,6 @@ a:hover {
   vertical-align: middle;
   /* Spacing in between buttons */
   margin-left: 20px;
-  /* sky blue */
   background: #5eb0ea;
 }
 

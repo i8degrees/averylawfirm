@@ -1,3 +1,6 @@
+$dark_blue: #1567C4;
+$sky_blue: #5eb0ea;
+
 /* Do not show bullet points in navigation menu */
 nav ul {
   list-style: none;
@@ -8,8 +11,7 @@ nav ul {
 a {
   /*color: #333;*/
 
-  /* dark blue */
-  color: #1567C4;
+  color: $dark_blue;
 
   text-decoration: none;
 }
@@ -160,8 +162,7 @@ a:hover {
 }
 
 .nav-primary a:hover {
-  /* dark blue */
-  color: #1567C4;
+  color: $dark_blue;
 }
 
 .nav-primary .nav-current a {
@@ -169,8 +170,7 @@ a:hover {
 }
 
 .nav-primary .nav-current a:hover {
-  /* dark blue */
-  color: #1567C4;
+  color: $dark_blue;
 }
 
 /* drop down menu formatting when all menu items won't fit in a single line */
@@ -243,7 +243,7 @@ a:hover {
     height: 2px;
     border-radius: 1px;
     /*background-color: black;*/
-    background-color: #1567C4;
+    background-color: $dark_blue;
     margin-top: 4px;
     margin-bottom: 4px;
   }
@@ -260,8 +260,7 @@ a:hover {
   /* Apply an underline effect under the active page when not using mobile
   profile */
   .nav-primary .nav-current {
-    /* sky blue */
-    border-bottom: 3px solid #5eb0ea;
+    border-bottom: 3px solid $sky_blue;
   }
 
   .nav-primary li {
@@ -312,11 +311,6 @@ a:hover {
   padding-right: 6px;
   color: black;
   text-decoration: none;
-
-  /* sky blue */
-  /*background-color: #5eb0ea;*/
-  /*color: white;*/
-  /*font-weight: bold;*/
 }
 
 .breadcrumb-active {
@@ -324,11 +318,6 @@ a:hover {
   color: black;
   /*font-weight: 600;*/
 
-  /* sky blue */
-  /*background-color: #5eb0ea;*/
-
-  /* Dark blue */
-  /*background-color: #468CCF;*/
   /*color: white;*/
 }
 
@@ -512,8 +501,7 @@ a:hover {
   /* Spacing in between buttons */
   margin-left: 20px;
 
-  /* sky blue */
-  background: #5eb0ea;
+  background: $sky_blue;
 }
 
 .blue-button:hover {
@@ -629,7 +617,7 @@ a:hover {
 /* Helpers */
 
 .sky-blue {
-  color: #5eb0ea;
+  color: $sky_blue;
 }
 
 .align-text-left {

@@ -1,0 +1,35 @@
+div(class='nav')
+
+  //- Dependent upon CSS media query
+  div(class='mobile-nav')
+
+    //- Fancy Chrome style button -- credit goes to www.jade-lang.com
+    button(class='chrome-btn')
+      span(class='chrome-bar')
+      span(class='chrome-bar')
+      span(class='chrome-bar')
+
+  div(class='nav-primary')
+    ul
+      - each link in locals.settings.nav_links
+
+        //- (Old navigation menu code)
+        //- NOTE (desktop): This breaks the highlighting of the
+        //- practice page when viewing children:
+        //- if link.href === locals.loc.href
+
+        if link.href === locals.loc.pathname
+          li(class='nav-current')
+            a(href=link.href)= link.title
+            //- a(class='nav-link-parent nav-link-parent-active', href=link.href) #{link.title}
+        else
+          li
+            a(href=link.href)= link.title
+            //- a(class='nav-link-parent', href=link.href) #{link.title}
+
+        //- Breadcrumbs (child of parent page)
+        //-
+        //- NOTE: Mobile-only display
+        //- - for( var i = 0; i != locals.breadcrumbs.length; ++i )
+        //- if link.href === locals.breadcrumbs[i].home
+          a(class='nav-link-child nav-link-child-active', href= locals.breadcrumbs[i].href )= locals.breadcrumbs[i].title

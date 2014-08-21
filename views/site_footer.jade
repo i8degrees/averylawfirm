@@ -1,0 +1,23 @@
+div(class='footer')
+  div(align='center')
+    form(action='/search_results', method='get')
+      //- input(id='google_cse', class='search_input', type='search', name='q', spellcheck='false', autocomplete='off', accesskey='s', onfocus='', onblur='' )
+      //- button(id='search_button', type='submit')
+
+      //- FIXME:
+      input(class='search_input', type='search', name='q', spellcheck='false', autocomplete='off', accesskey='s', placeholder='Search our site' )
+      button(class='search_button', type='submit')
+
+  div(align='center')
+    br
+    //- TODO: Rename to Terms of Use ???
+    a( href= locals.settings.site_links['disclaimer'].href )= locals.settings.site_links['disclaimer'].title
+    | &#32;&&#32;
+    a( href= locals.settings.site_links['privacy'].href )= locals.settings.site_links['privacy'].title
+
+    p( class='copyright' ) &#169; 2014 &#32;
+      a(href='mailto:'+locals.settings.site_owner['email'])= locals.settings.site_owner['company']
+
+  div(class='align_right')
+    span(class='align_right copyright') Design &#169; 2014 &#32;
+      a( href= locals.settings.site_developer['website'], target='_blank' )= locals.settings.site_developer['name']

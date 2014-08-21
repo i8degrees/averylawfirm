@@ -1,22 +1,20 @@
 /* Small window & mobile friendly layout (optimized for a width of 320) */
-@media only screen and (max-width: 768px), only screen and (max-device-width: 768px) {
+/*@media only screen and (max-width: 767px), only screen and (max-device-width: 767px) {*/
+@media only screen and (max-device-width: 767px) {
 
   .page {
     font-size: 100%;
   }
 
-  .nav {
-    /* Nice and easy to touch click */
-    line-height: 2.5em;
-    text-align: left;
-
-    /* Reset padding so we can highlight 100% of the nav-link block */
-    padding-right: 0%;
+  .company-header {
+    font-size: 150%;
   }
 
-  .nav-link-parent {
-    display: block;
-    border-right: none;
+  .nav {
+    /*text-align: left;*/
+
+    /* Reset padding so we can highlight 100% of the nav-link block */
+    /*padding-right: 0%;*/
   }
 
   /* Desktop only */
@@ -28,24 +26,6 @@
   .search_button {
     background: none;
     display: none;
-  }
-
-  /* Mobile only */
-  .nav-link-child {
-    padding-left: 15%;
-    display: block;
-    text-decoration: none;
-  }
-
-  /* Mobile only */
-  .nav-link-child-active {
-    color: white;
-
-    /* Purple */
-    /*background-color: #6C6FED;*/
-
-    /* Dark blue */
-    background-color: #468CCF;
   }
 
   /* Desktop only */

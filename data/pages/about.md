@@ -1,5 +1,3 @@
-# About
-
 Laura Avery is a general practitioner in Fayetteville, AR. She handles a variety of legal matters and has represented clients in family law, criminal defense, appeals, social security disability, personal injury and bankruptcy. Laura believes in devoting her personal time and attention to each case to achieve a superior result for clients. Facing a legal problem is easier when you have a lawyer who cares about your case and can thoroughly explain answers to any questions you may have.
     
 If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.

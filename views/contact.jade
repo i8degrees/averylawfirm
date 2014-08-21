@@ -37,12 +37,17 @@ block head
 block content
 
   unless locals.form_helpers.has_errs( locals.notifications )
-    :markdown
+    //- :markdown
       <p class='heading'>
       How can we <span class='bold sky-blue'>help you?</span>
       </p>
 
-  h1(id= topics[0].id)= topics[0].title
+    :markdown
+      <h1 class='heading'>
+        How can we <span class='bold sky-blue'>help you?</span>
+      </h1>
+
+  //- h1(id= topics[0].id)= topics[0].title
 
   unless locals.form_helpers.has_errs( locals.notifications )
     //- main

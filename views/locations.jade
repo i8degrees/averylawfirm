@@ -11,12 +11,18 @@ block head
 
 block content
 
-  :markdown
+  //- :markdown
     <p class='heading'>
       ...How to <span class='bold sky-blue'>find</span> us
     </p>
 
-  h1(id= topics[0].id)= topics[0].title
+  :markdown
+    <h1 class='heading'>
+      ...<span class='bold sky-blue'>Find</span> us
+    </h1>
+
+  //- h1(id= topics[0].id)= topics[0].title
+
   main
     p( class='float-left') The office is located inside the second building to the right on College Avenue past Dickson St., if you are coming from the North. Free parking is available in front for clients and prospective clients.
 

@@ -58,10 +58,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Global access from within Jade templates is (automatically) granted at
 // locals.settings.
 
-// TODO: This is a stubbed e-mail address; replace with the actual one before
-// production deployment!
-app.set('site_owner', { name: 'Laura Avery', company: 'Avery Law Firm', email: 'averyfirm@gmail.com' } );
-app.set('site_developer', { name: 'Jeffrey Carpenter', email: 'i8degrees@gmail.com', website: 'https://github.com/i8degrees/' } );
+var site_owner = {
+  name: 'Laura Avery',
+  company: 'Avery Law Firm',
+  // TODO: This is a stubbed e-mail address; replace with the actual one before
+  // production deployment!
+  email: 'averyfirm@gmail.com',
+  phone: '+1 (479) 739-1903',
+  fax: '+1 (479) 439-8283',
+  addr1: '103 N College Ave Ste 5',
+  addr2: 'Fayetteville, AR 72701'
+};
+
+var site_developer = {
+  name: 'Jeffrey Carpenter',
+  email: 'i8degrees@gmail.com',
+  website: 'https://github.com/i8degrees/'
+};
+
+app.set('site_owner', site_owner );
+app.set('site_developer', site_developer );
 
 // Site environment; this is a control flag for whether or not to allow loading
 // of resources from the public networks (i.e.: Internet).

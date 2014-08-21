@@ -4,8 +4,8 @@
     {
       "name": "root",
       "path": ".",
-      "file_exclude_patterns": [ ".LSOverride", "*.sublime-*", "*.bck" ],
-      "folder_exclude_patterns": [ "tmp", "node_modules" ]
+      "file_exclude_patterns": [ ".LSOverride", "*.sublime-*", "*.bck", "*.css" ],
+      "folder_exclude_patterns": [ "tmp", "node_modules", "*.sass-cache" ]
     },
 
     {} // placeholder

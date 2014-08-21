@@ -6,6 +6,8 @@ Local site configuration notes.
 
 * [git](http://git-scm.com/)
 * [node.js](http://nodejs.org/)
+* [SASS](http://sass-lang.com/)
+* [Grunt](http://gruntjs.com)
 
 * Optional (convenience) development tools
     * [nodemon](https://www.npmjs.org/package/nodemon)
@@ -34,6 +36,9 @@ brew install -vd node
 
 # Be sure to read the caveats here to finish setup
 brew install -vd pow
+
+gem install sass
+npm install -g grunt-cli
 ```
 
 ```
@@ -59,7 +64,7 @@ Simply swap out the use of ```npm start``` with:
 
 ```
 # averylawfirm.git
-NODE_ENV=development nodemon app.js
+NODE_ENV=development nodemon app.js &
 ```
 
 ##### Pow
@@ -86,7 +91,7 @@ You should now be able to access the local site at the following URLs if everyth
 
 * All site pages generated from Jade templates:
     * Exclude LiveReload script.
-    * Minified Modernizr script is used.
+    * ~~Minified Modernizr script is used.~~
     
 * Error page:
     * Error status number is not shown.
@@ -95,7 +100,7 @@ You should now be able to access the local site at the following URLs if everyth
     * Email will be sent out upon successful form submission.
 
 ```
- NODE_ENV=testing SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js
+ NODE_ENV=testing SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js &
 ```
 
 **Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.
@@ -106,7 +111,7 @@ You should now be able to access the local site at the following URLs if everyth
 
 * All site pages generated from Jade templates:
     * Exclude LiveReload script.
-    * Minified Modernizr script is used.
+    * ~~Minified Modernizr script is used.~~
     
 * Error page:
     * Error status number is not shown.
@@ -117,7 +122,7 @@ You should now be able to access the local site at the following URLs if everyth
     * No dumping of form submission input on successful form submission.
 
 ```
- NODE_ENV=production SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js
+ NODE_ENV=production SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js &
 ```
 
 **Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.
@@ -133,3 +138,6 @@ You should now be able to access the local site at the following URLs if everyth
 
 * http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/
 * https://www.npmjs.org/package/nodemon
+* http://ryanchristiani.com/getting-started-with-grunt-and-sass/
+* http://gruntjs.com/getting-started
+* https://www.codefellows.org/blog/create-a-node-js-project-from-scratch-with-node-sass

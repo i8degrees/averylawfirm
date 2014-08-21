@@ -9,8 +9,7 @@ node_modules
 *.bck
 tmp
 public/testme.html
-public/css/testme.css
-public/css/testme.scss
+sass/testme.scss
 
 # OS X Finder metadata
 *.DS_Store
@@ -19,3 +18,6 @@ public/css/testme.scss
 # Sublime Project metadata
 *.sublime-workspace
 
+# auto generated
+*.css
+*.css.map

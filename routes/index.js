@@ -6,6 +6,7 @@ var fs = require('fs');
 // Initialize page content (pulled from Markdown files)
 var opts = { encoding: 'ascii' };
 
+// \param title The page title
 var topics = {
   about: {
     title: 'About',
@@ -20,6 +21,11 @@ var topics = {
   disclaimer: {
     title: 'Legal Disclaimer',
     // id: 'disclaimer',
+    load: function load() { return fs.readFileSync('./data/pages/disclaimer.md', opts ); }
+  },
+  blog: {
+    title: 'Blog',
+    // id: 'blog',
     load: function load() { return fs.readFileSync('./data/pages/disclaimer.md', opts ); }
   }
 };
@@ -50,6 +56,10 @@ router.get('/search_results', function(req, res) {
 
 router.get('/locations', function(req, res) {
   res.render('locations');
+});
+
+router.get('/blog', function(req, res) {
+  res.render('blog', { topic: topics['blog'] } );
 });
 
 module.exports = router;

@@ -1,0 +1,22 @@
+extends layout
+
+block title
+
+  title= topic.title + ' : ' + locals.settings.site_owner['company']
+
+block head
+
+block content
+
+  //- TODO
+  //- https://developers.google.com/blogger/docs/3.0/getting_started
+  //- https://developers.google.com/blogger/docs/3.0/reference/index
+
+  //- script.
+    function handleResponse(response) {
+      document.getElementById("content").innerHTML += "<h1>" + response.title + "</h1>" + response.content;
+    }
+
+  //- script(src="https://www.googleapis.com/blogger/v3/blogs/1358910749199223219?callback=handleResponse&key=AIzaSyA5Za2tcxZBxwHDyN7OLvlhm6KJlm8x9w8")
+
+block footer

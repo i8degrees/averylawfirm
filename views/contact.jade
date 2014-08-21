@@ -64,9 +64,6 @@ block content
     span(class='sans')
       p= locals.form_helpers.count_errs( locals.notifications ) + ' submission errors have been found.'
 
-  //- Validation errors (server-side)
-  //- include site_message.jade
-
   unless locals.form_helpers.has_errs( locals.notifications )
     span(class='sans', style='font-size: 80%;')
       :markdown

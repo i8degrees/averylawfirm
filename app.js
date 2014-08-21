@@ -60,7 +60,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // TODO: This is a stubbed e-mail address; replace with the actual one before
 // production deployment!
-app.set('site_owner', { name: 'Laura Avery', company: 'Avery Law Firm', email: 'laura@averylawfirm.com' } );
+app.set('site_owner', { name: 'Laura Avery', company: 'Avery Law Firm', email: 'averyfirm@gmail.com' } );
 app.set('site_developer', { name: 'Jeffrey Carpenter', email: 'i8degrees@gmail.com', website: 'https://github.com/i8degrees/' } );
 
 // Site environment; this is a control flag for whether or not to allow loading

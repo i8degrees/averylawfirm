@@ -99,7 +99,7 @@ var nav_links = {
       href: '/locations'
     },
     contact: {
-      title: 'Contact',
+      title: 'Contact Us',
       href: '/contact'
     },
     blog: {

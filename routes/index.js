@@ -22,11 +22,6 @@ var topics = {
     title: 'Legal Disclaimer',
     // id: 'disclaimer',
     load: function load() { return fs.readFileSync('./data/pages/disclaimer.md', opts ); }
-  },
-  blog: {
-    title: 'Blog',
-    // id: 'blog',
-    load: function load() { return fs.readFileSync('./data/pages/disclaimer.md', opts ); }
   }
 };
 

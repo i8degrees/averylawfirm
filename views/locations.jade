@@ -2,10 +2,7 @@ extends layout
 
 block title
 
-  //- Must be declared within a block
-  - var topics = [ { title: 'Locations', href: '#locations', id: 'locations' } ];
-
-  title= topics[0].title + ' : ' + locals.settings.site_owner['company']
+  title= locals.settings.nav_links['locations'].title + ' : ' + locals.settings.site_owner['company']
 
 block head
 

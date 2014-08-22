@@ -10,8 +10,9 @@ block content
   section
     h1 Search Results for "#{cse_query}"
 
-    // See public/js/google_search.js
-    gcse:searchresults-only
+    //- Fix for the bottom of the link title being clipped off
+    div(style='line-height: 1.4em; font-size: 16px;')
+      // See public/js/google_search.js
+      gcse:searchresults-only
 
 block footer
-

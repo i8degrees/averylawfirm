@@ -71,9 +71,9 @@ router.post('/', function(req, res) {
   req.checkBody( 'contact.phone_suffix', input_errs['phone_suffix'] ).isInt();
 
   // Optional field; check only if input has been entered
-  if( phone_ext != '' ) {
-    req.checkBody( 'contact.phone_ext', input_errs['phone_ext']).isInt();
-  }
+  // if( phone_ext != '' ) {
+    // req.checkBody( 'contact.phone_ext', input_errs['phone_ext']).isInt();
+  // }
 
   req.checkBody( 'contact.state', input_errs['state'] ).neq('Select State');
 

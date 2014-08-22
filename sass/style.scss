@@ -1,5 +1,6 @@
 $dark_blue: #1567C4;
 $sky_blue: #5eb0ea;
+$light_tan: #ffc;
 
 /* Do not show bullet points in navigation menu */
 nav ul {
@@ -9,20 +10,47 @@ nav ul {
 /* Default link style */
 
 a {
-  /*color: #333;*/
-
   color: $dark_blue;
-
   text-decoration: none;
 }
 
 a:hover {
   color: black;
-
   cursor: pointer;
 }
 
 /* EOF: Default link style */
+
+fieldset {
+  border: none;
+  border-top: 1px solid black;
+}
+
+legend {
+  font-weight: 600;
+}
+
+input, select, textarea {
+  /* Offset text within field */
+  padding-left: 10px;
+  padding-right: 10px;
+
+  font-family: 'Open Sans', sans-serif;
+  font-size: 100%;
+  font-weight: 600;
+}
+
+select {
+  font-weight: normal;
+}
+
+input:focus {
+  background-color: $light_tan;
+}
+
+textarea:focus {
+  background-color: $light_tan;
+}
 
 /* Top-level style container */
 .page {
@@ -289,8 +317,7 @@ a:hover {
 
 /* Google's CSE script overrides this selector */
 .search_input:focus {
-  /* Light Tan */
-  background-color: #ffc;
+  background-color: $light_tan;
 }
 
 .search_button {
@@ -386,35 +413,7 @@ a:hover {
 }
 
 .contact_form fieldset {
-  border: none;
-  border-top: 1px solid black;
-
   max-width: 50%;
-}
-
-.contact_form legend {
-  font-weight: 600;
-}
-
-.contact_form input, select, textarea {
-  /* Offset text within field */
-  padding-left: 10px;
-  padding-right: 10px;
-
-  font-family: 'Open Sans', sans-serif;
-  font-size: 100%;
-  font-weight: 600;
-}
-
-.contact_form select {
-  font-size: 100%;
-  font-weight: normal;
-  font-family: 'Open Sans', sans-serif;
-}
-
-.contact_form textarea {
-  font-weight: 600;
-  font-family: 'Open Sans', sans-serif;
 }
 
 /* Container to hold both the form input element and applicable error message */
@@ -465,16 +464,6 @@ a:hover {
 .contact_form #contact_message {
   width: 100%;
   height: 120px;
-}
-
-.contact_form input:focus {
-  /* Light Tan */
-  background-color: #ffc;
-}
-
-.contact_form textarea:focus {
-  /* Light Tan */
-  background-color: #ffc;
 }
 
 .border-rounded {

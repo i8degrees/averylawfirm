@@ -5,7 +5,9 @@
 div(class='footer')
   div(class='align-text-center')
     form(id='cse-search-box-form-id', action='/search_results', method='get')
-      input(id='cse-search-input-box-id', class='search_input', type='search', name='q', spellcheck='false', autocomplete='off', value= search_query)
+      //- NOTE: Safari overrides our styling when the input field type is set to
+      //- 'search'.
+      input(id='cse-search-input-box-id', class='search_input', type='text', name='q', spellcheck='false', autocomplete='off', value= search_query)
       button(class='search_button', type='submit')
 
       // Required Google CSE branding (watermark)

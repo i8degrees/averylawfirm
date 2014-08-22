@@ -127,35 +127,8 @@ textarea:focus {
 
 /* Top-level navigation container */
 .nav {
-  /* This controls the vertical spacing in between the company header and
-  navigation; ~2% minimum is necessary on the mobile profile */
-  /*padding-top: 4%;*/
-
-  /*padding-bottom: 2%;*/
-
-  /* ...navigational items (i.e. search input field) start falling off
-  otherwise! */
-  /*padding-right: 2%;*/
-
-  padding-top: 0%;
-
-  /* Fill in the missing gaps (white background) */
-  padding-bottom: 6%;
-
   font-weight: 600;
   font-size: 115%;
-
-  /* Controls both the navigation links & search input */
-  /*text-align: left;*/
-
-  /* Works well for touch clicks, too! */
-  line-height: 2.5em;
-
-  /* Gray */
-  /*background-color: $light_gray;*/
-
-  /* Green */
-  /*background-color: #C3DFB7;*/
 
   box-shadow: 0px 2px 2px #888888;
 }
@@ -175,9 +148,7 @@ textarea:focus {
   display: inline;
 }
 
-.nav-primary li {
-
-}
+.nav-primary li {}
 
 .nav-primary li:last-child {
   /*border-bottom: 0;*/
@@ -198,17 +169,22 @@ textarea:focus {
   color: #333;
 }
 
+/* Apply an underline effect under the active page (link) */
+.nav-primary .nav-current {
+  border-bottom: 3px solid $sky_blue;
+}
+
 .nav-primary .nav-current a:hover {
   color: $dark_blue;
 }
 
 /* drop down menu formatting when all menu items won't fit in a single line */
 .nav-menu .nav-primary {
-  /*margin: 0 0 1.5em;*/
+  // Offset between the navigation menu and content container
+  // margin: 0 0 1.5em;
 
-  /* The negative margins corrects a rendering issue in Safari where it
-  only *sometimes* renders partials of the non-current navigation items */
-  margin: 0 0 -1.0em;
+  // Debugging aid
+  // background-color: gray;
 }
 
 .nav-menu .nav-primary a {
@@ -220,19 +196,20 @@ textarea:focus {
   display: none;
 }
 
-.nav-menu .nav-primary.expanded li,
-.nav-menu .nav-primary li.nav-current {
+/* Controls the display of the page links upon menu drop-down */
+.nav-menu .nav-primary.expanded li {
   display: list-item;
-  padding-left: 1.5%;
+
+  /* Bit of an offset for our underline border (current page) */
+  margin-left: 2%;
+
+  /* Easy touch clicks */
+  line-height: 2.5em;
 }
 
-.nav-menu .nav-primary li.nav-current {
-
-}
-
-.nav-menu .nav-primary.expanded li.nav-current {
-
-}
+li.nav-current {}
+.nav-menu .nav-primary li.nav-current {}
+.nav-menu .nav-primary.expanded li.nav-current {}
 
 @media screen and (min-width: 320px) {
   .nav-primary,
@@ -284,15 +261,16 @@ textarea:focus {
 /* FIXME: smaller navigation menu? 1092px feels a bit much... */
 @media screen and (min-width: 1092px) {
 
+  .nav {
+    // FIXME: Fill in the missing gaps (white background)
+    // Hint: floats! Comment out the padding and float declarations within
+    // this media query to see what I mean ...
+    padding-bottom: 6%;
+  }
+
   .nav-primary {
     float: right;
     clear: none;
-  }
-
-  /* Apply an underline effect under the active page when not using mobile
-  profile */
-  .nav-primary .nav-current {
-    border-bottom: 3px solid $sky_blue;
   }
 
   .nav-primary li {
@@ -358,7 +336,6 @@ textarea:focus {
   margin-left: 2%;
   margin-right: 2%;
   /*padding: 0;*/
-
   /*background-color: white;*/
 
   /* Gray */

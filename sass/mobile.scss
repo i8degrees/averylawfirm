@@ -7,14 +7,17 @@
   }
 
   .company-header {
+    // FIXME: The font size is too small on high resolution (i.e.: Retina)
+    // displays...
     font-size: 150%;
+    // padding-bottom: 6%;
   }
 
   .nav {
     /*text-align: left;*/
 
-    /* Reset padding so we can highlight 100% of the nav-link block */
-    /*padding-right: 0%;*/
+    // FIXME: Filler for mobile navigation menu
+    padding-bottom: 6%;
   }
 
   /* Desktop only */

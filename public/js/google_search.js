@@ -37,15 +37,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // References:
 // https://www.google.com/cse
 // https://developers.google.com/custom-search/docs/tutorial/implementingsearchbox
+// http://googlecustomsearch.appspot.com/elementv2/results-only_form_v2.html
 
-var cx = '002702480827409842750:pa_9klyqmou';
-var gcse = document.createElement('script');
-gcse.type = 'text/javascript';
-gcse.async = true;
-gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-    '//www.google.com/cse/cse.js?cx=' + cx;
-var s = document.getElementsByTagName('script')[0];
-s.parentNode.insertBefore(gcse, s);
+(function() {
+  var cx = '002702480827409842750:pa_9klyqmou';
+  var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+  gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//www.google.com/cse/cse.js?cx=' + cx;
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+})();
 
 // Creates HTML element: <gcse:searchresults-only></gcse:searchresults-only>
 //

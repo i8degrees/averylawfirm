@@ -11,7 +11,6 @@ module.exports = function(grunt) {
           'public/css/style.css' : 'sass/style.scss',
           'public/css/mobile.css' : 'sass/mobile.scss',
           'public/css/common.css' : 'sass/common.scss',
-          'public/css/google_cse.css' : 'sass/google_cse.scss',
           'public/css/error.css' : 'sass/error.scss',
           'public/css/testme.css' : 'sass/testme.scss'
         }

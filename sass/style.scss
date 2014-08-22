@@ -276,22 +276,18 @@ a:hover {
 }
 
 .search_input {
-  /* Override width in #google_cse (google_cse.css); this is OK as long as we
-  honor the minimum width requirement of 118px */
-  /*width: 200px;*/
-
   width: 400px;
   height: 38px;
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
-  /*font-style: italic;*/
   font-size: 100%;
+  border: 1px solid #666;
 
   /* Spacing in between navi links & input element */
-  /*margin-left: 20px;*/
-  border: 1px solid #666;
+  // margin-left: 20px;
 }
 
+/* Google's CSE script overrides this selector */
 .search_input:focus {
   /* Light Tan */
   background-color: #ffc;
@@ -299,8 +295,10 @@ a:hover {
 
 .search_button {
   border: none;
-  height: 16px;
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6%2BR8AAAAlElEQVR42oWQQRHEIAxF10ElVAISVgo3bCABCUhYCZWAhEpAQpoD6bzJhNnDO0DyyA8fEXkppXyVCpLViDUfyqVIQN9JFMY637hrlCySFauL21E7KVWbAIGx56rnSLqc5KPXSLo3kySalPhTygFhRDtFC09EIsMeZJSGBj7Qveh3OJW89syImiH%2BIO2BOJX0XwA2%2BQEL4pAhSX4aBQAAAABJRU5ErkJggg%3D%3D) 0 0 no-repeat;
+  width: 20px;
+  height: 20px;
+  background: url('/images/search.png');
+  cursor: pointer;
 }
 
 /* Desktop only */

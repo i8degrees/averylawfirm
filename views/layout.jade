@@ -28,9 +28,6 @@ html
     //- Additional meta tags (per page)
     block meta
 
-    if locals.settings.remote
-      link(href='/css/google_cse.css', rel='stylesheet', type='text/css', media='screen')
-
     // CSS
     link(href='/css/common.css', rel='stylesheet', type='text/css', media='screen')
     link(href='/css/style.css', rel='stylesheet', type='text/css', media='screen')
@@ -62,6 +59,7 @@ html
     script(src='/js/helpers.js')
 
     if locals.settings.remote
+      // Google Custom Search Engine
       script(src='/js/google_search.js')
 
     if locals.settings.env === 'development'

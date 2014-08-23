@@ -1,8 +1,13 @@
+// Grunt build tasks for averylawfirm.com
+//
+// See also: package.json
+
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     sass: {
-      dist: {
+      // Environment: Development
+      debug: {
         options: {
           style: 'expanded',
           debugInfo: false
@@ -14,10 +19,28 @@ module.exports = function(grunt) {
           'public/css/error.css' : 'sass/error.scss',
           'public/css/font-awesome-4.1.0.css' : 'sass/font-awesome-4.1.0.scss'
         }
-      }
-    }});
+      },
+      // Environment: Production
+      release: {
+        options: {
+          style: 'compressed',
+          debugInfo: false
+        },
+        files: [{
+          expand: true,
+          cwd: 'sass',
+          src: ['*.scss'],
+          dest: './public/css',
+          ext: '.css'
+        }]
+      },
+    }
+  });
 
-  grunt.registerTask('default',['sass']);
-  grunt.registerTask('heroku', ['sass'] );
+  // Dependencies
+  // https://github.com/gruntjs/grunt-contrib-sass
   grunt.loadNpmTasks('grunt-contrib-sass');
+
+  grunt.registerTask('default', ['sass:debug']);
+  grunt.registerTask('heroku', ['sass:release']);
 }

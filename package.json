@@ -15,7 +15,7 @@
   "main": "./app.js",
   "scripts": {
     "start": "node ./bin/www",
-    "postinstall": "./bin/deploy.sh"
+    "postinstall": "./bin/heroku_deploy.sh"
   },
   "dependencies": {
     "express": "~4.2.0",

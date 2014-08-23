@@ -14,7 +14,8 @@
   "license": "Simplified BSD",
   "main": "./app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "postinstall": "./bin/deploy.sh"
   },
   "dependencies": {
     "express": "~4.2.0",

@@ -2,26 +2,25 @@
 - var search_query = '';
 - if( typeof cse_query != 'undefined' ) search_query = cse_query;
 
-div(class='footer')
 
-  div(class='align-text-center padding-top-offset25')
-    form(id='cse-search-box-form-id', action='/search_results', method='get')
-      //- NOTE: Safari overrides our styling when the input field type is set to
-      //- 'search'.
-      input(id='cse-search-input-box-id', class='search_input', type='text', name='q', spellcheck='false', autocomplete='off', value= search_query)
-      button(class='search_button', type='submit')
+div(class='align-text-center')
+  form(id='cse-search-box-form-id', action='/search_results', method='get')
+    //- NOTE: Safari overrides our styling when the input field type is set to
+    //- 'search'.
+    input(id='cse-search-input-box-id', class='search_input', type='text', name='q', spellcheck='false', autocomplete='off', value= search_query)
+    button(class='search_button', type='submit')
 
-      // Required Google CSE branding (watermark)
-      script(src="//www.google.com/cse/brand?form=cse-search-box-form-id&inputbox=cse-search-input-box-id")
+    // Required Google CSE branding (watermark)
+    script(src="//www.google.com/cse/brand?form=cse-search-box-form-id&inputbox=cse-search-input-box-id")
 
-  div(class='align-text-center padding-top-offset25')
-    a( href= locals.settings.site_links['disclaimer'].href )= locals.settings.site_links['disclaimer'].title
-    | &#32;&&#32;
-    a( href= locals.settings.site_links['privacy'].href )= locals.settings.site_links['privacy'].title
+div(class='align-text-center padding-top-offset25')
+  a( href= locals.settings.site_links['disclaimer'].href )= locals.settings.site_links['disclaimer'].title
+  | &#32;&&#32;
+  a( href= locals.settings.site_links['privacy'].href )= locals.settings.site_links['privacy'].title
 
-    p( class='copyright' ) &#169; 2014 &#32;
-      a(href='mailto:'+locals.settings.site_owner['email'])= locals.settings.site_owner['company']
+  p( class='copyright' ) &#169; 2014 &#32;
+    a(href='mailto:'+locals.settings.site_owner['email'])= locals.settings.site_owner['company']
 
-  div(class='align-text-right')
-    span(class='copyright') Design &#169; 2014 &#32;
-      a( href= locals.settings.site_developer['website'], target='_blank' )= locals.settings.site_developer['name']
+div(class='align-text-right')
+  span(class='copyright') Design &#169; 2014 &#32;
+    a( href= locals.settings.site_developer['website'], target='_blank' )= locals.settings.site_developer['name']

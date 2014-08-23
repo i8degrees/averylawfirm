@@ -90,10 +90,11 @@ html
       block content
 
     footer
-      include site_footer
+      div(class='footer')
+        include site_footer
 
-      //- Additional footer-level elements (specific per page)
-      block footer
+        //- Additional footer-level elements (specific per page)
+        block footer
 
     // Additional JavaScripts (deferred loading)
     if locals.settings.env === 'development'

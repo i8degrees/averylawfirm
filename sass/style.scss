@@ -740,6 +740,132 @@ li.nav-current {}
   margin-bottom: 10px;
 }
 
+// Base class for Social Media buttons
+//
+// Source: http://www.kodingmadesimple.com/2014/02/how-to-create-round-social-media-icon.html
+.social-btn {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  box-shadow: 0 2px 2px #999;
+  padding: 0px;
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+  font-size: 25px;
+  font-weight: normal;
+  line-height: 2em;
+  border-radius: 25px;
+  -moz-border-radius:25px;
+  -webkit-border-radius:25px;
+}
+
+// Facebook button
+//
+// Derives from the social-btn class
+//
+// Source: http://www.kodingmadesimple.com/2014/02/how-to-create-round-social-media-icon.html
+.facebook-btn {
+  background: #4060A5;
+}
+
+// Facebook button helper class
+//
+// Source: http://www.kodingmadesimple.com/2014/02/how-to-create-round-social-media-icon.html
+.facebook-btn:before {
+  font-family: "FontAwesome";
+  // FontAwesome glyph
+  content: "\f09a";
+}
+
+// Facebook button selector for the hover event
+//
+// Source: http://www.kodingmadesimple.com/2014/02/how-to-create-round-social-media-icon.html
+.facebook-btn:hover {
+  color: #4060A5;
+  background: #fff;
+}
+
+// Twitter button
+//
+// Derives from the social-btn class
+//
+// Source: http://www.kodingmadesimple.com/2014/02/how-to-create-round-social-media-icon.html
+.twitter-btn {
+  background: #00ABE3;
+}
+
+// Twitter button helper class
+//
+// Source: http://www.kodingmadesimple.com/2014/02/how-to-create-round-social-media-icon.html
+.twitter-btn:before {
+  font-family: "FontAwesome";
+  // FontAwesome glyph
+  content: "\f099";
+}
+
+// Twitter button selector for the hover event
+//
+// Source: http://www.kodingmadesimple.com/2014/02/how-to-create-round-social-media-icon.html
+.twitter-btn:hover {
+  color: #00ABE3;
+  background: #fff;
+}
+
+// LinkedIn button
+//
+// Derives from the social-btn class
+//
+// Source: http://www.kodingmadesimple.com/2014/02/how-to-create-round-social-media-icon.html
+.linkedin-btn {
+  background: #0094BC;
+}
+
+// LinkedIn button helper class
+//
+// Source: http://www.kodingmadesimple.com/2014/02/how-to-create-round-social-media-icon.html
+.linkedin-btn:before {
+  font-family: "FontAwesome";
+  // FontAwesome glyph
+  content: "\f0e1";
+}
+
+// LinkedIn button selector for the hover event
+//
+// Source: http://www.kodingmadesimple.com/2014/02/how-to-create-round-social-media-icon.html
+.linkedin-btn:hover {
+  color: #0094BC;
+  background: #fff;
+}
+
+// RSS button
+//
+// Derives from the social-btn class
+//
+// Source: http://www.kodingmadesimple.com/2014/02/how-to-create-round-social-media-icon.html
+.rss-btn {
+  background: #e88845;
+}
+
+// RSS button helper class
+//
+// Source: http://www.kodingmadesimple.com/2014/02/how-to-create-round-social-media-icon.html
+.rss-btn:before {
+  font-family: "FontAwesome";
+  // FontAwesome glyph
+  content: "\f09e";
+}
+
+// RSS button selector for the hover event
+//
+// Source: http://www.kodingmadesimple.com/2014/02/how-to-create-round-social-media-icon.html
+.rss-btn:hover {
+  color: #e88845;
+  background: #fff;
+}
+
 /* Responsive CSS Design */
 /* Source: http://www.responsivegridsystem.com/calculator/ */
 

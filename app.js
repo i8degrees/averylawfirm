@@ -70,6 +70,11 @@ var site_owner = {
   fax: '+1 (479) 439-8283',
   addr1: '103 N College Ave Ste 5',
   addr2: 'Fayetteville, AR 72701',
+  // TODO: Add applicable links for the URLs below:
+  facebook_url: 'https://www.facebook.com/laurasusanavery',
+  twitter_url: '',
+  linkedin_url: '',
+  rss_url: ''
 };
 
 var site_developer = {

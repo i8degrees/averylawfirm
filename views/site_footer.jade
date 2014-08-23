@@ -2,6 +2,12 @@
 - var search_query = '';
 - if( typeof cse_query != 'undefined' ) search_query = cse_query;
 
+div(class='align-text-right')
+  //- TODO: Figure out arrangement of these buttons
+  a(class='facebook-btn social-btn', href= locals.settings.site_owner['facebook_url'], target='_blank')
+  a(class='twitter-btn social-btn', href= locals.settings.site_owner['twitter_url'], target='_blank')
+  a(class='linkedin-btn social-btn', href= locals.settings.site_owner['linkedin_url'], target='_blank')
+  a(class='rss-btn social-btn', href= locals.settings.site_owner['rss_url'], target='_blank')
 
 div(class='align-text-center')
   form(id='cse-search-box-form-id', action='/search_results', method='get')

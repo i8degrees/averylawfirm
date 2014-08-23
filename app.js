@@ -65,9 +65,11 @@ var site_owner = {
   // production deployment!
   email: 'averyfirm@gmail.com',
   phone: '+1 (479) 739-1903',
+  // https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/PhoneLinks/PhoneLinks.html
+  phone_url: 'tel:1-479-739-1903',
   fax: '+1 (479) 439-8283',
   addr1: '103 N College Ave Ste 5',
-  addr2: 'Fayetteville, AR 72701'
+  addr2: 'Fayetteville, AR 72701',
 };
 
 var site_developer = {

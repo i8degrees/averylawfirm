@@ -1,6 +1,7 @@
 table(class='align-center contact-info')
   tr
-    td( class='address align-text-right semi-bold' ) Phone: #{locals.settings.site_owner['phone']}
+    td( class='address align-text-right semi-bold' ) Phone:
+      a(href= locals.settings.site_owner['phone_url'] )= locals.settings.site_owner['phone']
     td( class='address semi-bold' )= locals.settings.site_owner['addr1']
   tr
     td( class='address align-text-right semi-bold' ) Fax: #{locals.settings.site_owner['fax']}

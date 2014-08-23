@@ -22,6 +22,15 @@ html
       //- Optimized design for modern mobile browsers (Mobile Safari, Chrome)
       meta(name='viewport', content='width=device-width, initial-scale=1.0')
 
+    // Disable automatic telephone number detection so we can explicitly specify
+    // telephone number links.
+    //
+    // The rationale for this was to prevent fax phone numbers from being
+    // linkable as such (i.e.: contact info page)
+    //
+    // Source: https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/PhoneLinks/PhoneLinks.html
+    meta(name='format-detection', content='telephone=no')
+
     // Enable ClearType font rendering for MS IE
     meta(http-equiv='cleartype', content='on')
 

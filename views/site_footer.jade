@@ -2,12 +2,36 @@
 - var search_query = '';
 - if( typeof cse_query != 'undefined' ) search_query = cse_query;
 
-div(class='align-text-right')
-  //- TODO: Figure out arrangement of these buttons
-  a(class='facebook-btn social-btn margin-right-offset10', href= locals.settings.site_owner['facebook_url'], target='_blank')
-  //- a(class='twitter-btn social-btn', href= locals.settings.site_owner['twitter_url'], target='_blank')
-  a(class='linkedin-btn social-btn', href= locals.settings.site_owner['linkedin_url'], target='_blank')
-  //- a(class='rss-btn social-btn', href= locals.settings.site_owner['rss_url'], target='_blank')
+div(class='section group align-text-center')
+
+  div(class='col three-cols-span1 align-text-center')
+    div(class='padding-bottom-offset20')
+      div(class='address semi-bold')= locals.settings.site_owner['company']
+      div(class='address')= locals.settings.site_owner['addr1']
+      div(class='address')= locals.settings.site_owner['addr2']
+      div(class='address')= locals.settings.site_owner['phone']
+      div(class='address')
+      a(href='https://maps.google.com/maps?ll=36.06402,-94.158191&z=16&t=m&hl=en-US&gl=US&mapclient=embed&q=103%20N%20College%20Ave%20%235%20Fayetteville%2C%20AR%2072701', target='_blank') View Map
+
+    div
+      div(class='address') Stay Connected
+      a(class='facebook-btn social-btn margin-right-offset10', href= locals.settings.site_owner['facebook_url'], target='_blank')
+      a(class='linkedin-btn social-btn', href= locals.settings.site_owner['linkedin_url'], target='_blank')
+
+  div(class='col three-cols-span2 align-text-left')
+    p(style='font-size:80%;') This site is for informational purposes only; its contents do not constitute legal advice or an attorney-client relationship. The information provided on these pages is general only, and you should not act upon this information without consulting with an attorney.
+
+    //- div(class='align-text-center')
+      p(class='copyright') &#169; 2014 &#32;
+        a(href='mailto:' + locals.settings.site_owner['email'])= locals.settings.site_owner['company']
+        |&#32;|&#32;
+        a(href= locals.settings.site_links['privacy'].href)= locals.settings.site_links['privacy'].title
+
+    //- div(class='align-text-center', style='font-size: 50%;')
+      span(class='copyright') Designed by &#32;
+        a( href= locals.settings.site_developer['website'], target='_blank' )= locals.settings.site_developer['name']
+
+  div(class='col three-cols-span1 align-text-right')
 
 //- div(class='align-text-center')
   form(id='cse-search-box-form-id', action='/search_results', method='get')
@@ -19,15 +43,12 @@ div(class='align-text-right')
     // Required Google CSE branding (watermark)
     script(src="//www.google.com/cse/brand?form=cse-search-box-form-id&inputbox=cse-search-input-box-id")
 
-div(class='align-text-center padding-top-offset25')
-  a( href= locals.settings.site_links['disclaimer'].href )= locals.settings.site_links['disclaimer'].title
-  | &#32;&&#32;
-  a( href= locals.settings.site_links['privacy'].href )= locals.settings.site_links['privacy'].title
-
 div(class='align-text-center')
   p(class='copyright') &#169; 2014 &#32;
     a(href='mailto:' + locals.settings.site_owner['email'])= locals.settings.site_owner['company']
+    |&#32;|&#32;
+    a(href= locals.settings.site_links['privacy'].href)= locals.settings.site_links['privacy'].title
 
-div(class='align-text-right')
-  span(class='copyright') Design &#169; 2014 &#32;
+div(class='align-text-center', style='font-size: 50%;')
+  span(class='copyright') Designed by &#32;
     a( href= locals.settings.site_developer['website'], target='_blank' )= locals.settings.site_developer['name']

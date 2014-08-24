@@ -353,18 +353,6 @@ li.nav-current {}
   font-family: 'Open Sans', sans-serif;
 }
 
-.content_container h1 {
-  font-weight: 600;
-}
-
-.content_container h2, h3 {
-  font-weight: 500;
-}
-
-.content_container h4, h5, h6 {
-  font-weight: 400;
-}
-
 /* Top-level footer container */
 .footer {
   clear: both;
@@ -910,28 +898,50 @@ li.nav-current {}
 }
 
 /*  GRID OF TWO  */
-.span2-of-2 {
+.two-cols-span2 {
   width: 100%;
 }
 
-.span1-of-2 {
+.two-cols-span1 {
   width: 49.2%;
 }
 
-/* Full width columns (stacked) when content can *not* fit */
+/*  GRID OF THREE  */
+.three-cols-span3 {
+  width: 100%;
+}
 
+.three-cols-span2 {
+  width: 66.13%;
+}
+
+.three-cols-span1 {
+  width: 32.26%;
+}
+
+/* Full width columns (stacked) when content can *not* fit */
 @media only screen and (max-width: 767px) {
   .col {
     margin: 1% 0 1% 0%;
   }
-}
 
-@media only screen and (max-width: 767px) {
-  .span2-of-2 {
+  .two-cols-span2 {
     width: 100%;
   }
 
-  .span1-of-2 {
+  .two-cols-span1 {
+    width: 100%;
+  }
+
+  .three-cols-span3 {
+    width: 100%;
+  }
+
+  .three-cols-span2 {
+    width: 100%;
+  }
+
+  .three-cols-span1 {
     width: 100%;
   }
 }

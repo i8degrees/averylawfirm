@@ -271,13 +271,7 @@ if( app.get('env') === 'development' ) {
 
 module.exports = app;
 
-// Heroku deployments expect port 5000
 var port = Number(process.env.PORT || 5000);
-
-// Local site development router-friendly port for forwarding through NAT
-if(app.get('env') === 'development') {
-  port = 8222;
-}
 
 var server = app.listen(port, function() {
   console.log('Listening at TCP/IP %s: %s:%d', server.address().family, server.address().address, server.address().port);

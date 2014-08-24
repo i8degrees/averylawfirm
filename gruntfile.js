@@ -38,9 +38,12 @@ module.exports = function(grunt) {
   });
 
   // Dependencies
+
   // https://github.com/gruntjs/grunt-contrib-sass
   grunt.loadNpmTasks('grunt-contrib-sass');
 
   grunt.registerTask('default', ['sass:debug']);
+
+  // Called from package.json, via bin/heroku_deploy.sh
   grunt.registerTask('heroku', ['sass:release']);
 }

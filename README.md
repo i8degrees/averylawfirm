@@ -48,13 +48,11 @@ cd averylawfirm.git/
 # Install deps required for running site
 npm install
 
-# Run a local web server on port 8222 in the background
-NODE_ENV=development npm start &
+# Run a local web server in the background on a local port number that is free.
+PORT=<LOCAL_PORT_NUMBER> NODE_ENV=development npm start &
 ```
 
-**Note:** The app's local web server is configured to use port 8222 and must not be in use; see also: app.js.
-
-You should now be able to access the local site at the [node.js local host](http://localhost:8222) when everything is setup properly.
+You should now be able to access the local site at the http://localhost:<LOCAL_PORT_NUMBER> when everything is setup properly.
 
 ##### nodemon
 
@@ -64,7 +62,7 @@ Simply swap out the use of ```npm start``` with:
 
 ```
 # averylawfirm.git
-NODE_ENV=development nodemon app.js &
+PORT=<LOCAL_PORT_NUMBER> NODE_ENV=development nodemon app.js &
 ```
 
 ##### Pow
@@ -75,11 +73,9 @@ Create a symbolic link from the project's root directory to your user's .pow dir
 ln -s ~/Projects/averylawfirm ~/.pow/averylawfirm
 ```
 
-You should now be able to access the local site at the following URLs if everything was setup properly (**NOTE:** Replace the public IP [1] and private LAN address [2] according to your site network):
+You should now be able to access the local site at the following URL if everything was setup properly (**NOTE:** Replace the private LAN address [1] according to your site network):
 
-1. [Pow host via xip.io domain](http://averylawfirm.70.178.134.15.xip.io:8222/)
-
-2. [Pow host via LAN](http://averylawfirm.192.168.151.126.xip.io:80/)
+1. [Pow host via LAN](http://averylawfirm.192.168.151.126.xip.io)
 
 ###### Troubleshooting
 
@@ -87,7 +83,7 @@ You should now be able to access the local site at the following URLs if everyth
 
 ### Testing Site Setup
 
-* Port 5000 is used.
+* Defaults to the listening port 5000.
 
 * All site pages generated from Jade templates:
     * Exclude LiveReload script.
@@ -107,7 +103,7 @@ You should now be able to access the local site at the following URLs if everyth
 
 ### Production Site Setup
 
-* Port 5000 is used.
+* Defaults to the listening port 5000.
 
 * All site pages generated from Jade templates:
     * Exclude LiveReload script.

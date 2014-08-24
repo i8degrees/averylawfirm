@@ -128,11 +128,11 @@ block content
           input(id='phone_suffix', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_suffix'] ), type='tel', name='contact[phone_suffix]', maxlength=4, required data-required-msg= input_errs['phone_suffix'], placeholder='1244', value= contact['phone_suffix'] )
           //- input(id='phone_ext', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_ext'] ), type='tel', name='contact[phone_ext]', maxlength=10, required data-required-msg= input_errs['phone_ext'], placeholder='Ext', value= contact['phone_ext'] )
 
-          div(class='label padding-top-offset20')
+          //- div(class='label padding-top-offset20')
             +check_err(input_errs['state'])
             label(for='contact_state') State
             span(class='req') *
-          select(id='contact_state', class= locals.form_helpers.class_selector( locals.notifications, input_errs['state'] ), name='contact[state]', required data-required-msg= input_errs['state'] )
+          //- select(id='contact_state', class= locals.form_helpers.class_selector( locals.notifications, input_errs['state'] ), name='contact[state]', required data-required-msg= input_errs['state'] )
             +select_option('Select State', contact['state'] )
             +select_option('Alabama', contact['state'] )
             +select_option('Alaska', contact['state'] )
@@ -187,7 +187,7 @@ block content
             +select_option('Wisconsin', contact['state'] )
             +select_option('Wyoming', contact['state'] )
 
-          div(class='label padding-top-offset20')
+          //- div(class='label padding-top-offset20')
             +check_err(input_errs['zipcode'])
             label(for='contact_zipcode') Postal Code
             span(class='req') *
@@ -195,7 +195,7 @@ block content
           //- up the numbers-only keypad under Mobile Safari (iOS); b) Google
           //- Chrome erases our input upon submission if non-numeric input is
           //- entered.
-          input(id='contact_zipcode', class= locals.form_helpers.class_selector( locals.notifications, input_errs['zipcode'] ), type='tel', name='contact[zipcode]', maxlength=5, required data-required-msg= input_errs['zipcode'], placeholder='72735', value= contact['zipcode'] )
+          //- input(id='contact_zipcode', class= locals.form_helpers.class_selector( locals.notifications, input_errs['zipcode'] ), type='tel', name='contact[zipcode]', maxlength=5, required data-required-msg= input_errs['zipcode'], placeholder='72735', value= contact['zipcode'] )
 
       fieldset
         legend Your Contact Preference

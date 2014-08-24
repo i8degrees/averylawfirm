@@ -75,11 +75,11 @@ router.post('/', function(req, res) {
     // req.checkBody( 'contact.phone_ext', input_errs['phone_ext']).isInt();
   // }
 
-  req.checkBody( 'contact.state', input_errs['state'] ).neq('Select State');
+  // req.checkBody( 'contact.state', input_errs['state'] ).neq('Select State');
 
   // FIXME: Figure out how to chain isInt && len together without creating
   // separate err messages for them.
-  req.checkBody( 'contact.zipcode', input_errs['zipcode'] ).isInt();
+  // req.checkBody( 'contact.zipcode', input_errs['zipcode'] ).isInt();
 
   req.checkBody( 'contact.pref', input_errs['pref'] ).neq('Select Preference');
   req.checkBody( 'contact.message', input_errs['message'] ).len(1,8192);

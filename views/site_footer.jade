@@ -4,12 +4,12 @@
 
 div(class='align-text-right')
   //- TODO: Figure out arrangement of these buttons
-  a(class='facebook-btn social-btn', href= locals.settings.site_owner['facebook_url'], target='_blank')
-  a(class='twitter-btn social-btn', href= locals.settings.site_owner['twitter_url'], target='_blank')
+  a(class='facebook-btn social-btn margin-right-offset10', href= locals.settings.site_owner['facebook_url'], target='_blank')
+  //- a(class='twitter-btn social-btn', href= locals.settings.site_owner['twitter_url'], target='_blank')
   a(class='linkedin-btn social-btn', href= locals.settings.site_owner['linkedin_url'], target='_blank')
-  a(class='rss-btn social-btn', href= locals.settings.site_owner['rss_url'], target='_blank')
+  //- a(class='rss-btn social-btn', href= locals.settings.site_owner['rss_url'], target='_blank')
 
-div(class='align-text-center')
+//- div(class='align-text-center')
   form(id='cse-search-box-form-id', action='/search_results', method='get')
     //- NOTE: Safari overrides our styling when the input field type is set to
     //- 'search'.
@@ -24,8 +24,9 @@ div(class='align-text-center padding-top-offset25')
   | &#32;&&#32;
   a( href= locals.settings.site_links['privacy'].href )= locals.settings.site_links['privacy'].title
 
-  p( class='copyright' ) &#169; 2014 &#32;
-    a(href='mailto:'+locals.settings.site_owner['email'])= locals.settings.site_owner['company']
+div(class='align-text-center')
+  p(class='copyright') &#169; 2014 &#32;
+    a(href='mailto:' + locals.settings.site_owner['email'])= locals.settings.site_owner['company']
 
 div(class='align-text-right')
   span(class='copyright') Design &#169; 2014 &#32;

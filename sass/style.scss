@@ -1,7 +1,11 @@
+$burgundy: #d1001a;
 $dark_blue: #1567C4;
 $sky_blue: #5eb0ea;
 $light_tan: #ffc;
 $light_gray: #EBEBEA;
+$dark_gray: #CACACA;
+
+$header_bg_color: #C3DFB7;
 
 /* Do not show bullet points in navigation menu */
 nav ul {
@@ -91,8 +95,7 @@ textarea:focus {
   /* Gray */
   /*background-color: $light_gray;*/
 
-  /* Green */
-  background-color: #C3DFB7;
+  background-color: $header_bg_color;
 
   border: none;
 
@@ -112,8 +115,7 @@ textarea:focus {
 
   font-size: 200%;
 
-  /* Burgundy */
-  color: #d1001a;
+  color: $burgundy;
 
   padding-left: 2%;
 }
@@ -130,14 +132,13 @@ textarea:focus {
   font-weight: 600;
   font-size: 115%;
 
-  box-shadow: 0px 2px 2px #888888;
+  // box-shadow: 0px 2px 2px #888888;
 }
 
 .nav-primary {
   clear: left;
 
-  /* Green */
-  background-color: #C3DFB7;
+  background-color: $header_bg_color;
 
   /* The negative margins corrects a rendering issue in Safari where it
   only *sometimes* renders partials of the non-current navigation items */
@@ -372,21 +373,22 @@ li.nav-current {}
   font-size: 90%;
 
   /* Gray */
-  background-color: $light_gray;
+  background-color: $dark_gray;
 
-  box-shadow: 0px 0px 4px black;
+  // box-shadow: 0px 0px 4px black;
 }
 
 .help {
   clear: both;
   width: 100%;
-  box-shadow: 0px 0px 4px black;
-  background-color: #FEFCCA;
-  margin-bottom: 25px;
+  // box-shadow: 0px 0px 4px black;
+  // background-color: #FEFCCA;
+  background-color: $light_gray;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 .footer .disclaimer {
-  text-align: center;
   font-size: 90%;
   font-style: italic !important;
   font-weight: 400;
@@ -394,7 +396,6 @@ li.nav-current {}
 }
 
 .footer .copyright {
-  text-align: center;
   font-size: 100%;
   font-style: normal !important;
   font-weight: 400;
@@ -527,6 +528,14 @@ li.nav-current {}
 
 .margin-bottom-offset50 {
   margin-bottom: 50px;
+}
+
+.margin-left-offset20 {
+  margin-left: 20px;
+}
+
+.margin-right-offset10 {
+  margin-right: 10px;
 }
 
 .padding-top-offset10 {
@@ -757,9 +766,9 @@ li.nav-current {}
   font-size: 25px;
   font-weight: normal;
   line-height: 2em;
-  border-radius: 25px;
-  -moz-border-radius:25px;
-  -webkit-border-radius:25px;
+  // border-radius: 25px;
+  // -moz-border-radius:25px;
+  // -webkit-border-radius:25px;
 }
 
 // Facebook button

@@ -82,7 +82,7 @@ router.post('/', function(req, res) {
   // req.checkBody( 'contact.zipcode', input_errs['zipcode'] ).isInt();
 
   req.checkBody( 'contact.pref', input_errs['pref'] ).neq('Select Preference');
-  req.checkBody( 'contact.message', input_errs['message'] ).len(1,8192);
+  req.checkBody( 'contact.message', input_errs['message'] ).len(1,4096);
   req.checkBody( 'contact.tos', input_errs['tos'] ).eq('agree');
 
   // Check the validation object for errors

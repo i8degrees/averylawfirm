@@ -17,7 +17,8 @@ module.exports = function(grunt) {
           'public/css/mobile.css' : 'sass/mobile.scss',
           'public/css/common.css' : 'sass/common.scss',
           'public/css/error.css' : 'sass/error.scss',
-          'public/css/font-awesome-4.1.0.css' : 'sass/font-awesome-4.1.0.scss'
+          'public/css/font-awesome-4.1.0.css' : 'sass/font-awesome-4.1.0.scss',
+          'public/css/modal.css' : 'sass/modal.scss'
         }
       },
       // Environment: Production

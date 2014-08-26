@@ -17,10 +17,12 @@ html
     if locals.settings.env === 'development'
       //- Disable Mobile Safari zoom capability -- in case we are testing within
       //- iPhone Simulator
-      meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+      //- meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui')
+
+      meta(name='viewport', content='width=device-width, initial-scale=1.0, minimal-ui')
     else
       //- Optimized design for modern mobile browsers (Mobile Safari, Chrome)
-      meta(name='viewport', content='width=device-width, initial-scale=1.0')
+      meta(name='viewport', content='width=device-width, initial-scale=1.0, minimal-ui')
 
     // Disable automatic telephone number detection so we can explicitly specify
     // telephone number links.
@@ -61,6 +63,9 @@ html
       link(href='//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css', rel="stylesheet")
     else
       link(href='/css/font-awesome-4.1.0.css', rel='stylesheet')
+
+    // Legal disclaimer modal popup window for contact form
+    link(href='/css/modal.css', rel='stylesheet', type='text/css')
 
     //- Additional web fonts (per page)
     block fonts
@@ -105,9 +110,6 @@ html
       //- Page content (specific per page)
       block content
 
-    //- Optionally included per page with include directive
-    block help
-
     footer
       div(class='footer')
         include site_footer
@@ -121,8 +123,17 @@ html
     else
       script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
 
-    // Fancy small display navigation menu (depends on jQuery)
+    // Fancy mobile navigation menu (depends on jQuery)
     script(src="/js/nav.js")
+
+    if locals.settings.env === 'development'
+      script(src='/js/lib/jquery.simplemodal-1.4.4.js')
+    else
+      script(src='/js/lib/jquery.simplemodal.1.4.4.min.js')
+
+    // Legal disclaimer modal popup window for contact form
+    // Requires jQuery.SimpleModal
+    script(src='/js/modal.js')
 
     if locals.settings.remote
       // Google Analytics

@@ -119,10 +119,6 @@ var site_links = {
   privacy: {
       title: 'Privacy Policy',
       href: '/privacy'
-    },
-  disclaimer: {
-      title: 'Disclaimer',
-      href: '/disclaimer'
     }
 };
 

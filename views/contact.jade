@@ -216,14 +216,12 @@ block content
           +check_err(input_errs['message'])
           label(for='contact_message') Brief description of your legal issue
           span(class='req') *
-        textarea(id='contact_message', class= locals.form_helpers.class_selector( locals.notifications, input_errs['message'] ), name='contact[message]', spellcheck='true', required data-required-msg= input_errs['message'],maxlength=8192 )= contact['message']
+        textarea(id='contact_message', class= locals.form_helpers.class_selector( locals.notifications, input_errs['message'] ), name='contact[message]', spellcheck='true', required data-required-msg= input_errs['message'],maxlength=4096 )= contact['message']
 
       fieldset
         legend Legal Disclaimer
 
-        // DISCLAIMER
-        ul
-          li The use of the Internet or this form for communication with the firm or any individual member of the firm does not establish an attorney-client relationship. Confidential or time-sensitive information should not be sent through this form.
+        include email_disclaimer
 
         +check_err(input_errs['tos'])
         input(id='tos', class= locals.form_helpers.class_selector( locals.notifications, input_errs['last_name'] ), type='checkbox', name='contact[tos]', value='agree', required data-required-msg= input_errs['tos'], checked= contact['tos'] )

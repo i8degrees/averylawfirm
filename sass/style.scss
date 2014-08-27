@@ -8,6 +8,10 @@ $dark_gray: #CACACA;
 $header_bg_color: #C3DFB7;
 $welcome_bg_color: #DFFFD1;
 
+$company_header_font: 'Arbutus Slab', serif;
+$content_font: 'Open Sans', sans-serif;
+$header_font: 'Lora', serif;
+
 /* Do not show bullet points in navigation menu */
 nav ul {
   list-style: none;
@@ -41,7 +45,7 @@ input, select, textarea {
   padding-left: 10px;
   padding-right: 10px;
 
-  font-family: 'Open Sans', sans-serif;
+  font-family: $content_font;
   font-size: 100%;
   font-weight: 600;
 }
@@ -72,7 +76,7 @@ html {
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $content_font;
   font-size: 100%;
 
   letter-spacing: 0.5px;
@@ -297,7 +301,7 @@ li.nav-current {}
 .search_input {
   width: 400px;
   height: 38px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $content_font;
   font-weight: 600;
   font-size: 100%;
   border: 1px solid #666;
@@ -354,12 +358,11 @@ li.nav-current {}
   /* Debugging aid */
   /*border: 1px solid gray;*/
 
-  font-family: 'Lora', serif;
+  font-family: $content_font;
 }
 
-.content_container h1, h2, h3, h4, h5, h6 {
-  /*font-family: Lora, serif;*/
-  font-family: 'Open Sans', sans-serif;
+h1, h2, h3, h4, h5, h6 {
+  font-family: $header_font !important;
 }
 
 /* Top-level footer container */
@@ -399,7 +402,7 @@ li.nav-current {}
 }
 
 .contact_form {
-  font-family: 'Open Sans', sans-serif;
+  font-family: $content_font;
 }
 
 .contact_form fieldset {
@@ -470,7 +473,7 @@ li.nav-current {}
   padding: 14px 28px !important;
   border: none;
   color: white !important;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $content_font;
   font-size: 100%;
   font-weight: 600;
   text-decoration: none;
@@ -493,7 +496,7 @@ li.nav-current {}
   padding: 14px 28px !important;
   border: none;
   color: white !important;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $content_font;
   font-size: 100%;
   font-weight: 600;
   text-decoration: none;
@@ -635,14 +638,14 @@ li.nav-current {}
   font-size: 218.75%;
   font-weight: 600;
   line-height: 1.3em;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $content_font !important;
 }
 
 .heading2 {
   font-size: 109.38%;
   font-weight: 600;
   line-height: 1.3em;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $content_font !important;
 }
 
 .contact-info {
@@ -674,7 +677,7 @@ li.nav-current {}
 }
 
 .sans {
-  font-family: 'Open Sans', sans-serif;
+  font-family: $content_font;
 }
 
 /* Experimental (breaks Mobile Safari select input fields) */
@@ -691,7 +694,7 @@ li.nav-current {}
 .note {
   font-size: 78.75%;
   font-style: italic;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $content_font;
 }
 
 .label {
@@ -699,7 +702,7 @@ li.nav-current {}
 }
 
 .address {
-  font-family: 'Open Sans', sans-serif;
+  font-family: $content_font;
 }
 
 .left-col {

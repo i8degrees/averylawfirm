@@ -370,7 +370,6 @@ h1, h2, h3, h4, h5, h6 {
   clear: both;
 
   padding: 2%;
-  font-size: 78.75%;
 
   /* Gray */
   background-color: $dark_gray;
@@ -389,14 +388,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer .disclaimer {
-  font-size: 78.75%;
-  font-style: italic !important;
-  font-weight: 400;
-  text-transform: uppercase;
+  font-size: 75%; // of 16px
 }
 
-.footer .copyright {
-  font-size: 100%;
+.footer .owner-copyright {
+  font-size: 100%; // of 16px
+  font-style: normal !important;
+  font-weight: 400;
+}
+
+.footer .dev-copyright {
+  font-size: 75%; // of 16px
   font-style: normal !important;
   font-weight: 400;
 }
@@ -701,8 +703,9 @@ h1, h2, h3, h4, h5, h6 {
   width: inherit;
 }
 
-.address {
+.address, address {
   font-family: $content_font;
+  font-style: normal;
 }
 
 .left-col {

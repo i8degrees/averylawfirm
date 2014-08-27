@@ -4,34 +4,34 @@
 
 div(class='section group')
 
-  div(class='col two-cols-span1 align-text-center')
+  div(class='col two-cols-span1 align-text-center address')
     div(class='padding-bottom-offset20')
-      div(class='address semi-bold')= locals.settings.site_owner['company']
-      div(class='address')= locals.settings.site_owner['addr1']
-      div(class='address')= locals.settings.site_owner['addr2']
-      div(class='address')= locals.settings.site_owner['phone']
-      div(class='address')
-      a(href='https://maps.google.com/maps?ll=36.06402,-94.158191&z=16&t=m&hl=en-US&gl=US&mapclient=embed&q=103%20N%20College%20Ave%20%235%20Fayetteville%2C%20AR%2072701', target='_blank') View Map
+      address
+        strong= locals.settings.site_owner['company']
+      address= locals.settings.site_owner['addr1']
+      address= locals.settings.site_owner['addr2']
+      address= locals.settings.site_owner['phone']
+      address
+        a(href='https://maps.google.com/maps?ll=36.06402,-94.158191&z=16&t=m&hl=en-US&gl=US&mapclient=embed&q=103%20N%20College%20Ave%20%235%20Fayetteville%2C%20AR%2072701', target='_blank') View Map
 
-  div(class='col two-cols-span1 align-text-left')
-    p(style='font-size:80%;') This site is for informational purposes only; its contents do not constitute legal advice or an attorney-client relationship between Avery Law Firm or its attorneys and any receiver. The information provided on these pages is general only, and you should not act upon this information without consulting with an attorney. If you send any confidential information to us and you are not a client of our law firm, the information shall lose its confidential status. Furthermore, if the unsolicited information you send to our law firm is beneficial to our clients and adverse to you, the information you provide may be used even if it is contrary to your interests.
+  div(class='col two-cols-span1 align-text-left disclaimer')
+    p This site is for informational purposes only; its contents do not constitute legal advice or an attorney-client relationship between Avery Law Firm or its attorneys and any receiver. The information provided on these pages is general only, and you should not act upon this information without consulting with an attorney. If you send any confidential information to us and you are not a client of our law firm, the information shall lose its confidential status. Furthermore, if the unsolicited information you send to our law firm is beneficial to our clients and adverse to you, the information you provide may be used even if it is contrary to your interests.
 
 div(class='section group')
-  div(class='col two-cols-span1 align-text-center')
-    div
-      div(class='address') Stay Connected
-      a(class='facebook-btn social-btn margin-right-offset10', href= locals.settings.site_owner['facebook_url'], target='_blank')
-      a(class='linkedin-btn social-btn', href= locals.settings.site_owner['linkedin_url'], target='_blank')
 
   div(class='col two-cols-span1 align-text-center')
-    div(class='align-text-center')
-      p(class='copyright') &#169; 2014 &#32;
-        a(href='mailto:' + locals.settings.site_owner['email'])= locals.settings.site_owner['company']
-        |&#32;|&#32;
-        a(href= locals.settings.site_links['privacy'].href)= locals.settings.site_links['privacy'].title
+    p Stay Connected
+    a(class='facebook-btn social-btn margin-right-offset10', href= locals.settings.site_owner['facebook_url'], target='_blank')
+    a(class='linkedin-btn social-btn', href= locals.settings.site_owner['linkedin_url'], target='_blank')
 
-    div(class='align-text-center', style='font-size: 50%;')
-      span(class='copyright') Designed by &#32;
+  div(class='col two-cols-span1 align-text-center owner-copyright')
+    p &#169; 2014 &#32;
+      a(href='mailto:' + locals.settings.site_owner['email'])= locals.settings.site_owner['company']
+      |&#32;|&#32;
+      a(href= locals.settings.site_links['privacy'].href)= locals.settings.site_links['privacy'].title
+
+    div(class='align-text-center dev-copyright')
+      p Designed by &#32;
         a( href= locals.settings.site_developer['website'], target='_blank' )= locals.settings.site_developer['name']
 
 //- div(class='align-text-center')

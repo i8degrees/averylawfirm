@@ -1,3 +1,0 @@
-# Legal Disclaimer
-
-This site is for informational purposes only; its contents do not constitute legal advice or an attorney-client relationship between Avery Law Firm or its attorneys and any receiver. The information provided on these pages is general only, and you should not act upon this information without consulting with an attorney. If you send any confidential information to us and you are not a client of our law firm, the information shall lose its confidential status. Furthermore, if the unsolicited information you send to our law firm is beneficial to our clients and adverse to you, the information you provide may be used even if it is contrary to your interests.

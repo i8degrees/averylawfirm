@@ -117,9 +117,13 @@ var nav_links = {
 
 var site_links = {
   privacy: {
-      title: 'Privacy Policy',
-      href: '/privacy'
-    }
+    title: 'Privacy Policy',
+    href: '/privacy'
+  },
+  disclaimer: {
+    title: 'Email Disclaimer',
+    href: '/disclaimer'
+  }
 };
 
 app.set('nav_links', nav_links );

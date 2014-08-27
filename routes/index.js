@@ -19,9 +19,10 @@ var topics = {
     load: function load() { return fs.readFileSync('./data/pages/privacy.md', opts ); }
   },
   disclaimer: {
-    title: 'Legal Disclaimer',
+    title: 'Email Disclaimer',
     // id: 'disclaimer',
-    load: function load() { return fs.readFileSync('./data/pages/disclaimer.md', opts ); }
+    // load: function load() { return fs.readFileSync('./data/pages/disclaimer.md', opts ); }
+    load: null
   }
 };
 

@@ -35,12 +35,8 @@ div(class='contact_form')
         input(id='tos', class= locals.form_helpers.class_selector( locals.notifications, input_errs['last_name'] ), type='checkbox', name='contact[tos]', value='agree', required data-required-msg= input_errs['tos'], checked= contact['tos'])
 
         label(for='tos') I have read and understand the &#32;
-          a(id='disclaimer-popup') disclaimer.
+          a(id='disclaimer-popup', href='/disclaimer', target='_blank') disclaimer.
         span(class='req') *
-        noscript
-          div(class='label padding-top-offset20')
-            h1 Email Disclaimer
-            include email_disclaimer
 
     button(class='orange-button border-rounded margin-top-offset25 margin-bottom-offset25', type='submit', name='action', value='send_msg') Send Message
 

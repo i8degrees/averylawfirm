@@ -27,7 +27,14 @@ var topics = {
 };
 
 router.get('/', function(req, res) {
-  res.render('index', { topic: topics['about'] } );
+  res.render('index', { topic: topics['about'], notifications: req.flash('notifications') } );
+});
+
+router.post('/', function(req, res) {
+
+  res.locals.form_helpers.process_contact_form( req, res );
+
+  res.render('index', { topic: topics['about'], notifications: req.flash('notifications') } );
 });
 
 router.get('/index', function(req, res) {

@@ -31,7 +31,14 @@ router.get('/', function(req, res) {
 });
 
 router.get('/index', function(req, res) {
-  res.render('index', { topic: topics['about'] } );
+  res.render('index', { topic: topics['about'], notifications: req.flash('notifications') } );
+});
+
+router.post('/index', function(req, res) {
+
+  res.locals.form_helpers.process_contact_form( req, res );
+
+  res.render('index', { topic: topics['about'], notifications: req.flash('notifications') } );
 });
 
 router.get('/about', function(req, res) {
@@ -46,9 +53,9 @@ router.get('/privacy', function(req, res) {
   res.render('privacy', { topic: topics['privacy'] } );
 });
 
-router.get('/search_results', function(req, res) {
-  res.render('search_results', { cse_query: req.query['q'] } );
-});
+// router.get('/search_results', function(req, res) {
+//   res.render('search_results', { cse_query: req.query['q'] } );
+// });
 
 router.get('/locations', function(req, res) {
   res.render('locations');

@@ -5,7 +5,7 @@
 //-
 //- param label     The text label to use
 //- param form_var  The variable used to determine selected state
-mixin select_option( label, form_var )
+//- mixin select_option( label, form_var )
   option( value= label, selected= form_var === label ? true : false )= label
 
 //- Produce an error label (styled text) for a form input field
@@ -18,7 +18,7 @@ mixin select_option( label, form_var )
 //- param input_field The err string object used to compare equality against
 //-                   the errors object.
 mixin check_err( input_field )
-  if locals.form_helpers.has_err( locals.notifications, input_field )
+  if locals.form_helpers.has_err( notifications, input_field )
     div( class='err' )
       img(style='padding-right: 8px;', src='/images/error_16.png', alt='Error Icon')
       = input_field
@@ -33,14 +33,15 @@ block head
 
 block content
 
-  unless locals.form_helpers.has_errs( locals.notifications )
+  unless locals.form_helpers.has_errs( notifications )
     :markdown
       <h1 class='heading1 align-text-center'>
         How can we <span class='bold sky-blue'>help you?</span>
       </h1>
 
-  unless locals.form_helpers.has_errs( locals.notifications )
+  h1= locals.settings.nav_links['contact'].title
 
+  unless locals.form_helpers.has_errs( notifications )
     main
       p If you are seeking skilled and diligent representation in any type of case, contact Laura today to see how she may be able to help you.
 
@@ -56,18 +57,16 @@ block content
         ...or by <span class='bold sky-blue'>Web</span> Form
       </h1>
 
-  if locals.form_helpers.has_errs( locals.notifications )
+  //- if locals.form_helpers.has_errs( notifications )
     img(class='float-left', src='/images/alert.png', alt='Alert Icon')
     span(class='sans')
-      p= locals.form_helpers.count_errs( locals.notifications ) + ' submission errors have been found.'
+      p= locals.form_helpers.count_errs( notifications ) + ' submission errors have been found.'
 
-  unless locals.form_helpers.has_errs( locals.notifications )
-    span(class='sans', style='font-size: 80%;')
-      :markdown
-        <strong>Note:</strong>
-        Labels marked with <span class='req'>*</span> indicates required information.
+  div(class='float-left-reset')
 
-  div(class='contact_form float-left-reset')
+    include contact_form
+
+  //- div(class='contact_form float-left-reset')
 
     //- TODO: Finish HTML5 hooks for custom client-side validation
     form(action='contact', method='POST',novalidate)

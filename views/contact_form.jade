@@ -1,42 +1,71 @@
+//- Produce an error label (styled text) for a form input field
+//-
+//- This is used to produce a matching error near the appropriate input field
+//- when the server-side validation fails, as opposed to simply dumping all the
+//- errors in a single spot (i.e.: top of form) and potentially forcing the
+//- end-user to scroll up and down to fix each error.
+//-
+//- param input_field The err string object used to compare equality against
+//-                   the errors object.
+mixin check_err( input_field )
+  if locals.form_helpers.has_err( notifications, input_field )
+    div(class='err padding-top-offset10')
+      img(style='padding-right: 8px;', src='/images/error_16.png', alt='Error Icon')
+      = input_field
+
+span(class='sans', style='font-size: 80%;')
+  :markdown
+    <strong>Note:</strong>
+    Labels marked with <span class='req'>*</span> indicates required information.
+
 div(class='contact_form')
-  form(action='', method='POST',novalidate)
-    div(class='input_container')
-      //- div(class='label padding-top-offset20')
-      div(class='label')
-        label(for='contact_first_name') Your Name
-        span(class='req') *
-      input(id='contact_first_name', class= locals.form_helpers.class_selector( locals.notifications, input_errs['first_name'] ), type='text', name='contact[first_name]', spellcheck='false', required data-required-msg= input_errs['first_name'], placeholder='First, Last Name', value= contact['first_name'], maxlength=255 )
 
-      //- div(class='label padding-top-offset20')
-      div(class='label')
-        label(for='contact_email') Your Email
-        span(class='req') *
-      input(id='contact_email', class= locals.form_helpers.class_selector( locals.notifications, input_errs['email'] ), type='email', name='contact[email]', required data-required-msg= input_errs['email'], placeholder='example@domain.com', value= contact['email'], maxlength=255 )
+  form(class='input_container', action=locals.loc.pathname, method='POST', novalidate)
 
-      //- div(class='label padding-top-offset20')
-      div(class='label')
-        label(for='phone_area') Your Phone Number
-        span(class='req') *
+    //- div(style='padding-right:20px; background-color:#FFEBDC;')
+    div(class='label')
+      +check_err( locals.input_errs['contact'].first_name )
+      label(for='contact_first_name') Your Full Name
+      span(class='req') *
+    input(id='contact_first_name', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].first_name ), type='text', name='contact[first_name]', spellcheck='false', required data-required-msg= locals.input_errs['contact'].first_name, placeholder='First, Last Name', value= contact['first_name'], maxlength=255 )
 
-      |  (
-      input(id='phone_area', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_area'] ), type='tel', name='contact[phone_area]', maxlength=3, required data-required-msg= input_errs['phone_area'], placeholder='479', value= contact['phone_area'] )
-      |  )
-      input(id='phone_prefix', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_prefix'] ), type='tel', name='contact[phone_prefix]', maxlength=3, required data-required-msg= input_errs['phone_prefix'], placeholder='555', value= contact['phone_prefix'] )
-      |  -
-      input(id='phone_suffix', class= locals.form_helpers.class_selector( locals.notifications, input_errs['phone_suffix'] ), type='tel', name='contact[phone_suffix]', maxlength=4, required data-required-msg= input_errs['phone_suffix'], placeholder='1244', value= contact['phone_suffix'] )
+    div(class='label')
+      +check_err( locals.input_errs['contact'].email )
+      label(for='contact_email') Your E-mail Address
+      span(class='req') *
+    input(id='contact_email', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].email ), type='email', name='contact[email]', required data-required-msg= locals.input_errs['contact'].email, placeholder='example@domain.com', value= contact['email'], maxlength=255 )
 
-      //- div(class='label padding-top-offset20')
-      div(class='label')
-        label(for='contact_message') Your Message
-        span(class='req') *
-      textarea(id='contact_message', class= locals.form_helpers.class_selector( locals.notifications, input_errs['message'] ), name='contact[message]', spellcheck='true', required data-required-msg= input_errs['message'],maxlength=4096)= contact['message']
+    div(class='label')
+      +check_err( locals.input_errs['contact'].phone_area )
+      +check_err( locals.input_errs['contact'].phone_prefix )
+      +check_err( locals.input_errs['contact'].phone_suffix )
+      label(for='phone_area') Your Phone Number
+      // Cheat w3c validation ... shame on me! ;x
+      label(for='phone_prefix', hidden=true)
+      label(for='phone_suffix', hidden=true)
+      //- label(for='phone_ext', hidden=true)
+      span(class='req') *
 
-      div(class='label padding-top-offset20')
-        input(id='tos', class= locals.form_helpers.class_selector( locals.notifications, input_errs['last_name'] ), type='checkbox', name='contact[tos]', value='agree', required data-required-msg= input_errs['tos'], checked= contact['tos'])
+    |  (
+    input(id='phone_area', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].phone_area ), type='tel', name='contact[phone_area]', maxlength=3, required data-required-msg= locals.input_errs['contact'].phone_area, placeholder='479', value= contact['phone_area'] )
+    |  )
+    input(id='phone_prefix', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].phone_prefix ), type='tel', name='contact[phone_prefix]', maxlength=3, required data-required-msg= locals.input_errs['contact'].phone_prefix, placeholder='555', value= contact['phone_prefix'] )
+    |  -
+    input(id='phone_suffix', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].phone_suffix ), type='tel', name='contact[phone_suffix]', maxlength=4, required data-required-msg= locals.input_errs['contact'].phone_suffix, placeholder='1244', value= contact['phone_suffix'] )
 
-        label(for='tos') I have read and understand the &#32;
-          a(id='disclaimer-popup', href='/disclaimer', target='_blank') disclaimer.
-        span(class='req') *
+    div(class='label')
+      +check_err( locals.input_errs['contact'].message )
+      label(for='contact_message') Your Message
+      span(class='req') *
+    textarea(id='contact_message', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].message ), name='contact[message]', spellcheck='true', required data-required-msg= locals.input_errs['contact'].message, maxlength=4096)= contact['message']
+
+    div(class='label padding-top-offset20')
+      +check_err( locals.input_errs['contact'].tos )
+      input(id='tos', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].tos ), type='checkbox', name='contact[tos]', value='agree', required data-required-msg= locals.input_errs['contact'].tos, checked= contact['tos'])
+
+      label(for='tos') I have read and understand the &#32;
+        a(id='disclaimer-popup', href='/disclaimer', target='_blank') disclaimer.
+      span(class='req') *
 
     button(class='orange-button border-rounded margin-top-offset25 margin-bottom-offset25', type='submit', name='action', value='send_msg') Send Message
 

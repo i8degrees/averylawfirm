@@ -6,6 +6,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
+var session = require('express-session');
+var flash = require('connect-flash');
 
 // SMTP provider for contact page; this is initialized to either a mock object
 // or the real deal, depending on the environment.
@@ -48,6 +50,35 @@ app.use( validator() );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+
+// Default options used during session initialization
+var session_opts = {
+  secret: 'Not a well kept secret!',
+  cookie: {
+    maxAge: null            // Default value from express-session docs
+  },
+  // Default values for getting rid of deprecated warnings logging from
+  // express-session
+  resave: true,             // Default value from express-session docs
+  saveUninitialized: true,  // Default value from express-session docs
+};
+
+// Initialize session; what is used to sign the cookie with is dependent upon
+// the underlying environment (SESSION_SECRET) at the time of app startup.
+//
+// This is a required dependency for the connect-flash module
+if( process.env.SESSION_SECRET != null ) {
+  session_opts.secret = process.env.SESSION_SECRET;
+} else {
+  console.warn( "SESSION_SECRET environment variable is not set!" );
+}
+
+app.use( session( session_opts ) );
+
+// Use connect-flash module for passing notification messaging across defined
+// routes
+app.use( flash() );
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Global site settings
@@ -141,22 +172,6 @@ app.use( function(req, res, next) {
   //
   // See also: http://dailyjs.com/2012/09/13/express-3-csrf-tutorial/
   res.locals.contact = {};
-
-  // Simple server-side site messaging
-  res.locals.notifications = {
-    // Type of message
-    //
-    // The value should be one of the following strings: success, err.
-    type: 'success',
-
-    // Array of messages
-    //
-    // The value should be object(s) containing the message string, labeled
-    // 'msg'.
-    //
-    // i.e.: messages: [ { msg: 'err string 1' }, { msg: 'err string 2' } ]
-    messages: [ ]
-  };
 
   // TODO: clean up err messages
   //

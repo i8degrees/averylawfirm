@@ -96,7 +96,7 @@ You should now be able to access the local site at the following URL if everythi
     * Email will be sent out upon successful form submission.
 
 ```
- NODE_ENV=testing SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js &
+ NODE_ENV=testing SESSION_SECRET=<passphrase> SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js &
 ```
 
 **Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.
@@ -118,7 +118,7 @@ You should now be able to access the local site at the following URL if everythi
     * No dumping of form submission input on successful form submission.
 
 ```
- NODE_ENV=production SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js &
+ NODE_ENV=production SESSION_SECRET=<passphrase> SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js &
 ```
 
 **Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.

@@ -921,8 +921,33 @@ h1, h2, h3, h4, h5, h6 {
   width: 32.26%;
 }
 
+// Two column grid for the home site page
+
+// Contact form (right)
+.home .two-cols-span2 {
+  width: 24.2%;
+  // width: 49.2%;
+}
+
+// Content (left)
+.home .two-cols-span1 {
+  width: 74.2%;
+  // width: 49.2%;
+}
+
+// Two column grid for the practice site page
+
+// Contact form (right)
+.practice .two-cols-span2 {
+  width: 24.2%;
+}
+
+// Content (left)
+.practice .two-cols-span1 {
+  width: 74.2%;
+}
+
 /* Full width columns (stacked) when content can *not* fit */
-// @media only screen and (max-width: 965px) {
 @media only screen and (max-width: 767px) {
   .col {
     margin-top: 1%;
@@ -938,8 +963,12 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .two-cols-span2, .two-cols-span1,
-  .three-cols-span3, .three-cols-span2, .three-cols-span1
-  {
+  .three-cols-span3, .three-cols-span2, .three-cols-span1 {
+    width: 100%;
+  }
+
+  .home .two-cols-span2, .home .two-cols-span1,
+  .practice .two-cols-span2, .practice .two-cols-span1 {
     width: 100%;
   }
 }

@@ -2,10 +2,12 @@ extends layout
 
 block title
 
-  if topic.href != '/practice'
+  //- if topic.href != '/practice'
     title= topic.title + ' : ' + 'Areas of Practice'
-  else
+  //- else
     title= 'Areas of Practice' + ' : ' + locals.settings.site_owner['company']
+
+  title= 'Areas of Practice' + ' : ' + locals.settings.site_owner['company']
 
 block head
 
@@ -15,56 +17,23 @@ block content
     block help
       include help
 
-  // Breadcrumbs
-  //
-  // NOTE: Disabled in mobile stylesheet
-  nav(style='margin-left:25px;')
-    - for( var i = 0; i != locals.breadcrumbs.length; ++i )
-      //- Not at the parent page (so we should have a trail)
-      if topic.href != locals.breadcrumbs[i].home
-        a(class='breadcrumb-link', href= topics[0].href )= topics[0].title + ' > '
-        a(class='breadcrumb-link breadcrumb-active')= topic.title
+  div(class='section group practice')
 
-  // NOTE: Disabled in mobile stylesheet
-  div(class='right-col')
-    // TODO: Some sort of filler, i.e.: image?
+    div(class='col two-cols-span1')
+      :markdown
+        <h1 class='heading1 align-text-center'>
+          What We <span class='bold sky-blue'>Practice</span>
+        </h1>
 
-  div(class='left-col')
-      //- Try to load topic page; note that we must use a callback here so we
-      //- can see changes made to the Markdown files without restarting the
-      //- server.
-      //-
-      //- Note that the parent page ('/practice' without an ID) is a Markdown
-      //- file as well.
-      if typeof topic.load === 'function'
-        locals.md!=locals.md(topic.load() )
-      else
-        h1 Invalid Topic
-        p Sorry, we could not find your requested topic!
+      - for( var i = 1; i != topics.length; ++i )
+        div(align='left')
+          h2= topics[i].title
 
-        //- This should not happen! I'd suspect: a) something screwy in the
-        //- routing -- see practice.js; b) potential security breach attempt
-        - console.info( "INFO: Topic data from \"%s\" (ID=%d) cannot be rendered: invalid data file.", topic.title, id );
+          if typeof topics[i].load === 'function'
+            locals.md!=locals.md(topics[i].load() )
 
-      //- Parent page handling
-      if topic.href === '/practice'
-        :markdown
-          <h1 class='heading1 align-text-center'>
-            What We <span class='bold sky-blue'>Practice</span>
-          </h1>
-
-        - for( var i = 1; i != topics.length; ++i )
-          // max-width should be a value that fits the width of the longest
-          // title, so the full title fits within one line of text.
-
-          div(align='left')
-            h2= topics[i].title
-              //- a(href= topics[i].href)= topics[i].title
-
-            //- div(style='max-width: 300px;')
-              a(class='blue-button border-rounded margin-bottom-offset25', style='display: block;', href= topics[i].href )= topics[i].title
-
-block help
-  include help
+    div(class='col two-cols-span2')
+      h2 Questions?
+      include contact_form
 
 block footer

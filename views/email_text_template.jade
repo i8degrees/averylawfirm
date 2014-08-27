@@ -1,13 +1,10 @@
 //- Note that Jade takes care of sanitizing the input for us -- i.e.: HTML
 //- carrot tags are transformed into literal carrot symbols.
 
-| First Name:
-= ' ' + contact['first_name'] + '\n'
+| Name:
+= ' ' + contact['name'] + '\n'
 
-//- | Last Name:
-//- = ' ' + contact['last_name'] + '\n'
-
-| Email Address:
+| E-mail Address:
 = ' ' + contact['email'] + '\n'
 
 | Phone Number:

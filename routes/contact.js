@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
   var mock_errs = [
     {
       type: 'err',
-      message: res.locals.input_errs['contact'].first_name
+      message: res.locals.input_errs['contact'].name
     },
     {
       type: 'err',

@@ -45,7 +45,8 @@
     max-width: 98%;
   }
 
-  .contact_form #contact_first_name, #contact_last_name, #contact_email, #contact_confirm_email {
+  .contact_form #contact_name, #contact_email, #contact_confirm_email {
+    // TODO: Try using default width provided from style.scss
     width: 200px;
   }
 

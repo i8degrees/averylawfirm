@@ -178,20 +178,17 @@ app.use( function(req, res, next) {
   // contact page form validity err labels
   res.locals.input_errs = {
     contact: {
-      first_name: 'Please leave your first name.',
-      last_name: 'Please leave your last name.',
+      name: 'Please leave your full name.',
       email: 'Please leave your e-mail address.',
-      // Not used
-      confirm_email: 'Your e-mail address does not match.',
+      // confirm_email: 'Your e-mail address does not match.',
       phone: 'Your ten digit phone number is required.',
       phone_area: 'Your three digit area code is required.',
       phone_prefix: 'Your three digit phone prefix is required.',
       phone_suffix: 'Your four digit phone suffix is required.',
-      // Optional
-      phone_ext: 'Your phone extension can only contain numbers.',
-      state: 'Your state is required.',
-      zipcode: 'Your five digit zip code is required.',
-      pref: 'Please choose your contact preference.',
+      // phone_ext: 'Your phone extension can only contain numbers.',
+      // state: 'Your state is required.',
+      // zipcode: 'Your five digit zip code is required.',
+      // pref: 'Please choose your contact preference.',
       message: 'Please leave a message.',
       tos: 'You must agree to our disclaimer.'
     }

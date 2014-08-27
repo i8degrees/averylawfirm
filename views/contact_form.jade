@@ -24,10 +24,10 @@ div(class='contact_form')
 
     //- div(style='padding-right:20px; background-color:#FFEBDC;')
     div(class='label')
-      +check_err( locals.input_errs['contact'].first_name )
-      label(for='contact_first_name') Your Full Name
+      +check_err( locals.input_errs['contact'].name )
+      label(for='contact_name') Your Full Name
       span(class='req') *
-    input(id='contact_first_name', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].first_name ), type='text', name='contact[first_name]', spellcheck='false', required data-required-msg= locals.input_errs['contact'].first_name, placeholder='First, Last Name', value= contact['first_name'], maxlength=255 )
+    input(id='contact_name', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].name ), type='text', name='contact[name]', spellcheck='false', required data-required-msg= locals.input_errs['contact'].name, placeholder='First, Last Name', value= contact['name'], maxlength=255 )
 
     div(class='label')
       +check_err( locals.input_errs['contact'].email )

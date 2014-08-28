@@ -938,6 +938,10 @@ h1, h2, h3, h4, h5, h6 {
   width: 74.2%;
 }
 
+.col ul {
+  list-style-image: url('/images/checkmark.png');
+}
+
 // Two column grid for the about site page
 
 // Content (right)

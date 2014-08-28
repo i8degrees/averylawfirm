@@ -2,6 +2,9 @@ extends layout
 
 //- Use default provisioned title
 
+block title
+  title= topic.title + ' : ' + locals.settings.site_owner['company']
+
 block head
 
 block content

@@ -58,6 +58,11 @@ block content
       +print_err_code(500, 'Application Error')
       +print_err_message("Sorry, but the page has erred on us.")
 
+
+  p Please email &#32;
+    a(href='mailto:' + locals.settings.site_owner['email'])= locals.settings.site_owner['email']
+    | &#32; if you need to contact us.
+
   if locals.settings.env === 'development' || locals.settings.env === 'testing'
     hr
     pre(class='code-box') #{error.stack}

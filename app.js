@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var validator = require('express-validator');
 var session = require('express-session');
 var flash = require('connect-flash');
+var helmet = require('helmet');
 
 // SMTP provider for contact page; this is initialized to either a mock object
 // or the real deal, depending on the environment.
@@ -52,10 +53,15 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 
 // Default options used during session initialization
+//
+// https://github.com/expressjs/session
 var session_opts = {
   secret: 'Not a well kept secret!',
   cookie: {
-    maxAge: null            // Default value from express-session docs
+    maxAge: null,           // Default value from express-session docs
+    httpOnly: true
+    // HTTPS only
+    // secure: true
   },
   // Default values for getting rid of deprecated warnings logging from
   // express-session
@@ -78,6 +84,11 @@ app.use( session( session_opts ) );
 // Use connect-flash module for passing notification messaging across defined
 // routes
 app.use( flash() );
+
+// Use Helmet security header defaults
+//
+// See also: https://github.com/evilpacket/helmet
+app.use( helmet() );
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -272,6 +283,7 @@ if( app.get('env') === 'development' ) {
   app.locals.compileDebug = true;
 
 } else {  // Assume production mode (live, public site)
+
   // Computer-friendly (no whitespace)
   //
   // Note that this is the current default; I reset it here to be safe.

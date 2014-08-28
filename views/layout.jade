@@ -52,7 +52,7 @@ html
     if locals.settings.remote
       link(href='http://fonts.googleapis.com/css?family=Arbutus+Slab', rel='stylesheet', type='text/css')
       link(href='http://fonts.googleapis.com/css?family=Open+Sans:italic,400,600,800', rel='stylesheet', type='text/css')
-      link(href='http://fonts.googleapis.com/css?family=Lora:italic,400,600,800', rel='stylesheet', type='text/css')
+      link(href='http://fonts.googleapis.com/css?family=Lora:400,600,800', rel='stylesheet', type='text/css')
 
       // Experimental fonts
       //- link(href='http://fonts.googleapis.com/css?family=Adamina', rel='stylesheet', type='text/css')
@@ -77,11 +77,11 @@ html
       //- script(src='/js/lib/modernizr_v2.8.3.min.js')
 
     //- Site helpers
-    script(src='/js/helpers.js')
+    //- script(src='/js/helpers.js')
 
     if locals.settings.remote
       // Google Custom Search Engine
-      script(src='/js/google_search.js')
+      //- script(src='/js/google_search.js')
 
     if locals.settings.env === 'development'
       // LiveReload

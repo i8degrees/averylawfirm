@@ -12,7 +12,7 @@ div(class='section group')
       address= locals.settings.site_owner['addr2']
       address= locals.settings.site_owner['phone']
       address
-        a(href='https://maps.google.com/maps?ll=36.06402,-94.158191&z=16&t=m&hl=en-US&gl=US&mapclient=embed&q=103%20N%20College%20Ave%20%235%20Fayetteville%2C%20AR%2072701', target='_blank') View Map
+        a(href='https://maps.google.com/maps?ll=36.06402,-94.158191&z=16&t=m&hl=en-US&gl=US&mapclient=embed&q=103%20N%20College%20Ave%20%235%20Fayetteville%2C%20AR%2072701') View Map
 
   div(class='col two-cols-span1 align-text-left disclaimer')
     p This site is for informational purposes only; its contents do not constitute legal advice or an attorney-client relationship between Avery Law Firm or its attorneys and any receiver. The information provided on these pages is general only, and you should not act upon this information without consulting with an attorney. If you send any confidential information to us and you are not a client of our law firm, the information shall lose its confidential status. Furthermore, if the unsolicited information you send to our law firm is beneficial to our clients and adverse to you, the information you provide may be used even if it is contrary to your interests.
@@ -21,8 +21,8 @@ div(class='section group')
 
   div(class='col two-cols-span1 align-text-center')
     p Stay Connected
-    a(class='facebook-btn social-btn margin-right-offset10', href= locals.settings.site_owner['facebook_url'], target='_blank')
-    a(class='linkedin-btn social-btn', href= locals.settings.site_owner['linkedin_url'], target='_blank')
+    a(class='facebook-btn social-btn margin-right-offset10', href= locals.settings.site_owner['facebook_url'])
+    a(class='linkedin-btn social-btn', href= locals.settings.site_owner['linkedin_url'])
 
   div(class='col two-cols-span1 align-text-center owner-copyright')
     p &#169; 2014 &#32;
@@ -32,7 +32,7 @@ div(class='section group')
 
     div(class='align-text-center dev-copyright')
       p Designed by &#32;
-        a( href= locals.settings.site_developer['website'], target='_blank' )= locals.settings.site_developer['name']
+        a( href= locals.settings.site_developer['website'])= locals.settings.site_developer['name']
 
 //- div(class='align-text-center')
   form(id='cse-search-box-form-id', action='/search_results', method='get')

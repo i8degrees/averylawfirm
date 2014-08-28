@@ -125,7 +125,7 @@ app.set('remote', true );
 var nav_links = {
     about: {
       title: 'About',
-      href: '/index'
+      href: '/about'
     },
     practice: {
       title: 'Areas of Practice',

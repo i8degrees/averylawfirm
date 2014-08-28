@@ -11,7 +11,8 @@ var topics = {
   about: {
     title: 'About',
     // id: 'about',
-    load: function load() { return fs.readFileSync('./data/pages/about.md', opts ); }
+    // load: function load() { return fs.readFileSync('./data/pages/about.md', opts ); }
+    load: null
   },
   privacy: {
     title: 'Privacy Policy',
@@ -37,19 +38,8 @@ router.post('/', function(req, res) {
   res.render('index', { topic: topics['about'], notifications: req.flash('notifications') } );
 });
 
-router.get('/index', function(req, res) {
-  res.render('index', { topic: topics['about'], notifications: req.flash('notifications') } );
-});
-
-router.post('/index', function(req, res) {
-
-  res.locals.form_helpers.process_contact_form( req, res );
-
-  res.render('index', { topic: topics['about'], notifications: req.flash('notifications') } );
-});
-
 router.get('/about', function(req, res) {
-  res.render('index', { topic: topics['about'] } );
+  res.render('about', { topic: topics['about'] } );
 });
 
 router.get('/disclaimer', function(req, res) {

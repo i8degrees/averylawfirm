@@ -938,6 +938,19 @@ h1, h2, h3, h4, h5, h6 {
   width: 74.2%;
 }
 
+// Two column grid for the about site page
+
+// Content (right)
+.about .two-cols-span2 {
+  width: 24.2%;
+}
+
+// Picture (left)
+.about .two-cols-span1 {
+
+  width: 74.2%;
+}
+
 // Two column grid for the practice site page
 
 // Contact form (right)
@@ -979,6 +992,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .home .two-cols-span2, .home .two-cols-span1,
+  .about .two-cols-span2, .about .two-cols-span1,
   .practice .two-cols-span2, .practice .two-cols-span1 {
     width: 100%;
   }
@@ -1003,4 +1017,9 @@ h1, h2, h3, h4, h5, h6 {
   width: 75%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.about img {
+  width: 100%;
+  height: 100%;
 }

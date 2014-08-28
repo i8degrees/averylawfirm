@@ -56,11 +56,6 @@ block content
         ...or by <span class='bold sky-blue'>Web</span> Form
       </h1>
 
-  //- if locals.form_helpers.has_errs( notifications )
-    img(class='float-left', src='/images/alert.png', alt='Alert Icon')
-    span(class='sans')
-      p= locals.form_helpers.count_errs( notifications ) + ' submission errors have been found.'
-
   div(class='float-left-reset')
 
     include contact_form

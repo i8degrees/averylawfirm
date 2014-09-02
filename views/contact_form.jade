@@ -13,6 +13,11 @@ mixin check_err( input_field )
       img(style='padding-right: 8px;', src='/images/error_16.png', alt='Error Icon')
       = input_field
 
+//- Do not use client-side form field validation unless in production
+//- environment
+- var extra_attrs = null;
+- if( locals.settings.env != 'production' ) extra_attrs = 'novalidate';
+
 if locals.form_helpers.has_errs( notifications )
   img(id='errs', class='float-left', src='/images/alert.png', alt='Alert Icon')
   span(class='sans')
@@ -23,7 +28,7 @@ else
       <strong>Note:</strong>
       Labels marked with <span class='req'>*</span> indicates required information.
 
-form(class='contact_form', action=locals.loc.pathname + '#errs', method='POST', novalidate)
+form(class='contact_form', action=locals.loc.pathname + '#errs', method='POST', novalidate= extra_attrs )
   .input_container
     //- div(style='padding-right:20px; background-color:#FFEBDC;')
     div(class='label')

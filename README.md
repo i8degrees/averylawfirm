@@ -13,6 +13,7 @@ Local site configuration notes.
     * [nodemon](https://www.npmjs.org/package/nodemon)
     * [pow](http://pow.cx/)
     * [LiveReload app](http://go.livereload.com/)
+    * [Redis](https://redis.io)
 
 ### Local Development Site Setup
 
@@ -39,6 +40,9 @@ brew install -vd pow
 
 gem install sass
 npm install -g grunt-cli
+
+# ...only necessary if you need to test Redis session storage (see app.js):
+brew install redis -vd
 ```
 
 ```
@@ -118,6 +122,9 @@ You should now be able to access the local site at the following URL if everythi
     * No dumping of form submission input on successful form submission.
 
 ```
+# ...only necessary if you need to test Redis session storage (see app.js):
+redis-server /usr/local/etc/redis.conf &
+
  NODE_ENV=production SESSION_SECRET=<passphrase> SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js &
 ```
 

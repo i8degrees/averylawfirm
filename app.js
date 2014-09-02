@@ -9,6 +9,7 @@ var validator = require('express-validator');
 var session = require('express-session');
 var flash = require('connect-flash');
 var helmet = require('helmet');
+var RedisSessionStore = require('connect-redis')(session);
 
 // SMTP provider for contact page; this is initialized to either a mock object
 // or the real deal, depending on the environment.
@@ -63,11 +64,38 @@ var session_opts = {
     // HTTPS only
     // secure: true
   },
+
   // Default values for getting rid of deprecated warnings logging from
   // express-session
   resave: true,             // Default value from express-session docs
   saveUninitialized: true,  // Default value from express-session docs
+
+  // Session storage; MemoryStore is the default, and is not "production-ready".
+  store: null,
 };
+
+// Redis-powered session storage
+//
+// Requires local Redis server
+//
+// https://github.com/visionmedia/connect-redis
+if( app.get('env') === 'production' ) {
+
+  // Default connection options
+  var redis_opts = {
+    host: 'localhost',
+    port: 6379
+  };
+
+  console.info( 'Initializing Redis session storage...' );
+
+  session_opts.store = new RedisSessionStore( redis_opts );
+
+  // Initialize default error handler...
+  session_opts.store.client.on( 'error', function( err ) {
+    console.error( 'ERROR: Initialization of the Redis session store failed!' );
+  });
+}
 
 // Initialize session; what is used to sign the cookie with is dependent upon
 // the underlying environment (SESSION_SECRET) at the time of app startup.

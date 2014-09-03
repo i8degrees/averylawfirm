@@ -1,4 +1,6 @@
-http://virgo.noip.me/index
-http://virgo.noip.me/contact
-http://virgo.noip.me/locations
+http://virgo.noip.me/
+http://virgo.noip.me/about
 http://virgo.noip.me/practice
+http://virgo.noip.me/locations
+http://virgo.noip.me/contact
+http://virgo.noip.me/blog

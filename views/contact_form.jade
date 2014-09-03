@@ -10,7 +10,7 @@
 mixin check_err( input_field )
   if locals.form_helpers.has_err( notifications, input_field )
     div(class='err padding-top-offset10')
-      img(style='padding-right: 8px;', src='/images/error_16.png', alt='Error Icon')
+      img(width='16', height='16', style='padding-right: 8px;', src='/images/error_16.png', alt='Error Icon')
       = input_field
 
 //- Do not use client-side form field validation unless in production

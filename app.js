@@ -289,6 +289,7 @@ app.use( function(req, res, next) {
     };
   } else {
     sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD );
+    Email: new sendgrid.Email();
   }
 
   res.locals.sendgrid = sendgrid;

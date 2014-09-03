@@ -53,12 +53,15 @@ block content
       if locals.settings.remote
         script(src='http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js')
 
+    when 503
+      +print_err_code(503, 'Service Unavailable')
+      +print_err_message(message)
+
       //- Handle undefined err status code
     default
 
       +print_err_code(500, 'Application Error')
-      +print_err_message("Sorry, but the page has erred on us.")
-
+      +print_err_message('Sorry, but the page has erred on us.')
 
   p Please email &#32;
     a(href='mailto:' + locals.settings.site_owner['support_email'])= locals.settings.site_owner['support_email']

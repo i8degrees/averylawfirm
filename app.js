@@ -89,12 +89,13 @@ if( app.get('env') === 'production' ) {
 
   console.info( 'Initializing Redis session storage...' );
 
-  session_opts.store = new RedisSessionStore( redis_opts );
+  // TODO: Re-enable once our Heroku account is verified...
+  // session_opts.store = new RedisSessionStore( redis_opts );
 
   // Initialize default error handler...
-  session_opts.store.client.on( 'error', function( err ) {
-    console.error( 'ERROR: Initialization of the Redis session store failed!' );
-  });
+  // session_opts.store.client.on( 'error', function( err ) {
+    // console.error( 'ERROR: Initialization of the Redis session store failed!' );
+  // });
 }
 
 // Initialize session; what is used to sign the cookie with is dependent upon

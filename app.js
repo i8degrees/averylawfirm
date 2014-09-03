@@ -105,6 +105,8 @@ else if( app.get('env') === 'testing' ) {
 
   // Initialize default error handler...
   session_opts.store.client.on( 'error', function( err ) {
+    // NOTE: This error text must stay in sync with the search text used in our
+    // LogEntries account in order for automatic alerts to function.
     console.error( 'ERROR: Initialization of the Redis session store failed!' );
   });
 }
@@ -127,10 +129,16 @@ else if( app.get('env') === 'production' ) {
 
     // Initialize default error handler...
     session_opts.store.client.on( 'error', function( err ) {
+      // NOTE: This error text must stay in sync with the search text used in our
+      // LogEntries account in order for automatic alerts to function.
       console.error( 'ERROR: Initialization of the Redis session store failed!' );
     });
   } else {
-    console.error( "REDISCLOUD_URL environment variable is not set; initialization of the Redis session store failed!" );
+    console.warn( "REDISCLOUD_URL environment variable is not set." );
+
+    // NOTE: This error text must stay in sync with the search text used in our
+    // LogEntries account in order for automatic alerts to function.
+    console.error( 'ERROR: Initialization of the Redis session store failed!' );
   }
 }
 

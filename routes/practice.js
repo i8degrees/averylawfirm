@@ -67,7 +67,7 @@ router.get('/', function(req, res) {
     // res.locals.breadcrumbs = [ { title: topics[id].title, href: res.locals.loc.href, home: '/practice' } ];
     // res.render('practice', { topics: topics, topic: topics[id] } );
   // } else {
-    // console.info("Invalid topic ID %d was passed.", req.query['id'] );
+    // console.error( "app [ERROR]: Invalid topic ID %d was passed.", req.query['id'] );
     // res.render('practice', { topics: topics, topic: topics[0] } );
   // }
 });

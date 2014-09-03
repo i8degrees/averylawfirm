@@ -150,3 +150,20 @@ brew install redis -vd
 * http://ryanchristiani.com/getting-started-with-grunt-and-sass/
 * http://gruntjs.com/getting-started
 * https://www.codefellows.org/blog/create-a-node-js-project-from-scratch-with-node-sass
+
+## Miscellaneous Notes
+
+### Automated Alert Notifications for App Errors
+
+The format in which logs are output must follow a particular style in order to 
+work automatically with an automated notification system (powered by [LogEntries](https://logentries.com)).
+
+* Logging output styles that are setup for alerts on the account
+    * ```app [ERROR]: ...message...```
+    * ```app [CRITICAL]: ...message...```
+    * ~~```app [WARNING]: ...message...```~~
+    * ~~```app [DEBUG]: ...message...```~~
+
+**NOTE:** Logging output beginning with ```app-<subname>``` is also matched for alerts.
+
+By default, alerts are setup to notify the assigned email address based on the custom expression matching rule.

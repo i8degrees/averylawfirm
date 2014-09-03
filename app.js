@@ -88,9 +88,10 @@ if( app.get('env') === 'development' ) {
   // Do nothing; use session store defaults (MemoryStore).
 }
 
-// Provide mock testing object (experimental)
+// Provide mock testing object (experimental as in I haven't tested this much!)
 else if( app.get('env') === 'testing' ) {
-  console.info( 'Initializing Redis session storage...' );
+
+  console.info( "app-redis [INFO]: Initializing Redis-backend session store..." );
 
   var redis_store_opts = {
     // Local Redis session store defaults -- requires local installation of
@@ -105,9 +106,7 @@ else if( app.get('env') === 'testing' ) {
 
   // Initialize default error handler...
   session_opts.store.client.on( 'error', function( err ) {
-    // NOTE: This error text must stay in sync with the search text used in our
-    // LogEntries account in order for automatic alerts to function.
-    console.error( 'ERROR: Initialization of the Redis session store failed!' );
+    console.error( "app-redis [ERROR]: Could not connect to Redis-backend session store." );
   });
 }
 
@@ -123,22 +122,16 @@ else if( app.get('env') === 'production' ) {
     var client = redis.createClient(redisURL.port, redisURL.hostname, { no_ready_check: true });
     client.auth(redisURL.auth.split(":")[1]);
 
-    console.info( 'Initializing Redis session storage...' );
+    console.info( "app-redis [INFO]: Initializing Redis-backend session store..." );
 
     session_opts.store = new RedisSessionStore( { client: client } );
 
     // Initialize default error handler...
     session_opts.store.client.on( 'error', function( err ) {
-      // NOTE: This error text must stay in sync with the search text used in our
-      // LogEntries account in order for automatic alerts to function.
-      console.error( 'ERROR: Initialization of the Redis session store failed!' );
+      console.error( "app-redis [ERROR]: Could not connect to Redis-backend session store." );
     });
   } else {
-    console.warn( "REDISCLOUD_URL environment variable is not set." );
-
-    // NOTE: This error text must stay in sync with the search text used in our
-    // LogEntries account in order for automatic alerts to function.
-    console.error( 'ERROR: Initialization of the Redis session store failed!' );
+    console.error( "app-redis [ERROR]: Could not connect to Redis-backend session store; REDISCLOUD_URL environment variable is not set." );
   }
 }
 
@@ -149,7 +142,7 @@ else if( app.get('env') === 'production' ) {
 if( process.env.SESSION_SECRET != null ) {
   session_opts.secret = process.env.SESSION_SECRET;
 } else {
-  console.warn( "SESSION_SECRET environment variable is not set!" );
+  console.warn( "app [WARNING]: SESSION_SECRET environment variable is not set; using **insecure** default..." );
 }
 
 app.use( session( session_opts ) );

@@ -15,6 +15,27 @@ Local site configuration notes.
     * [LiveReload app](http://go.livereload.com/)
     * [Redis Server](//redis.io/)
 
+## Site Environment Configuration
+
+I use the [dotenv node module](https://www.npmjs.org/package/dotenv) for keeping up with the site environments.
+
+1. Create a .env file at the project's repository root with the bare minimum environment requirements:
+
+```
+cd ~/Projects/averylawfirm.git
+touch .env
+echo "NODE_ENV=development" > .env
+```
+
+Available environment variables:
+
+* ```SESSION_SECRET```
+* ```PORT```
+* ```SENDGRID_USERNAME```
+* ```SENDGRID_PASSWORD```
+
+**See also:** app.js, Heroku build config vars
+
 ### Local Development Site Setup
 
 #### Windows
@@ -63,7 +84,7 @@ Simply swap out the use of ```npm start``` with:
 
 ```
 # averylawfirm.git
-PORT=<LOCAL_PORT_NUMBER> NODE_ENV=development nodemon app.js &
+ NODE_ENV=development nodemon app.js &
 ```
 
 ##### Pow
@@ -84,7 +105,14 @@ You should now be able to access the local site at the following URL if everythi
 
 ### Testing Site Setup
 
-* Defaults to the listening port 5000.
+#### Testing Site Dependencies
+
+```
+# ...only necessary if you need to test Redis session storage (see app.js):
+brew install redis -vd
+```
+
+* ~~Defaults to the listening port 5000.~~
 
 * All site pages generated from Jade templates:
     * Exclude LiveReload script.
@@ -100,21 +128,14 @@ You should now be able to access the local site at the following URL if everythi
 # ...only necessary if you need to test Redis session storage (see app.js):
 redis-server /usr/local/etc/redis.conf &
 
- NODE_ENV=testing SESSION_SECRET=<passphrase> SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js &
+ NODE_ENV=testing nodemon app.js &
 ```
 
 **Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.
 
-#### Testing Site Dependencies
-
-```
-# ...only necessary if you need to test Redis session storage (see app.js):
-brew install redis -vd
-```
-
 ### Production Site Setup
 
-* Defaults to the listening port 5000.
+* ~~Defaults to the listening port 5000.~~
 
 * All site pages generated from Jade templates:
     * Exclude LiveReload script.
@@ -129,7 +150,7 @@ brew install redis -vd
     * No dumping of form submission input on successful form submission.
 
 ```
- NODE_ENV=production SESSION_SECRET=<passphrase> SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js &
+ NODE_ENV=production nodemon app.js &
 ```
 
 * [REDISCLOUD_URL](https://devcenter.heroku.com/articles/rediscloud) should be set if simulating the Heroku deployment environment, otherwise the default session store (MemoryStore) will be used. MemoryStore is said to not be production-ready (due to memory leaks, one instance limit).
@@ -150,6 +171,10 @@ git push staging dev:master
 git push staging master
 ```
 
+```
+heroku logs --app averylawfirm-staging
+```
+
 ### Heroku Production Deployment URL
 
 [averylawfirm.herokuapp.com](http://averylawfirm.herokuapp.com)
@@ -160,6 +185,10 @@ git push heroku dev:master
 
 # Local 'master' branch to Heroku app's 'master' branch
 git push heroku master
+```
+
+```
+heroku logs --app averylawfirm
 ```
 
 ### Alert Notifications for Log Levels >= 'WARNING'

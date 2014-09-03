@@ -173,6 +173,7 @@ var site_owner = {
   // TODO: This is a stubbed e-mail address; replace with the actual one before
   // production deployment!
   email: 'averyfirm@gmail.com',
+  support_email: 'averyfirm@gmail.com',
   phone: '+1 (479) 739-1903',
   // https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/PhoneLinks/PhoneLinks.html
   phone_url: 'tel:1-479-739-1903',
@@ -303,7 +304,7 @@ app.use( function(req, res, next) {
   //
   // breadcrumbs is an array object that should contain zero or more objects,
   // with the member pairs: 'title' (string), 'href' (string), 'home' (string).
-  res.locals.breadcrumbs = [];
+  // res.locals.breadcrumbs = [];
 
   next();
 });

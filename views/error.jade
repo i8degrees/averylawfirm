@@ -31,6 +31,7 @@ block head
 
 block content
 
+  //- See also: [10 Status Code Definitions](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)
   case error.status
 
     when 404
@@ -60,9 +61,9 @@ block content
 
 
   p Please email &#32;
-    a(href='mailto:' + locals.settings.site_owner['email'])= locals.settings.site_owner['email']
+    a(href='mailto:' + locals.settings.site_owner['support_email'])= locals.settings.site_owner['support_email']
     | &#32; if you need to contact us.
 
-  if locals.settings.env === 'development' || locals.settings.env === 'testing'
+  if error.stack != null && (locals.settings.env === 'development' || locals.settings.env === 'testing')
     hr
     pre(class='code-box') #{error.stack}

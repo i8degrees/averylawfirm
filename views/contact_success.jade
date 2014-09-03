@@ -8,14 +8,15 @@ block head
 
 block content
 
-  //- :markdown
+  :markdown
     <h1 class='heading1 align-text-center'>
-      <span class='bold sky-blue'>...Success!</span>
+      <span class='bold sky-blue'>...Thank you!</span>
     </h1>
 
-  //- TODO: This is a stubbed response message.
-  h1= 'Thanks!'
-  p We have received your message and will get back to you as soon as possible.
+  div(class='align-text-left')
+
+    //- TODO: This is a stubbed response message.
+    p We have received your message and will get back to you as soon as possible.
 
   if locals.settings.env === 'development' || locals.settings.env === 'testing'
     include email_html_template.jade

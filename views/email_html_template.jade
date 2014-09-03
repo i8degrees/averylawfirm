@@ -11,7 +11,9 @@ table
       a(href='mailto:' + contact['email'] )= contact['email']
   tr
     td(style='text-align: right; font-weight: bold;') Phone Number
-    td= locals.form_helpers.phone_number_prettify( contact['phone_area'], contact['phone_prefix'], contact['phone_suffix'] )
+    td
+      a(href='tel:' + contact['phone_area'] + contact['phone_prefix'] + contact['phone_suffix'] )= locals.form_helpers.phone_number_prettify( contact['phone_area'], contact['phone_prefix'], contact['phone_suffix'] )
+
   //- if contact['phone_ext'].length > 0
     tr
       td(style='text-align: right; font-weight: bold;') Phone Extension

@@ -41,15 +41,6 @@
     display: none;
   }
 
-  .contact_form fieldset {
-    max-width: 98%;
-  }
-
-  .contact_form #contact_name, #contact_email, #contact_confirm_email {
-    // TODO: Try using default width provided from style.scss
-    width: 200px;
-  }
-
   .contact_form #phone_area {
     width: 30px;
   }
@@ -62,23 +53,7 @@
     width: 40px;
   }
 
-  .contact_form #phone_ext {
-    width: 30px;
-
-    /* Spacing in between the extension and phone suffix */
-    margin-left: 10px;
-  }
-
-  .contact_form #contact_state {
-    /*width: 175px;*/
-  }
-
-  .contact_form #contact_zipcode {
-    /*width: 50px;*/
-  }
-
   .contact_form #contact_message {
-    width: 96%;
     height: 240px;
   }
 
@@ -94,4 +69,23 @@
     // nullification of the horizontal centering alignment
     width: 100%;
   }
+
+  // .contact_form fieldset {
+  //   max-width: 98%;
+  // }
+
+  // .contact_form #phone_ext {
+  //   width: 30px;
+
+  //   // Spacing in between the extension and phone suffix
+  //   margin-left: 10px;
+  // }
+
+  // .contact_form #contact_state {
+  //   // width: 175px;
+  // }
+
+  // .contact_form #contact_zipcode {
+  //   // width: 50px;
+  // }
 }

@@ -419,7 +419,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 96%;
 }
 
-.contact_form #contact_name, #contact_email, #contact_confirm_email {
+.contact_form #contact_name, #contact_email {
   // Expand to the full width of the input_container class
   width: 100%;
 
@@ -442,30 +442,30 @@ h1, h2, h3, h4, h5, h6 {
   height: 38px;
 }
 
-.contact_form #phone_ext {
-  width: 40px;
-
-  /* Spacing in between the extension and phone suffix */
-  margin-left: 10px;
-
-  height: 38px;
-}
-
-.contact_form #contact_state, #pref {
-  width: 250px;
-  height: 38px;
-}
-
-.contact_form #contact_zipcode {
-  width: 100px;
-  height: 38px;
-}
-
 .contact_form #contact_message {
   // Expand to the full width of the input_container class
   width: 100%;
   height: 120px;
 }
+
+// .contact_form #phone_ext {
+//   width: 40px;
+
+//   // Spacing in between the extension and phone suffix
+//   margin-left: 10px;
+
+//   height: 38px;
+// }
+
+// .contact_form #contact_state, #pref {
+//   width: 250px;
+//   height: 38px;
+// }
+
+// .contact_form #contact_zipcode {
+//   width: 100px;
+//   height: 38px;
+// }
 
 .border-rounded {
   -moz-border-radius: 21px;

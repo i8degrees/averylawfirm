@@ -13,7 +13,7 @@ Local site configuration notes.
     * [nodemon](https://www.npmjs.org/package/nodemon)
     * [pow](http://pow.cx/)
     * [LiveReload app](http://go.livereload.com/)
-    * [Redis](https://redis.io)
+    * [Redis Server](//redis.io/)
 
 ### Local Development Site Setup
 
@@ -76,7 +76,7 @@ ln -s ~/Projects/averylawfirm ~/.pow/averylawfirm
 
 You should now be able to access the local site at the following URL if everything was setup properly (**NOTE:** Replace the private LAN address [1] according to your site network):
 
-1. [Pow host via LAN](http://averylawfirm.192.168.151.126.xip.io)
+1. [Pow host via LAN](http://averylawfirm.192.168.15.100.xip.io)
 
 ###### Troubleshooting
 
@@ -136,12 +136,44 @@ brew install redis -vd
 
 **Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.
 
-### Further Reading
+## Miscellaneous Notes
 
-* [Official Express guide](http://expressjs.com/guide.html)
-* [Node.js & Express Tutorial](http://shapeshed.com/creating-a-basic-site-with-node-and-express/)
-* [Pow User's Manual](http://pow.cx/manual.html)
-* [Heroku: Deploying with Git](https://devcenter.heroku.com/articles/git)
+### Heroku Staging Deployment URL
+
+[averylawfirm-staging.herokuapp.com](http://averylawfirm-staging.herokuapp.com)
+
+```
+# Local 'dev' branch to Heroku staging app's 'master' branch
+git push staging dev:master
+
+# Local 'master' branch to Heroku staging app's 'master' branch
+git push staging master
+```
+
+### Heroku Production Deployment URL
+
+[averylawfirm.herokuapp.com](http://averylawfirm.herokuapp.com)
+
+```
+# Local 'dev' branch to Heroku app's 'master' branch
+git push heroku dev:master
+
+# Local 'master' branch to Heroku app's 'master' branch
+git push heroku master
+```
+
+### Alert Notifications for Log Levels >= 'WARNING'
+
+The format in which logs are output must follow a particular style in order to 
+work automatically with an automated notification system (powered by [LogEntries](https://logentries.com)).
+
+* The following logging output formats have been configured for email alert notifications:
+    * ```app [ERROR]: ...message...``` 
+    * ```app [CRITICAL]: ...message...```
+    * ~~```app [WARNING]: ...message...```~~
+    * ~~```app [DEBUG]: ...message...```~~
+
+**NOTE:** Log output formatting that begins with ```app-subname``` where *subname* is any alphanumeric combination is also matched for alert notifications.
 
 ## References
 
@@ -151,19 +183,9 @@ brew install redis -vd
 * http://gruntjs.com/getting-started
 * https://www.codefellows.org/blog/create-a-node-js-project-from-scratch-with-node-sass
 
-## Miscellaneous Notes
+### Further Reading
 
-### Automated Alert Notifications for App Errors
-
-The format in which logs are output must follow a particular style in order to 
-work automatically with an automated notification system (powered by [LogEntries](https://logentries.com)).
-
-* Logging output styles that are setup for alerts on the account
-    * ```app [ERROR]: ...message...```
-    * ```app [CRITICAL]: ...message...```
-    * ~~```app [WARNING]: ...message...```~~
-    * ~~```app [DEBUG]: ...message...```~~
-
-**NOTE:** Logging output beginning with ```app-<subname>``` is also matched for alerts.
-
-By default, alerts are setup to notify the assigned email address based on the custom expression matching rule.
+* [Official Express guide](http://expressjs.com/guide.html)
+* [Node.js & Express Tutorial](http://shapeshed.com/creating-a-basic-site-with-node-and-express/)
+* [Pow User's Manual](http://pow.cx/manual.html)
+* [Heroku: Deploying with Git](https://devcenter.heroku.com/articles/git)

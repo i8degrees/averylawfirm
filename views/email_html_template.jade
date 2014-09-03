@@ -7,7 +7,8 @@ table
     td= contact['name']
   tr
     td(style='text-align: right; font-weight: bold;') E-mail Address
-    td= contact['email']
+    td
+      a(href='mailto:' + contact['email'] )= contact['email']
   tr
     td(style='text-align: right; font-weight: bold;') Phone Number
     td= locals.form_helpers.phone_number_prettify( contact['phone_area'], contact['phone_prefix'], contact['phone_suffix'] )

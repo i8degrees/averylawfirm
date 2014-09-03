@@ -12,6 +12,17 @@ public/testme.html
 sass/testme.scss
 keys/*
 
+# Site environment(s)
+.env.development
+.env.testing
+.env.staging
+.env.production
+.env
+
+# ...additional site environments
+#.env.heroku-staging
+#.env.heroku-production
+
 # OS X Finder metadata
 *.DS_Store
 .LSOverride

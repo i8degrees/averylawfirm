@@ -124,7 +124,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Global site settings
 //
 // These are globally accessible when the app var has been declared and
-// initialized -- see above) at app.locals.settings.
+// initialized -- see above) at `app.locals.settings` or
+// `res.app.locals.settings`.
 //
 // Global access from within Jade templates is (automatically) granted at
 // locals.settings.

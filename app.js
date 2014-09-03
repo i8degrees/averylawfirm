@@ -11,6 +11,12 @@ var flash = require('connect-flash');
 var helmet = require('helmet');
 var RedisSessionStore = require('connect-redis')(session);
 
+// Heroku deployment-specific dependencies
+
+// RedisCloud
+var url = require('url');
+var redis = require('redis'); // Used for createClient function
+
 // SMTP provider for contact page; this is initialized to either a mock object
 // or the real deal, depending on the environment.
 var sendgrid = null;
@@ -74,28 +80,58 @@ var session_opts = {
   store: null,
 };
 
-// Redis-powered session storage
-//
-// Requires local Redis server
+// Redis-powered session storage initialization
 //
 // https://github.com/visionmedia/connect-redis
-if( app.get('env') === 'production' ) {
+if( app.get('env') === 'development' ) {
 
-  // Default connection options
-  var redis_opts = {
-    host: 'localhost',
-    port: 6379
-  };
+  // Do nothing; use session store defaults (MemoryStore).
+}
 
+// Provide mock testing object (experimental)
+else if( app.get('env') === 'testing' ) {
   console.info( 'Initializing Redis session storage...' );
 
-  // TODO: Re-enable once our Heroku account is verified...
-  // session_opts.store = new RedisSessionStore( redis_opts );
+  var redis_store_opts = {
+    // Local Redis session store defaults -- requires local installation of
+    // Redis server.
+    store: {
+      host: 'localhost',
+      port: 6379
+    },
+  };
+
+  session_opts.store = new RedisSessionStore( redis_store_opts );
 
   // Initialize default error handler...
-  // session_opts.store.client.on( 'error', function( err ) {
-    // console.error( 'ERROR: Initialization of the Redis session store failed!' );
-  // });
+  session_opts.store.client.on( 'error', function( err ) {
+    console.error( 'ERROR: Initialization of the Redis session store failed!' );
+  });
+}
+
+// Heroku Deployment production environment (requires RedisCloud add-on)
+//
+// 1. https://app.redislabs.com/main/dashboard
+// 2. https://devcenter.heroku.com/articles/rediscloud
+// 3. ```heroku config:get REDISCLOUD_URL```
+else if( app.get('env') === 'production' ) {
+
+  if( process.env.REDISCLOUD_URL != null ) {
+    var redisURL = url.parse(process.env.REDISCLOUD_URL);
+    var client = redis.createClient(redisURL.port, redisURL.hostname, { no_ready_check: true });
+    client.auth(redisURL.auth.split(":")[1]);
+
+    console.info( 'Initializing Redis session storage...' );
+
+    session_opts.store = new RedisSessionStore( { client: client } );
+
+    // Initialize default error handler...
+    session_opts.store.client.on( 'error', function( err ) {
+      console.error( 'ERROR: Initialization of the Redis session store failed!' );
+    });
+  } else {
+    console.error( "REDISCLOUD_URL environment variable is not set; initialization of the Redis session store failed!" );
+  }
 }
 
 // Initialize session; what is used to sign the cookie with is dependent upon

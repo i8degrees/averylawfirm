@@ -40,9 +40,6 @@ brew install -vd pow
 
 gem install sass
 npm install -g grunt-cli
-
-# ...only necessary if you need to test Redis session storage (see app.js):
-brew install redis -vd
 ```
 
 ```
@@ -100,10 +97,20 @@ You should now be able to access the local site at the following URL if everythi
     * Email will be sent out upon successful form submission.
 
 ```
+# ...only necessary if you need to test Redis session storage (see app.js):
+redis-server /usr/local/etc/redis.conf &
+
  NODE_ENV=testing SESSION_SECRET=<passphrase> SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js &
 ```
 
 **Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.
+
+#### Testing Site Dependencies
+
+```
+# ...only necessary if you need to test Redis session storage (see app.js):
+brew install redis -vd
+```
 
 ### Production Site Setup
 
@@ -122,11 +129,10 @@ You should now be able to access the local site at the following URL if everythi
     * No dumping of form submission input on successful form submission.
 
 ```
-# ...only necessary if you need to test Redis session storage (see app.js):
-redis-server /usr/local/etc/redis.conf &
-
  NODE_ENV=production SESSION_SECRET=<passphrase> SENDGRID_USERNAME=<username> SENDGRID_PASSWORD=<password> nodemon app.js &
 ```
+
+* [REDISCLOUD_URL](https://devcenter.heroku.com/articles/rediscloud) should be set if simulating the Heroku deployment environment, otherwise the default session store (MemoryStore) will be used. MemoryStore is said to not be production-ready (due to memory leaks, one instance limit).
 
 **Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.
 

@@ -279,6 +279,8 @@ app.use( function(req, res, next) {
     }
   };
 
+  mock_errs = null;
+
   // SendGrid setup; this will send an email upon a successful form submission.
   //
   // We always provide a mock object instead when in development mode.
@@ -309,6 +311,26 @@ app.use( function(req, res, next) {
   // breadcrumbs is an array object that should contain zero or more objects,
   // with the member pairs: 'title' (string), 'href' (string), 'home' (string).
   res.locals.breadcrumbs = [];
+
+  next();
+});
+
+// Mock errors object that we can pass around to use while developing contact
+// form features.
+//
+// Depends on res.locals.input_errs object being set (see above).
+app.use( function( req, res, next ) {
+
+  res.locals.mock_errs = [
+    {
+      type: 'err',
+      message: res.locals.input_errs['contact'].name
+    },
+    {
+      type: 'err',
+      message: res.locals.input_errs['contact'].message
+    }
+  ];
 
   next();
 });

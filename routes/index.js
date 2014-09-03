@@ -28,6 +28,10 @@ var topics = {
 };
 
 router.get('/', function(req, res) {
+
+  // Mock errors object
+  // req.flash('notifications', res.locals.mock_errs );
+
   res.render('index', { topic: topics['about'], notifications: req.flash('notifications') } );
 });
 

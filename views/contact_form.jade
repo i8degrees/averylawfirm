@@ -19,28 +19,27 @@ mixin check_err( input_field )
 - if( locals.settings.env != 'production' ) extra_attrs = 'novalidate';
 
 if locals.form_helpers.has_errs( notifications )
-  img(id='errs', class='float-left', src='/images/alert.png', alt='Alert Icon')
-  span(class='sans')
-    p= 'Sorry, ' + locals.form_helpers.count_errs( notifications ) + ' form errors have been found.'
-else
-  div(class='sans', style='font-size: 80%;')
-    :markdown
-      <strong>Note:</strong>
-      Labels marked with <span class='req'>*</span> indicates required information.
+  //- Acts as both a reference link anchor -- for jumping to form errors upon
+  //- submission -- and as a container (necessary for proper text wrapping).
+  #errs
+    .float-left
+      img(width='32', height='32', src='/images/alert_32.png', alt='Alert Icon')
+    p(class='sans')= 'Sorry, ' + locals.form_helpers.count_errs( notifications ) + ' submission errors have been found.'
+
 
 form(class='contact_form', action=locals.loc.pathname + '#errs', method='POST', novalidate= extra_attrs )
   .input_container
     //- div(style='padding-right:20px; background-color:#FFEBDC;')
     div(class='label')
       +check_err( locals.input_errs['contact'].name )
-      label(for='contact_name') Your Full Name
-      span(class='req') *
+      label(for='contact_name') Your Name
+      span(class='req') Required
     input(id='contact_name', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].name ), type='text', name='contact[name]', spellcheck='false', required data-required-msg= locals.input_errs['contact'].name, placeholder='First, Last Name', value= contact['name'], maxlength=255 )
 
     div(class='label')
       +check_err( locals.input_errs['contact'].email )
-      label(for='contact_email') Your E-mail Address
-      span(class='req') *
+      label(for='contact_email') Your Email Address
+      span(class='req') Required
     input(id='contact_email', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].email ), type='email', name='contact[email]', required data-required-msg= locals.input_errs['contact'].email, placeholder='example@domain.com', value= contact['email'], maxlength=255 )
 
     div(class='label')
@@ -52,7 +51,7 @@ form(class='contact_form', action=locals.loc.pathname + '#errs', method='POST', 
       label(for='phone_prefix', hidden=true)
       label(for='phone_suffix', hidden=true)
       //- label(for='phone_ext', hidden=true)
-      span(class='req') *
+      span(class='req') Required
 
     |  (
     input(id='phone_area', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].phone_area ), type='tel', name='contact[phone_area]', maxlength=3, required data-required-msg= locals.input_errs['contact'].phone_area, placeholder='479', value= contact['phone_area'] )
@@ -64,16 +63,16 @@ form(class='contact_form', action=locals.loc.pathname + '#errs', method='POST', 
     div(class='label')
       +check_err( locals.input_errs['contact'].message )
       label(for='contact_message') Your Message
-      span(class='req') *
+      span(class='req') Required
     textarea(id='contact_message', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].message ), name='contact[message]', spellcheck='true', required data-required-msg= locals.input_errs['contact'].message, maxlength=4096)= contact['message']
 
-    div(class='label padding-top-offset20')
+    div(class='label')
       +check_err( locals.input_errs['contact'].tos )
       input(id='tos', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].tos ), type='checkbox', name='contact[tos]', value='agree', required data-required-msg= locals.input_errs['contact'].tos, checked= contact['tos'])
 
-      label(for='tos') I have read and understand the &#32;
+      label(for='tos', class='tos') I have read and understand the &#32;
         a(id='disclaimer-popup', href='/disclaimer', target='_blank') disclaimer.
-      span(class='req') *
+      span(class='req') Required
 
     button(class='orange-button border-rounded margin-top-offset25 margin-bottom-offset25', type='submit', name='action', value='send_msg') Send Message
 

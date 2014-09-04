@@ -27,6 +27,7 @@
     "express": "~4.2.0",
     "express-session": "^1.7.6",
     "express-validator": "~2.3.0",
+    "googleapis": "^1.0.11",
     "grunt": "~0.4.5",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-sass": "^0.7.4",

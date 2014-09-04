@@ -1,3 +1,8 @@
+//- Blogger JavaScript, REST API Documentation
+//-
+//- https://developers.google.com/blogger/docs/3.0/getting_started
+//- https://developers.google.com/blogger/docs/3.0/reference/index
+
 extends layout
 
 block title
@@ -6,17 +11,49 @@ block title
 
 block head
 
+  //- script.
+  //-   function handleResponse2( res ) {
+  //-     var num_comments = res.replies.totalItems;
+  //-     var selflink_comments = res.replies.selfLink;
+  //-   }
+
 block content
 
-  //- TODO
-  //- https://developers.google.com/blogger/docs/3.0/getting_started
-  //- https://developers.google.com/blogger/docs/3.0/reference/index
+  #blog
 
-  //- script.
-    function handleResponse(response) {
-      document.getElementById("content").innerHTML += "<h1>" + response.title + "</h1>" + response.content;
+  #author
+    p Authored by:
+  #comments
+
+  #permalink
+    //- p Permalink:
+  #published
+    p Published on:
+  #updated
+    p Last updated on:
+  #labels
+    p Labels:
+  #active_url
+    //- p Current URL:
+
+  script.
+    function handleResponse( res ) {
+      console.log(res);
+      document.getElementById("blog").innerHTML += "<h1>" + res.title + "</h1>" + res.content;
+      document.getElementById('published').innerHTML += '<p>' + res.published + '</p>';
+      document.getElementById('updated').innerHTML += '<p>' + res.updated + '</p>';
+      document.getElementById('labels').innerHTML += '<p>' + res.labels + '</p>';
+      document.getElementById('author').innerHTML += '<p>' + '<a href="' + res.author.url + '">' + res.author.displayName + '</a>' + '</p>';
+      //- document.getElementById('author').innerHTML += '<img src="' + res.author.image.url + '" alt="Google Profile Image" />';
+      document.getElementById('permalink').innerHTML += '<p>' + '<a href="' + res.selfLink + '">' + 'Permalink' + '</a>' + '</p>';
+      document.getElementById('active_url').innerHTML += '<p>' + '<a href="' + res.url + '">' + 'Active URL' + '</a>' + '</p>';
+
+      //- FIXME: We hit daily quota limits if we try getting the response object for res.replies.selfLink.
+      document.getElementById('comments').innerHTML += '<p>' + res.replies.totalItems + ' ' + '<a href="' + res.replies.selfLink + '">' + 'Comments' + '</a>' + '</p>';
+
     }
 
-  //- script(src="https://www.googleapis.com/blogger/v3/blogs/1358910749199223219?callback=handleResponse&key=AIzaSyA5Za2tcxZBxwHDyN7OLvlhm6KJlm8x9w8")
+  //- script(src="https://www.googleapis.com/blogger/v3/blogs/1358910749199223219?callback=handleResponse&key=AIzaSyAy4Gb3ySz_4yDz5LJ_3k5LlMi4soRT5aA")
+  script(src='https://www.googleapis.com/blogger/v3/blogs/1358910749199223219/posts/8009725998532404742?callback=handleResponse&key=AIzaSyAy4Gb3ySz_4yDz5LJ_3k5LlMi4soRT5aA')
 
 block footer

@@ -1,0 +1,68 @@
+//- TODO
+
+//- Research for workaround on how to post new comments (Blogger's v2 API
+//- appears to have supported this option [1], except there was no support for
+//- the author field -- comments would appear as though they were coming from
+//- the owner of the blog).
+
+//- References
+//- 1. https://developers.google.com/blogger/docs/2.0/developers_guide_protocol#Comments
+
+//- See also
+//- https://groups.google.com/forum/?fromgroups#!searchin/bloggerdev/comment$20posts/bloggerdev/-yjYUJVf7EI/pepBnqoc2H0J
+//- http://averylawfirm.blogspot.com/feeds/5726858577617761976/comments/default
+
+//- Proper formatting / nesting of comment replies
+
+extends ../layout
+
+block title
+
+  //- TODO
+  title= locals.settings.nav_links['blog'].title + ' : ' + locals.settings.site_owner['company']
+
+block head
+
+block content
+
+  //- - console.log(comments);
+
+  //- - console.log(blogspot);
+
+  h1 Blog Comments
+
+  if typeof auth_url != 'undefined'
+
+    include blogger_auth
+
+  else if typeof comments != 'undefined'
+
+    - each comment in comments
+      p
+        if comment.author
+          a(href= comment.author.url )= comment.author.displayName
+
+        //- Jump anchor for comment
+        if comment.id && comment.published
+          | &#32;|&#32;
+          a(id= comment.id, href= locals.loc.path + '#' + comment.id )= comment.published
+
+      //- Not supported as per official docs
+      //- if comment.updated
+        p Last updated on #{comment.updated}
+
+      if comment.title
+        h1= comment.title
+
+      //- Unbuffered output; this relies on Google's service for properly
+      //- validating and sanitizing (i.e.: escaping HTML tags).
+      if comment.content
+
+        if locals.settings.blog.comments['enable_markdown']
+          locals.md!=locals.md( comment.content )
+        else
+          p!= comment.content
+
+      hr
+
+block footer

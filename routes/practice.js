@@ -1,4 +1,4 @@
-// Site route dependencies
+// Site routing dependencies
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');

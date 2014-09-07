@@ -31,6 +31,7 @@ var sendgrid = null;
 var routes = require('./routes/index');
 var practice = require('./routes/practice');
 var contact = require('./routes/contact');
+var blog = require('./routes/blog');
 
 // Markdown filter
 //
@@ -108,6 +109,8 @@ var session_opts = {
 
   // Session storage back-end; MemoryStore is *not* supported.
   store: null,
+
+  // tokens: null,
 };
 
 // Initialize session; what is used to sign the cookie with is dependent upon
@@ -229,8 +232,30 @@ var site_links = {
   }
 };
 
+// Options for site blog; uses Google's Blogger service as the back-end
+//
+// See also: routes/blog.js
+var blog_options = {
+
+  // The identifier as used by Blogger
+  //
+  // Note that Google's official API methods require this value to be a string,
+  // otherwise the response will be '404: Not Found'
+  blog_id: '1358910749199223219',
+
+  posts: {
+    enable_markdown: true
+  },
+
+  comments: {
+    // FIXME: Look into why markdown parsing is messed up...
+    enable_markdown: true
+  }
+};
+
 app.set('nav_links', nav_links );
 app.set('site_links', site_links );
+app.set('blog', blog_options );
 
 // Local site library configuration; **must** go before router!
 app.use( function(req, res, next) {
@@ -326,6 +351,8 @@ app.use( function( req, res, next ) {
 app.use('/', routes );
 app.use('/practice', practice );
 app.use('/contact', contact );
+app.use('/blog', blog );
+
 // Error handling must be defined **after** routing has been setup
 
 // catch 404 and forward to error handler

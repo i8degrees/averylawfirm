@@ -24,7 +24,12 @@ div(class='section group')
   div(class='col two-cols-span1 align-text-center')
     p Stay Connected
     a(class='facebook-btn social-btn margin-right-offset10', href= locals.settings.site_owner['facebook_url'])
-    a(class='linkedin-btn social-btn', href= locals.settings.site_owner['linkedin_url'])
+    a(class='linkedin-btn social-btn margin-right-offset10', href= locals.settings.site_owner['linkedin_url'])
+    a(class='rss-btn social-btn margin-right-offset10', href= locals.settings.site_owner['rss_url'])
+
+    //- Additional social items (per page)
+    //- Usage: Replace 'block footer' with 'block footer_social'.
+    block footer_social
 
   div(class='col two-cols-span1 align-text-center owner-copyright')
     p &#169; 2014 #{locals.settings.site_owner['company']}

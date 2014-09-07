@@ -3,6 +3,11 @@
 //- https://developers.google.com/blogger/docs/3.0/getting_started
 //- https://developers.google.com/blogger/docs/3.0/reference/index
 
+//- http://javascriptplayground.com/blog/2013/06/node-and-google-oauth/
+//- http://code.blogger.com/2012/01/easier-to-use-interface-for-blogger.html
+//- https://developers.google.com/accounts/docs/OAuth2WebServer#incrementalAuth
+//- http://www.threelas.com/2012/12/basic-blog-resources-of-blogger-api-v3.html
+
 extends layout
 
 block title
@@ -18,25 +23,37 @@ block head
   //-   }
 
 block content
+  if typeof blogspot != 'undefined'
+    //- - console.log(blogspot.author);
+    //- - console.log(blogspot.author.displayName);
 
-  #blog
+    - each post in blogspot.posts
+      p= post.published
+      p= post.title
+      p!= post.content
 
-  #author
+      p= post.author.displayName
+      a(href=post.selfLink) Permalink
+      p= post.updated
+      p= post.labels
+      a(href=post.url) Blog Post URL
+      p= post.comments.totalItems + ' ' + 'Comments'
+      //- a(href= comments.selfLink ) Comments
+
+  //- #blog
+  //- #author
     p Authored by:
-  #comments
-
-  #permalink
-    //- p Permalink:
-  #published
+  //- #comments
+  //- #permalink
+  //- #published
     p Published on:
-  #updated
+  //- #updated
     p Last updated on:
-  #labels
+  //- #labels
     p Labels:
-  #active_url
-    //- p Current URL:
+  //- #active_url
 
-  script.
+  //- script.
     function handleResponse( res ) {
       console.log(res);
       document.getElementById("blog").innerHTML += "<h1>" + res.title + "</h1>" + res.content;
@@ -53,7 +70,6 @@ block content
 
     }
 
-  //- script(src="https://www.googleapis.com/blogger/v3/blogs/1358910749199223219?callback=handleResponse&key=AIzaSyAy4Gb3ySz_4yDz5LJ_3k5LlMi4soRT5aA")
-  script(src='https://www.googleapis.com/blogger/v3/blogs/1358910749199223219/posts/8009725998532404742?callback=handleResponse&key=AIzaSyAy4Gb3ySz_4yDz5LJ_3k5LlMi4soRT5aA')
+  //- script(src='https://www.googleapis.com/blogger/v3/blogs/1358910749199223219/posts/8009725998532404742?callback=handleResponse&key=AIzaSyDFtApOdyUp576HNtsMaMuGlK1HDu_2PD0')
 
 block footer

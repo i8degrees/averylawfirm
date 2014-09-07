@@ -14,6 +14,10 @@ html
     //- TODO: Add additional keywords
     meta(name='keywords', content= locals.settings.site_owner['company'] + ', law practice, law')
 
+    //- Favorite (bookmark) icon
+    //- Disable static-favicon module before using this.
+    //- link(href='/favicon.png', type='image/png', rel='icon')
+
     if locals.settings.env === 'development'
       //- Disable Mobile Safari zoom capability -- in case we are testing within
       //- iPhone Simulator
@@ -32,6 +36,9 @@ html
     //
     // Source: https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/PhoneLinks/PhoneLinks.html
     meta(name='format-detection', content='telephone=no')
+
+    //- https://www.google.com/webmasters/
+    meta(name='google-site-verification' content='ioT5O7-tsg92qhq0Jbs1Ay-CGu7kbrMs1YcWOXDiL-g')
 
     //- Additional meta tags (per page)
     block meta

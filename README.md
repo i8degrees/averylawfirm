@@ -24,12 +24,14 @@ I use the [dotenv node module](https://www.npmjs.org/package/dotenv) for keeping
 ```
 cd ~/Projects/averylawfirm.git
 touch .env
-echo "NODE_ENV=development NODE_DB_URL=redis://localhost:6379" > .env
+echo "NODE_ENV=development" > .env
 ```
 
 Available environment variables:
 
-* ```NODE_DB_URL```
+* ```NODE_DB_HOST```
+* ```NODE_DB_PORT```
+* ```NODE_DB_PASS```
 * ```SESSION_SECRET```
 * ```NODE_ENV```
 * ```PORT```
@@ -129,7 +131,7 @@ redis-server /usr/local/etc/redis.conf &
  NODE_ENV=testing nodemon app.js &
 ```
 
-**NOTE:** ```NODE_DB_URL``` environment variable should be set to the Redis URL used by Heroku deployments.
+**NOTE:** The database connection environment variables ```NODE_DB_HOST```, ```NODE_DB_PORT``` and ```NODE_DB_PASS``` should be set to the Redis URL used by Heroku deployments.
 
 **Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.
 
@@ -154,7 +156,7 @@ redis-server /usr/local/etc/redis.conf &
  NODE_ENV=production nodemon app.js &
 ```
 
-**NOTE:** ```NODE_DB_URL``` environment variable should be set to the Redis URL used by Heroku deployments.
+**NOTE:** The database connection environment variables ```NODE_DB_HOST```, ```NODE_DB_PORT``` and ```NODE_DB_PASS``` should be set to the Redis URL used by Heroku deployments.
 
 **Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.
 

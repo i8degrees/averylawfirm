@@ -12,8 +12,8 @@ var helmet = require('helmet');
 
 // Database storage for sessions
 //
-// https://github.com/ddollar/redis-url
-var redis = require('redis-url');
+// https://github.com/mranney/node_redis
+var redis = require('redis');
 
 // Redis-powered session storage initialization
 //
@@ -78,7 +78,6 @@ app.set('view engine', 'jade');
 app.use( compress() );
 app.use(favicon());
 app.use(logger('dev'));
-
 app.use( bodyParser() );
 
 // this line must be immediately after express.bodyParser
@@ -125,25 +124,52 @@ if( process.env.SESSION_SECRET != null ) {
 
 // Initialize session-backend storage (database)...
 
-if( process.env.NODE_DB_URL != null ) {
+console.info( "app-session [INFO]: Initializing session-backend store..." );
 
-  console.info( "app-session [INFO]: Initializing session-backend store..." );
+// Defaults
+var database = {
+  host: 'localhost',
+  port: 6379,
+  pass: null
+};
 
-  var client = redis.connect( process.env.NODE_DB_URL );
-
-  if( process.env.NODE_DB_PASS != null ) {
-    client.auth( process.env.NODE_DB_PASS );
-  }
-
-  session_opts.store = new RedisSessionStore( { client: client } );
-
-  // Initialize default error handler...
-  session_opts.store.client.on( 'error', function( err ) {
-    console.error( "app-session [ERROR]: Could not connect to session-backend store: ", err );
-  });
-} else {
-  console.error( "app-session [ERROR]: Could not connect to session-backend store; NODE_DB_URL environment variable is not set." );
+if( process.env.NODE_DB_HOST != null ) {
+  database.host = process.env.NODE_DB_HOST;
 }
+
+if( process.env.NODE_DB_PORT != null ) {
+  database.port = process.env.NODE_DB_PORT;
+}
+
+if( process.env.NODE_DB_PASS != null ) {
+  database.pass = process.env.NODE_DB_PASS;
+}
+
+var client = redis.createClient( database.port, database.host, { no_ready_check: true } );
+
+if( database.pass != null ) {
+
+  // FIXME: This doesn't work; the callback is never executed when the password
+  // is incorrect, and thus leads to all sorts of nasty problems, since we
+  // depend on the presence of database storage...
+  client.auth( database.pass, function( err, res ) {
+
+    if( err ) {
+      console.error( 'app-session [ERROR]: ', err );
+    }
+    else {
+      // console.info( 'app-session [INFO]: ', res );
+      // Success!
+    }
+  });
+}
+
+// Initialize default error handler...
+client.on( 'error', function( err ) {
+  console.error( "app-session [ERROR]: Could not connect to session-backend store: ", err );
+});
+
+session_opts.store = new RedisSessionStore( { client: client } );
 
 app.use( session( session_opts ) );
 
@@ -352,6 +378,7 @@ app.use( function( req, res, next ) {
   next();
 });
 
+// Routing
 app.use('/', routes );
 app.use('/practice', practice );
 app.use('/contact', contact );

@@ -48,11 +48,12 @@ var app = express();
 
 // Initialize site environment variables (similar to Heroku build config vars)
 //
-// This should be done as early as possible!
+// This should be done as early as possible! Note that these are not set or used
+// in any way for the Heroku environment.
 //
 // Source: https://www.npmjs.org/package/dotenv
 var dotenv = require('dotenv');
-var site_env = null; // File handle; requires absolute file path
+var site_env = './.env'; // File handle; requires absolute file path
 
 // NOTE: Development environment is the default
 if( app.get('env') === 'development' ) {
@@ -61,16 +62,9 @@ if( app.get('env') === 'development' ) {
   site_env = './.env.testing';
 } else if( app.get('env') === 'production' ) {
   site_env = './.env.production';
-} else {
-  site_env = './.env';
 }
 
-// Use site environment variables from file if set; rely on traditional env
-// shell for variables otherwise...
-if( site_env != null ) {
-  dotenv._getKeyAndValueFromLine( site_env );
-}
-
+dotenv._getKeyAndValueFromLine( site_env );
 dotenv.load();
 
 // view engine setup

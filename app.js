@@ -11,6 +11,9 @@ var flash = require('connect-flash');
 var helmet = require('helmet');
 var RedisSessionStore = require('connect-redis')(session);
 
+// gzip/deflate outgoing responses
+var compress = require('compression');
+
 // Heroku deployment-specific dependencies
 
 // RedisCloud
@@ -74,6 +77,7 @@ dotenv.load();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use( compress() );
 app.use(favicon());
 app.use(logger('dev'));
 
@@ -360,15 +364,16 @@ app.use( function( req, res, next ) {
 app.use('/', routes );
 app.use('/practice', practice );
 app.use('/contact', contact );
+// Error handling must be defined **after** routing has been setup
 
-/// catch 404 and forward to error handler
+// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
-/// error handlers
+// error handlers
 
 // development error handler
 // will print stacktrace

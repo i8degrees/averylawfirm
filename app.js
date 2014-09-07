@@ -9,16 +9,19 @@ var validator = require('express-validator');
 var session = require('express-session');
 var flash = require('connect-flash');
 var helmet = require('helmet');
+
+// Database storage for sessions
+//
+// https://github.com/ddollar/redis-url
+var redis = require('redis-url');
+
+// Redis-powered session storage initialization
+//
+// https://github.com/visionmedia/connect-redis
 var RedisSessionStore = require('connect-redis')(session);
 
 // gzip/deflate outgoing responses
 var compress = require('compression');
-
-// Heroku deployment-specific dependencies
-
-// RedisCloud
-var url = require('url');
-var redis = require('redis'); // Used for createClient function
 
 // SMTP provider for contact page; this is initialized to either a mock object
 // or the real deal, depending on the environment.
@@ -86,9 +89,11 @@ app.use(cookieParser());
 
 // Default options used during session initialization
 //
+// Accessible through req.session
+//
 // https://github.com/expressjs/session
 var session_opts = {
-  secret: 'Not a well kept secret!',
+  secret: 'Not a well kept secret!', // Used if env.SESSION_SECRET is not set
   cookie: {
     maxAge: null,           // Default value from express-session docs
     httpOnly: true
@@ -101,64 +106,9 @@ var session_opts = {
   resave: true,             // Default value from express-session docs
   saveUninitialized: true,  // Default value from express-session docs
 
-  // Session storage; MemoryStore is the default, and is not "production-ready".
+  // Session storage back-end; MemoryStore is *not* supported.
   store: null,
 };
-
-// Redis-powered session storage initialization
-//
-// https://github.com/visionmedia/connect-redis
-if( app.get('env') === 'development' ) {
-
-  // Do nothing; use session store defaults (MemoryStore).
-}
-
-// Provide mock testing object (experimental as in I haven't tested this much!)
-else if( app.get('env') === 'testing' ) {
-
-  console.info( "app-redis [INFO]: Initializing Redis-backend session store..." );
-
-  var redis_store_opts = {
-    // Local Redis session store defaults -- requires local installation of
-    // Redis server.
-    store: {
-      host: 'localhost',
-      port: 6379
-    },
-  };
-
-  session_opts.store = new RedisSessionStore( redis_store_opts );
-
-  // Initialize default error handler...
-  session_opts.store.client.on( 'error', function( err ) {
-    console.error( "app-redis [ERROR]: Could not connect to Redis-backend session store." );
-  });
-}
-
-// Heroku Deployment production environment (requires RedisCloud add-on)
-//
-// 1. https://app.redislabs.com/main/dashboard
-// 2. https://devcenter.heroku.com/articles/rediscloud
-// 3. ```heroku config:get REDISCLOUD_URL```
-else if( app.get('env') === 'production' ) {
-
-  if( process.env.REDISCLOUD_URL != null ) {
-    var redisURL = url.parse(process.env.REDISCLOUD_URL);
-    var client = redis.createClient(redisURL.port, redisURL.hostname, { no_ready_check: true });
-    client.auth(redisURL.auth.split(":")[1]);
-
-    console.info( "app-redis [INFO]: Initializing Redis-backend session store..." );
-
-    session_opts.store = new RedisSessionStore( { client: client } );
-
-    // Initialize default error handler...
-    session_opts.store.client.on( 'error', function( err ) {
-      console.error( "app-redis [ERROR]: Could not connect to Redis-backend session store." );
-    });
-  } else {
-    console.error( "app-redis [ERROR]: Could not connect to Redis-backend session store; REDISCLOUD_URL environment variable is not set." );
-  }
-}
 
 // Initialize session; what is used to sign the cookie with is dependent upon
 // the underlying environment (SESSION_SECRET) at the time of app startup.
@@ -168,6 +118,24 @@ if( process.env.SESSION_SECRET != null ) {
   session_opts.secret = process.env.SESSION_SECRET;
 } else {
   console.warn( "app [WARNING]: SESSION_SECRET environment variable is not set; using **insecure** default..." );
+}
+
+// Initialize session-backend storage (database)...
+
+if( process.env.NODE_DB_URL != null ) {
+
+  console.info( "app-session [INFO]: Initializing session-backend store..." );
+
+  var client = redis.connect( process.env.NODE_DB_URL );
+
+  session_opts.store = new RedisSessionStore( { client: client } );
+
+  // Initialize default error handler...
+  session_opts.store.client.on( 'error', function( err ) {
+    console.error( "app-session [ERROR]: Could not connect to session-backend store." );
+  });
+} else {
+  console.error( "app-session [ERROR]: Could not connect to session-backend store; NODE_DB_URL environment variable is not set." );
 }
 
 app.use( session( session_opts ) );

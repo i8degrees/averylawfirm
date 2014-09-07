@@ -8,12 +8,12 @@ Local site configuration notes.
 * [node.js](http://nodejs.org/)
 * [SASS](http://sass-lang.com/)
 * [Grunt](http://gruntjs.com)
+* [Redis Server](//redis.io/)
 
 * Optional (convenience) development tools
     * [nodemon](https://www.npmjs.org/package/nodemon)
     * [pow](http://pow.cx/)
     * [LiveReload app](http://go.livereload.com/)
-    * [Redis Server](//redis.io/)
 
 ## Site Environment Configuration
 
@@ -24,12 +24,14 @@ I use the [dotenv node module](https://www.npmjs.org/package/dotenv) for keeping
 ```
 cd ~/Projects/averylawfirm.git
 touch .env
-echo "NODE_ENV=development" > .env
+echo "NODE_ENV=development NODE_DB_URL=redis://localhost:6379" > .env
 ```
 
 Available environment variables:
 
+* ```NODE_DB_URL```
 * ```SESSION_SECRET```
+* ```NODE_ENV```
 * ```PORT```
 * ```SENDGRID_USERNAME```
 * ```SENDGRID_PASSWORD```
@@ -55,6 +57,7 @@ Install software dependencies via [Homebrew](http://brew.sh):
 ```
 brew install -vd git 
 brew install -vd node 
+brew install -vd redis
 
 # Be sure to read the caveats here to finish setup
 brew install -vd pow
@@ -69,6 +72,8 @@ cd averylawfirm.git/
 
 # Install deps required for running site
 npm install
+
+redis-server /usr/local/etc/redis.conf &
 
 # Run a local web server in the background on a local port number that is free.
 PORT=<LOCAL_PORT_NUMBER> NODE_ENV=development npm start &
@@ -107,11 +112,6 @@ You should now be able to access the local site at the following URL if everythi
 
 #### Testing Site Dependencies
 
-```
-# ...only necessary if you need to test Redis session storage (see app.js):
-brew install redis -vd
-```
-
 * ~~Defaults to the listening port 5000.~~
 
 * All site pages generated from Jade templates:
@@ -125,9 +125,7 @@ brew install redis -vd
     * Email will be sent out upon successful form submission.
 
 ```
-# ...only necessary if you need to test Redis session storage (see app.js):
 redis-server /usr/local/etc/redis.conf &
-
  NODE_ENV=testing nodemon app.js &
 ```
 
@@ -150,10 +148,11 @@ redis-server /usr/local/etc/redis.conf &
     * No dumping of form submission input on successful form submission.
 
 ```
+redis-server /usr/local/etc/redis.conf &
  NODE_ENV=production nodemon app.js &
 ```
 
-* [REDISCLOUD_URL](https://devcenter.heroku.com/articles/rediscloud) should be set if simulating the Heroku deployment environment, otherwise the default session store (MemoryStore) will be used. MemoryStore is said to not be production-ready (due to memory leaks, one instance limit).
+* [REDISCLOUD_URL](https://devcenter.heroku.com/articles/rediscloud) should be set if simulating the Heroku deployment environment.
 
 **Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.
 
@@ -218,3 +217,4 @@ work automatically with an automated notification system (powered by [LogEntries
 * [Node.js & Express Tutorial](http://shapeshed.com/creating-a-basic-site-with-node-and-express/)
 * [Pow User's Manual](http://pow.cx/manual.html)
 * [Heroku: Deploying with Git](https://devcenter.heroku.com/articles/git)
+* [Redis: Quick Start](http://redis.io/topics/quickstart)

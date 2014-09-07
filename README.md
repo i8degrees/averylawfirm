@@ -129,6 +129,8 @@ redis-server /usr/local/etc/redis.conf &
  NODE_ENV=testing nodemon app.js &
 ```
 
+**NOTE:** ```NODE_DB_URL``` environment variable should be set to the Redis URL used by Heroku deployments.
+
 **Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.
 
 ### Production Site Setup
@@ -152,7 +154,7 @@ redis-server /usr/local/etc/redis.conf &
  NODE_ENV=production nodemon app.js &
 ```
 
-* [REDISCLOUD_URL](https://devcenter.heroku.com/articles/rediscloud) should be set if simulating the Heroku deployment environment.
+**NOTE:** ```NODE_DB_URL``` environment variable should be set to the Redis URL used by Heroku deployments.
 
 **Note:** You should ensure that you include the space as the first character of the command when running from the shell (assuming BASH), so that your password is not accidentally committed to your BASH history file.
 

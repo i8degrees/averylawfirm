@@ -131,11 +131,15 @@ if( process.env.NODE_DB_URL != null ) {
 
   var client = redis.connect( process.env.NODE_DB_URL );
 
+  if( process.env.NODE_DB_PASS != null ) {
+    client.auth( process.env.NODE_DB_PASS );
+  }
+
   session_opts.store = new RedisSessionStore( { client: client } );
 
   // Initialize default error handler...
   session_opts.store.client.on( 'error', function( err ) {
-    console.error( "app-session [ERROR]: Could not connect to session-backend store." );
+    console.error( "app-session [ERROR]: Could not connect to session-backend store: ", err );
   });
 } else {
   console.error( "app-session [ERROR]: Could not connect to session-backend store; NODE_DB_URL environment variable is not set." );

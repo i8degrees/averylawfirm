@@ -17,7 +17,7 @@ keys/*
 .env.testing
 .env.staging
 .env.production
-.env
+.env.keys
 
 # ...additional site environments
 #.env.heroku-staging

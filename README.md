@@ -19,14 +19,6 @@ Local site configuration notes.
 
 I use the [dotenv node module](https://www.npmjs.org/package/dotenv) for keeping up with the site environments.
 
-1. Create a .env file at the project's repository root with the bare minimum environment requirements:
-
-```
-cd ~/Projects/averylawfirm.git
-touch .env
-echo "NODE_ENV=development" > .env
-```
-
 Available environment variables:
 
 * ```NODE_DB_HOST```
@@ -38,7 +30,13 @@ Available environment variables:
 * ```SENDGRID_USERNAME```
 * ```SENDGRID_PASSWORD```
 
+You can create .env files specific to the environment, i.e.: .env.development, .env.testing, etc. The defaults can be found in ```.env```.
+
 **See also:** app.js, Heroku build config vars
+
+### Authorization Keys
+
+```.env.keys```
 
 ### Local Development Site Setup
 

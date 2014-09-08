@@ -59,18 +59,9 @@ var app = express();
 //
 // Source: https://www.npmjs.org/package/dotenv
 var dotenv = require('dotenv');
-var site_env = './.env'; // File handle; requires absolute file path
 
-// NOTE: Development environment is the default
-if( app.get('env') === 'development' ) {
-  site_env = './.env.development';
-} else if( app.get('env') === 'testing' ) {
-  site_env = './.env.testing';
-} else if( app.get('env') === 'production' ) {
-  site_env = './.env.production';
-}
-
-dotenv._getKeyAndValueFromLine( site_env );
+// Will use .env.development, .env.testing, etc. depending on the value of
+// NODE_ENV
 dotenv.load();
 
 // view engine setup
@@ -94,7 +85,6 @@ app.use(cookieParser());
 //
 // https://github.com/expressjs/session
 var session_opts = {
-  secret: 'Not a well kept secret!', // Used if env.SESSION_SECRET is not set
   cookie: {
     maxAge: null,           // Default value from express-session docs
     httpOnly: true
@@ -113,14 +103,14 @@ var session_opts = {
   // tokens: null,
 };
 
-// Initialize session; what is used to sign the cookie with is dependent upon
-// the underlying environment (SESSION_SECRET) at the time of app startup.
+// Initialize session
 //
-// This is a required dependency for the connect-flash module
+// This is a required dependency for the connect-flash module.
 if( process.env.SESSION_SECRET != null ) {
   session_opts.secret = process.env.SESSION_SECRET;
 } else {
-  console.warn( "app [WARNING]: SESSION_SECRET environment variable is not set; using **insecure** default..." );
+  console.error( "app [ERROR]: SESSION_SECRET environment variable is not set." );
+  process.kill();
 }
 
 // Initialize session-backend storage (database)...

@@ -20,7 +20,9 @@ var redis = require('redis');
 // https://github.com/visionmedia/connect-redis
 var RedisSessionStore = require('connect-redis')(session);
 
-// gzip/deflate outgoing responses
+// HTTP response headers compression
+//
+// https://github.com/expressjs/compression
 var compress = require('compression');
 
 // SMTP provider for contact page; this is initialized to either a mock object
@@ -75,7 +77,6 @@ dotenv.load();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use( compress() );
 app.use(favicon());
 app.use(logger('dev'));
 app.use( bodyParser() );
@@ -383,6 +384,13 @@ app.use('/', routes );
 app.use('/practice', practice );
 app.use('/contact', contact );
 app.use('/blog', blog );
+
+// HTTP response headers compression
+//
+// This **must** be after routing has been set; otherwise, certain routes like
+// form POST responses and Blogger auth redirections break badly, with the err
+// message: "Error: Can't set headers after they are sent."
+app.use( compress() );
 
 // Error handling must be defined **after** routing has been setup
 

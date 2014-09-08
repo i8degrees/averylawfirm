@@ -24,7 +24,7 @@ block content
 
       if locals.settings.remote
         //- https://developers.google.com/maps/documentation/staticmaps/
-        img(width='320', height='240', class='google_map', src='https://maps.googleapis.com/maps/api/staticmap?markers=103%20n%20college%20ave%20%235%20fayetteville%2C%20ar&zoom=16&size=320x240&maptype=roadmap&key=AIzaSyDFtApOdyUp576HNtsMaMuGlK1HDu_2PD0', alt='Google Map: Office Location')
+        img(width='320', height='240', class='google_map', src='https://maps.googleapis.com/maps/api/staticmap?markers=103%20n%20college%20ave%20%235%20fayetteville%2C%20ar&zoom=16&size=320x240&maptype=roadmap&key=' + settings.google_api_key, alt='Google Map: Office Location')
 
         div(class='map_caption sans align-center')
           a(href='https://maps.google.com/maps?ll=36.06402,-94.158191&z=16&t=m&hl=en-US&gl=US&mapclient=embed&q=103%20N%20College%20Ave%20%235%20Fayetteville%2C%20AR%2072701') Map and Directions

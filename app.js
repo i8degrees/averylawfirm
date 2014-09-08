@@ -277,6 +277,7 @@ var blog_options = {
 app.set('nav_links', nav_links );
 app.set('site_links', site_links );
 app.set('blog', blog_options );
+app.set( 'google_api_key', 'AIzaSyA9epI58R4vt3eQxAlOPYvLtgZ5RajJ1Ow' );
 
 // Local site library configuration; **must** go before router!
 app.use( function(req, res, next) {

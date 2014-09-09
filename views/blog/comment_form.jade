@@ -29,7 +29,8 @@ if locals.form_helpers.has_errs( notifications )
     p(class='sans')= 'Sorry, ' + locals.form_helpers.count_errs( notifications ) + ' submission errors have been found.'
 
 //- Show comments form at the end of the page
-form(class='contact_form', action=locals.loc.pathname + '#errs', method='POST', novalidate= extra_attrs )
+//- form(class='contact_form', action=locals.loc.pathname + '#errs', method='POST', novalidate= extra_attrs )
+form(class='contact_form')
   .input_container
   //- div(style='padding-right:20px; background-color:#FFEBDC;')
   div(class='label')
@@ -62,5 +63,47 @@ form(class='contact_form', action=locals.loc.pathname + '#errs', method='POST', 
     span(class='req') Required
     textarea(id='contact_message', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].message ), name='contact[message]', spellcheck='true', required data-required-msg= locals.input_errs['contact'].message, maxlength=4096)= contact['message']
 
+  #preview
+    p Comment Preview
+      #display-title
+
   button(class='orange-button border-rounded margin-top-offset25 margin-bottom-offset25', type='submit', name='action', value='send_msg') Send
-  button(class='blue-button border-rounded margin-top-offset25 margin-bottom-offset25', type='', name='action', value='preview') Preview
+  button(id='preview_comment', class='blue-button border-rounded margin-top-offset25 margin-bottom-offset25', type='button', name='action', value='preview') Preview
+  input(id='preview-state', type='text', hidden='true', name='preview_state', value='false')
+
+  noscript
+    p TODO: Add preview link for users without JavaScript enabled
+
+//- http://papermashup.com/create-a-dynamic-form-preview/
+script.
+  var preview_state = false;
+
+  $(document).ready( function() {
+    $('#preview').hide();
+    $('#preview_comment').click( update );
+    //- $('#contact_message').keypress( update );
+    //- var text = $('#preview-state').text();
+    $('#preview-state').text(false);
+
+  });
+
+  function update() {
+    var value = $('#preview-state').text();
+    console.log(value);
+    if( value == 'false' ) {
+      $('#contact_message').hide();
+      $('#preview').slideDown('slow');
+      var title = $('#contact_message').val();
+      $('#display-title').html( title );
+
+      $('#preview-state').text(true);
+    } else {
+      $('#preview').hide();
+      $('#contact_message').show();
+      $('#preview-state').text(false);
+
+      //- $('#preview').slideDown('slow');
+      //- var title = $('#contact_message').val();
+      //- $('#display-title').html( title );
+    }
+  }

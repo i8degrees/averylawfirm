@@ -95,6 +95,24 @@ html
     //- Additional head-level block (specific per page)
     block head
 
+    //- Additional JavaScripts
+    if locals.settings.env === 'development'
+      script(src="/js/lib/jquery-1.11.1.js")
+    else
+      script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+
+    //- Fancy mobile navigation menu (depends on jQuery)
+    script(src="/js/nav.js")
+
+    if locals.settings.env === 'development'
+      script(src='/js/lib/jquery.simplemodal-1.4.4.js')
+    else
+      script(src='/js/lib/jquery.simplemodal.1.4.4.min.js')
+
+    //- Legal disclaimer modal popup window for contact form
+    //- Requires jQuery.SimpleModal
+    script(src='/js/modal.js')
+
   body(class='page')
     header
       div(class='header')
@@ -117,24 +135,6 @@ html
 
         //- Additional footer-level elements (specific per page)
         block footer
-
-    // Additional JavaScripts (deferred loading)
-    if locals.settings.env === 'development'
-      script(src="/js/lib/jquery-1.11.1.js")
-    else
-      script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
-
-    // Fancy mobile navigation menu (depends on jQuery)
-    script(src="/js/nav.js")
-
-    if locals.settings.env === 'development'
-      script(src='/js/lib/jquery.simplemodal-1.4.4.js')
-    else
-      script(src='/js/lib/jquery.simplemodal.1.4.4.min.js')
-
-    // Legal disclaimer modal popup window for contact form
-    // Requires jQuery.SimpleModal
-    script(src='/js/modal.js')
 
     if locals.settings.remote
       // Google Analytics

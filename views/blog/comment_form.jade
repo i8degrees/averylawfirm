@@ -1,0 +1,66 @@
+//- Produce an error label (styled text) for a form input field
+//-
+//- This is used to produce a matching error near the appropriate input field
+//- when the server-side validation fails, as opposed to simply dumping all the
+//- errors in a single spot (i.e.: top of form) and potentially forcing the
+//- end-user to scroll up and down to fix each error.
+//-
+//- param input_field The err string object used to compare equality against
+//-                   the errors object.
+mixin check_err( input_field )
+  if locals.form_helpers.has_err( notifications, input_field )
+    div(class='err padding-top-offset10')
+      img(width='16', height='16', style='padding-right: 8px;', src='/images/error_16.png', alt='Error Icon')
+      = input_field
+
+//- Do not use client-side form field validation unless in production
+//- environment
+- var extra_attrs = null;
+
+//- FIXME:
+- if( settings.env != 'production' || settings.env != 'testing' ) extra_attrs = 'novalidate';
+
+if locals.form_helpers.has_errs( notifications )
+  //- Acts as both a reference link anchor -- for jumping to form errors upon
+  //- submission -- and as a container (necessary for proper text wrapping).
+  #errs
+    .float-left
+      img(width='32', height='32', src='/images/alert_32.png', alt='Alert Icon')
+    p(class='sans')= 'Sorry, ' + locals.form_helpers.count_errs( notifications ) + ' submission errors have been found.'
+
+//- Show comments form at the end of the page
+form(class='contact_form', action=locals.loc.pathname + '#errs', method='POST', novalidate= extra_attrs )
+  .input_container
+  //- div(style='padding-right:20px; background-color:#FFEBDC;')
+  div(class='label')
+    +check_err( locals.input_errs['contact'].name )
+    label(for='contact_name') Your name
+    span(class='req') Required
+  input(id='contact_name', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].name ), type='text', name='contact[name]', spellcheck='false', required data-required-msg= locals.input_errs['contact'].name, placeholder='Name', value= contact['name'], maxlength=255 )
+
+  div(class='label')
+    +check_err( locals.input_errs['contact'].email )
+    label(for='contact_email') Your email address (publicly shown)
+    span(class='req') Optional
+  input(id='contact_email', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].email ), type='email', name='contact[email]', required data-required-msg= locals.input_errs['contact'].email, placeholder='example@domain.com', value= contact['email'], maxlength=255 )
+
+  div(class='label')
+    +check_err( locals.input_errs['contact'].website_url )
+    label(for='website_url') Your web site (publicly shown)
+    span(class='req') Optional
+
+  //- As per RFC 2616 (HTTP), a minimum of 255 bytes is a **suggested**
+  //- value... in reality, the lowest common dominator seems to be 2083
+  //- bytes (IE 8).
+  //-
+  //- http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
+  input(id='website_url', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].website_url ), type='url', name='contact[website_url]', required data-required-msg= locals.input_errs['contact'].website_url, placeholder='https://www.facebook.com/laurasusanavery/', value= contact['website_url'], maxlength=255 )
+
+  div(class='label')
+    +check_err( locals.input_errs['contact'].message )
+    label(for='contact_message') Leave your comment
+    span(class='req') Required
+    textarea(id='contact_message', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].message ), name='contact[message]', spellcheck='true', required data-required-msg= locals.input_errs['contact'].message, maxlength=4096)= contact['message']
+
+  button(class='orange-button border-rounded margin-top-offset25 margin-bottom-offset25', type='submit', name='action', value='send_msg') Send
+  button(class='blue-button border-rounded margin-top-offset25 margin-bottom-offset25', type='', name='action', value='preview') Preview

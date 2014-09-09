@@ -265,12 +265,12 @@ var blog_options = {
   blog_id: '1358910749199223219',
 
   posts: {
-    enable_markdown: true
+    enable_markdown: true,
   },
 
   comments: {
     // FIXME: Look into why markdown parsing is messed up...
-    enable_markdown: true
+    enable_markdown: false,
   }
 };
 

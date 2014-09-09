@@ -40,7 +40,7 @@ module.exports = function(grunt) {
     shell: {
       exec_redis: {
         // Assumes default Homebrew redis package installation (see README.md)
-        command: "killall -9 'redis-server 127.0.0.1:6379'; redis-server /usr/local/etc/redis.conf"
+        command: "killall -9 'redis-server 127.0.0.1:6379'; redis-server /usr/local/etc/redis-heroku.conf"
       }
     }
   });

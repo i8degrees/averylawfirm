@@ -16,7 +16,7 @@ mixin check_err( input_field )
 //- Do not use client-side form field validation unless in production
 //- environment
 - var extra_attrs = null;
-- if( locals.settings.env != 'production' ) extra_attrs = 'novalidate';
+- if( settings.env != 'production' || settings.env != 'testing' ) extra_attrs = 'novalidate';
 
 if locals.form_helpers.has_errs( notifications )
   //- Acts as both a reference link anchor -- for jumping to form errors upon
@@ -25,7 +25,6 @@ if locals.form_helpers.has_errs( notifications )
     .float-left
       img(width='32', height='32', src='/images/alert_32.png', alt='Alert Icon')
     p(class='sans')= 'Sorry, ' + locals.form_helpers.count_errs( notifications ) + ' submission errors have been found.'
-
 
 form(class='contact_form', action=locals.loc.pathname + '#errs', method='POST', novalidate= extra_attrs )
   .input_container

@@ -433,7 +433,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 96%;
 }
 
-.contact_form #contact_name, #contact_email, #contact_message {
+.contact_form #contact_name, #contact_email, #website_url, #contact_message {
   // Expand to the full width of the input_container class, accounting for
   // platform-dependent margins (i.e.: mobile)
   width: 96%;

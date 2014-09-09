@@ -38,11 +38,11 @@ function blog_posts( req, res, params ) {
           response.items[i].updated = ts_updated.format( 'dddd MMMM DD, YYYY' );
         }
 
-        res.render('blog/blog', { posts: response.items } );
+        res.render('blog/blog', { posts: response.items, notifications: req.flash('notifications') } );
 
       } // if response.items != undefined
       else {
-        res.render('blog/blog', { posts: {} } );
+        res.render('blog/blog', { posts: {}, notifications: req.flash('notifications') } );
       }
 
     } // end if not err
@@ -62,7 +62,7 @@ function blog_comments( req, res, params ) {
 
       // console.log( response );
 
-      res.render('blog/comments', { post_id: params.postId, comments: response.items } );
+      res.render('blog/comments', { post_id: params.postId, comments: response.items, notifications: req.flash('notifications') } );
     } // end if not err
   }); // end comments callback
 };
@@ -74,7 +74,6 @@ router.use( function( req, res, next ) {
   if( req.session.tokens ) {
     tokens = req.session.tokens;
     blogger.client.auth.setCredentials( req.session.tokens );
-
     // Redis session store (see app.js)
     console.info('app-session [INFO]: Using existing tokens in session store.');
   }

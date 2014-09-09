@@ -63,7 +63,7 @@ posts.list request
 ### TODO
 
 - [ ] Research CAPTCHA plug-ins.
-- [ ] Research how best to go about sending a raw HTTP POST body.
+- [x] Research how best to go about sending a raw HTTP POST body; **curlrequest** wins!
 
 - [x] Research for workaround on how to post new comments (Blogger's v2 API
 appears to have supported this option [1], except there was no support for

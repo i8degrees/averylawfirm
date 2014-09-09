@@ -1,0 +1,9 @@
+<entry xmlns="http://www.w3.org/2005/Atom">
+    <title type="text">Comment Title</title>
+    <content type="html">Comment Body</content>
+    <author>
+        <name>Anonymous Coward</name>
+        <email>noreply@blogger.com</email>
+        <uri>https://facebook.com/profile</uri>
+    </author>
+</entry>

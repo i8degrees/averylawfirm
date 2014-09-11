@@ -1,0 +1,2 @@
+img(style='display: block;', src='data:image/png; base64, ' + validation_code, alt= validation_code )
+input(id='captcha', class= locals.form_helpers.class_selector( notifications, locals.input_errs['blog_comment'].captcha ), type='number', name='blog_comment[captcha]', data-required-msg= locals.input_errs['blog_comment'].captcha, placeholder='Response', maxlength=4 )

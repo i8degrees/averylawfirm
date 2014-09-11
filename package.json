@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "body-parser": "~1.0.0",
+    "captchapng": "0.0.1",
     "compression": "^1.0.11",
     "connect-flash": "^0.1.1",
     "connect-redis": "^2.0.0",
@@ -40,7 +41,6 @@
     "moment": "^2.8.3",
     "morgan": "~1.0.0",
     "node-markdown": "~0.1.1",
-    "recaptcha": "^1.2.0",
     "redis": "^0.12.1",
     "redis-url": "^0.2.0",
     "sendgrid": "~1.2.0",

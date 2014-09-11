@@ -321,7 +321,7 @@ app.use( function(req, res, next) {
       email: 'Your email address exceeds the maximum length of 255 characters.',
       website_url: 'Your website URL exceeds the maximum length of 255 characters.',
       message: 'Please leave a comment.',
-      recaptcha: 'CAPTCHA validation failed.'
+      captcha: 'CAPTCHA validation failed.'
     },
   };
 

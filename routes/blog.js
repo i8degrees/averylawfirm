@@ -4,85 +4,24 @@ var app = express();
 var router = express.Router();
 var blogger = require('../lib/blogger');
 
-// https://www.npmjs.org/package/recaptcha
-var Recaptcha = require('recaptcha').Recaptcha;
+// https://github.com/GeorgeChan/captchapng
+var captchapng = require('captchapng');
 
-// GET https://www.googleapis.com/blogger/v3/blogs/blogId/posts?access_token=
-// https://developers.google.com/blogger/docs/3.0/using#WorkingWithPosts
-function blog_posts( req, res, params, callback ) {
-  blogger.api.posts.list( params, function( err, response ) {
+function generate_captcha_image() {
+  // width, height, numeric captcha
+  var p = new captchapng( 80, 30, parseInt( Math.random() * 9000 + 1000 ) );
 
-    if( err ) {
-      console.info( "app-oauth2 [INFO]: \n", err );
-      console.log(params);
+  // First color: background (red, green, blue, alpha)
+  p.color( 115, 95, 197, 100 );
 
-      // FIXME: This is a short-term solution...
-      // req.session.destroy();
-      console.log( "FIXME: Destroy session DB, restart web server and reload blog page." );
+  // Second color: paint (red, green, blue, alpha)
+  p.color( 30, 104, 21, 255 );
 
-      // TODO: Request new app token (i.e.: blogger.client.auth.getToken).
-      return res.render('blog/blog', { topic: res.app.locals.settings.nav_links['blog'], auth_url: blogger.auth_url } );
-    }
-    else {
+  var img = p.getBase64();
+  var imgbase64 = new Buffer( img, 'base64' );
 
-      // console.log( response );
-
-      var ts_published = '';
-      var ts_updated = '';
-
-      if( typeof response.items != 'undefined' ) {
-
-        for( var i = 0; i != response.items.length; ++i ) {
-          // Convert RFC 3339 timestamps to human friendly format
-          //
-          // http://momentjs.com/docs/#/parsing/string-format/
-          ts_published = blogger.moment( new Date( response.items[i].published ) );
-          ts_updated = blogger.moment( new Date( response.items[i].updated ) );
-
-          response.items[i].published = ts_published.format( 'dddd MMMM DD, YYYY' );
-          response.items[i].updated = ts_updated.format( 'dddd MMMM DD, YYYY' );
-        }
-
-        callback( { posts: response.items, notifications: req.flash('notifications') } );
-        // res.render('blog/blog', { posts: response.items, notifications: req.flash('notifications') } );
-
-      } // if response.items != undefined
-      else {
-        callback( { posts: {}, notifications: req.flash('notifications') } );
-        // res.render('blog/blog', { posts: {}, notifications: req.flash('notifications') } );
-      }
-
-    } // end if not err
-
-  }); // end blogs callback
-};
-
-function blog_comments( req, res, params, callback ) {
-
-  // GET https://www.googleapis.com/blogger/v3/blogs/blogId/posts/postId/comments?access_token=
-  // https://developers.google.com/blogger/docs/3.0/using#WorkingWithComments
-  blogger.api.comments.list( params, function( err, response ) {
-    if( err ) {
-      console.info( "app-oauth2 [INFO]: \n", err );
-      console.log(params);
-
-      // FIXME: This message does not get displayed to the end-user.
-      req.flash('notifications', { type: 'err', message: err.message, code: err.code } );
-
-      // TODO: Remove blog_id, post_id
-      res.render('blog/comments', { blog_id: params.blogId, post_id: params.postId, comments: {}, recaptcha_resposne_field: params.recaptcha_response_field, notifications: req.flash('notifications') } );
-    }
-    else {
-
-      // console.log( response );
-
-      // TODO: Remove blog_id, post_id
-      callback( { blog_id: params.blogId, post_id: params.postId, comments: response.items, notifications: req.flash('notifications') } );
-      // res.render('blog/comments', { blog_id: params.blogId, post_id: params.postId, comments: response.items, recaptcha_resposne_field: params.recaptcha_response_field, notifications: req.flash('notifications'), recaptcha_form: recaptcha.toHTML() } );
-
-    } // end if not err
-  }); // end comments callback
-};
+  return imgbase64;
+}
 
 // Required routing for Google OAuth v2 implementation
 router.use( function( req, res, next ) {
@@ -158,7 +97,7 @@ router.get('/oauth2callback', function( req, res ) {
 
 router.get('/', function(req, res) {
 
-  blog_posts( req, res, blogger.params, function( response ) {
+  blogger.blog_posts( req, res, blogger.params, function( response ) {
     res.render('blog/blog', { posts: response.posts, notifications: response.notifications } );
   });
 
@@ -171,81 +110,54 @@ router.get('/blog_comments', function(req, res) {
 
   res.locals.blog_comment['blog_id'] = req.query.blog_id;
   res.locals.blog_comment['post_id'] = req.query.post_id;
-  // res.locals.recaptcha_response_field = '';
 
-  // var recaptcha = new Recaptcha( process.env.RECAPTCHA_PUBLIC_KEY, process.env.RECAPTCHA_PRIVATE_KEY );
+  blogger.blog_comments( req, res, blogger.params, function( response ) {
 
-  // res.render('form.jade', {
-  //   layout: false,
-  //   locals: { recaptcha_form: recaptcha.toHTML() }
-  // });
+    // The validation code is passed to the page for the rendering of the image
+    // and in a hidden field (name = blog_comment[captcha_response] for the
+    // expected response handling upon form submission.
+    var validation_code = new Buffer( generate_captcha_image() ).toString( 'base64' );
 
-  blog_comments( req, res, blogger.params, function( response ) {
-    var recaptcha = new Recaptcha( process.env.RECAPTCHA_PUBLIC_KEY, process.env.RECAPTCHA_PRIVATE_KEY );
+    // Store the expected CAPTCHA response in user's session
+    req.session.validation_code = validation_code;
 
-    res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), recaptcha_form: recaptcha.toHTML() } );
+    res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), validation_code : validation_code } );
 
   });
+
 });
 
 router.post('/blog_comments', function( req, res ) {
 
   // Save the state of the form input fields upon submission
   res.locals.blog_comment = req.body.blog_comment;
-  res.locals.recaptcha_response_field = req.body.recaptcha_response_field;
 
-  // https://github.com/aldipower/nodejs-recaptcha
-  // var recaptcha = require('recaptcha-async');
-  // recaptcha = new recaptcha.reCaptcha();
+  // CAPTCHA verification
+  var captcha_response = res.locals.blog_comment['captcha_response'];
 
-  // // Eventhandler that is triggered by checkAnswer()
-  // recaptcha.on( 'data', function( response ) {
-
-  //   if( response.is_valid ) {
-  //     html = "valid answer"
-  //     // console.log(html);
-  //   }
-  //   else {
-  //     html = recaptcha.getCaptchaHtml(  process.env.RECAPTCHA_PUBLIC_KEY,
-  //                                       response.error );
-  //     // console.log(html);
-  //     console.log(response.error);
-  //   }
-
-  // }); // end func callback
-
-  // Check the user response by calling the google servers and sends a
-  // 'data'-event
-  // recaptcha.checkAnswer(  process.env.RECAPTCHA_PRIVATE_KEY,
-                          // req.connection.remoteAddress,
-                          // req.body.recaptcha_challenge_field,
-                          // req.body.recaptcha_response_field );
-
+  // Blogger API call
   blogger.params.blogId = req.body.blog_comment['blog_id'];
   blogger.params.postId = req.body.blog_comment['post_id'];
 
-  var data = {
-    remoteip: req.connection.remoteAddress,
-    challenge: req.body.recaptcha_challenge_field,
-    response: req.body.recaptcha_response_field
-  };
+  var validation_code = new Buffer( generate_captcha_image() ).toString( 'base64' );
 
-  var recaptcha = new Recaptcha( process.env.RECAPTCHA_PUBLIC_KEY, process.env.RECAPTCHA_PRIVATE_KEY, data );
+  if( captcha_response != req.session.validation_code ) {
 
-  recaptcha.verify( function( success, error_code ) {
-    if( success ) {
-      res.send('Recaptcha response valid.');
-    }
-    else {
+    // Store the new expected CAPTCHA response string in user's session
+    req.session.validation_code = validation_code;
+    console.info( "app [INFO]: CAPTCHA response: ", req.body.captcha );
+    console.info( "app [INFO]: CAPTCHA response was invalid." );
+  }
+  else {
+    console.info( "app [INFO]: CAPTCHA response was successful." );
 
-      console.log(error_code);
+    blogger.blog_comments( req, res, blogger.params, function( response ) {
+      res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), validation_code : validation_code } );
+    });
+  }
 
-      blog_comments( req, res, blogger.params, function( response ) {
-
-        res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), recaptcha_form: recaptcha.toHTML() } );
-
-      });
-    }
+  blogger.blog_comments( req, res, blogger.params, function( response ) {
+    res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), validation_code : validation_code } );
   });
 
 });

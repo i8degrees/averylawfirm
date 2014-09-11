@@ -60,6 +60,9 @@ var app = express();
 // Source: https://www.npmjs.org/package/dotenv
 var dotenv = require('dotenv');
 
+// RECAPTCHA_PRIVATE_KEY
+dotenv._getKeysAndValuesFromEnvFilePath( './.env.keys' );
+
 // Will use .env.development, .env.testing, etc. depending on the value of
 // NODE_ENV
 dotenv.load();
@@ -292,9 +295,11 @@ app.use( function(req, res, next) {
   // See also: http://dailyjs.com/2012/09/13/express-3-csrf-tutorial/
   res.locals.contact = {};
 
-  // TODO: clean up err messages
+  res.locals.blog_comment = {};
+
+  // Form validation labels
   //
-  // contact page form validity err labels
+  // TODO: clean up err messages
   res.locals.input_errs = {
     contact: {
       name: 'Please leave your full name.',
@@ -310,7 +315,14 @@ app.use( function(req, res, next) {
       // pref: 'Please choose your contact preference.',
       message: 'Please leave a message.',
       tos: 'You must agree to our disclaimer.'
-    }
+    },
+    blog_comment: {
+      name: 'Please leave your name.',
+      email: 'Your email address exceeds the maximum length of 255 characters.',
+      website_url: 'Your website URL exceeds the maximum length of 255 characters.',
+      message: 'Please leave a comment.',
+      recaptcha: 'CAPTCHA validation failed.'
+    },
   };
 
   mock_errs = null;

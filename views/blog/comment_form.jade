@@ -29,25 +29,26 @@ if locals.form_helpers.has_errs( notifications )
     p(class='sans')= 'Sorry, ' + locals.form_helpers.count_errs( notifications ) + ' submission errors have been found.'
 
 //- Show comments form at the end of the page
-//- form(class='contact_form', action=locals.loc.pathname + '#errs', method='POST', novalidate= extra_attrs )
-form(class='contact_form')
+form(class='contact_form', action=locals.loc.pathname + '#errs', method='POST', novalidate= extra_attrs )
   .input_container
   //- div(style='padding-right:20px; background-color:#FFEBDC;')
   div(class='label')
-    +check_err( locals.input_errs['contact'].name )
+    +check_err( locals.input_errs['blog_comment'].name )
     label(for='contact_name') Your name
     span(class='req') Required
-  input(id='contact_name', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].name ), type='text', name='contact[name]', spellcheck='false', required data-required-msg= locals.input_errs['contact'].name, placeholder='Name', value= contact['name'], maxlength=255 )
+  input(id='contact_name', class= locals.form_helpers.class_selector( notifications, locals.input_errs['blog_comment'].name ), type='text', name='blog_comment[name]', spellcheck='false', required data-required-msg= locals.input_errs['blog_comment'].name, placeholder='Name', value= blog_comment['name'], maxlength=255 )
 
   div(class='label')
-    +check_err( locals.input_errs['contact'].email )
-    label(for='contact_email') Your email address (publicly shown)
+    +check_err( locals.input_errs['blog_comment'].email )
+    label(for='contact_email') Your email address
+  span(class='note') (publicly shown)
     span(class='req') Optional
-  input(id='contact_email', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].email ), type='email', name='contact[email]', required data-required-msg= locals.input_errs['contact'].email, placeholder='example@domain.com', value= contact['email'], maxlength=255 )
+  input(id='contact_email', class= locals.form_helpers.class_selector( notifications, locals.input_errs['blog_comment'].email ), type='email', name='blog_comment[email]', data-required-msg= locals.input_errs['blog_comment'].email, placeholder='example@domain.com', value= blog_comment['email'], maxlength=255 )
 
   div(class='label')
-    +check_err( locals.input_errs['contact'].website_url )
-    label(for='website_url') Your web site (publicly shown)
+    +check_err( locals.input_errs['blog_comment'].website_url )
+    label(for='website_url') Your web site
+  span(class='note') (publicly shown)
     span(class='req') Optional
 
   //- As per RFC 2616 (HTTP), a minimum of 255 bytes is a **suggested**
@@ -55,21 +56,40 @@ form(class='contact_form')
   //- bytes (IE 8).
   //-
   //- http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
-  input(id='website_url', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].website_url ), type='url', name='contact[website_url]', required data-required-msg= locals.input_errs['contact'].website_url, placeholder='https://www.facebook.com/laurasusanavery/', value= contact['website_url'], maxlength=255 )
+  input(id='website_url', class= locals.form_helpers.class_selector( notifications, locals.input_errs['blog_comment'].website_url ), type='url', name='blog_comment[website_url]', data-required-msg= locals.input_errs['blog_comment'].website_url, placeholder='https://www.facebook.com/laurasusanavery/', value= blog_comment['website_url'], maxlength=255 )
 
   div(class='label')
-    +check_err( locals.input_errs['contact'].message )
+    +check_err( locals.input_errs['blog_comment'].message )
     label(for='contact_message') Leave your comment
     span(class='req') Required
-    textarea(id='contact_message', class= locals.form_helpers.class_selector( notifications, locals.input_errs['contact'].message ), name='contact[message]', spellcheck='true', required data-required-msg= locals.input_errs['contact'].message, maxlength=4096)= contact['message']
+    a(id='preview_comment', class='') Preview
+    textarea(id='contact_message', class= locals.form_helpers.class_selector( notifications, locals.input_errs['blog_comment'].message ), name='blog_comment[message]', spellcheck='true', required data-required-msg= locals.input_errs['blog_comment'].message, maxlength=4096)= blog_comment['message']
 
+  //- Comment Preview
   #preview
-    p Comment Preview
-      #display-title
+
+    #display-title
+
+  p(class='note') You can use some HTML tags, such as &lt;b&gt;, &lt;i&gt;, &lt;a&gt;
+
+  //- div(class='label')
+    +check_err( locals.input_errs['blog_comment'].recaptcha )
+    label(for='recaptcha') CAPTCHA
+    span(class='req') Required
+
+  //- FIXME:
+  //- != recaptcha_form
+
+  //- TODO: remove?
+  //- include ../recaptcha
 
   button(class='orange-button border-rounded margin-top-offset25 margin-bottom-offset25', type='submit', name='action', value='send_msg') Send
-  button(id='preview_comment', class='blue-button border-rounded margin-top-offset25 margin-bottom-offset25', type='button', name='action', value='preview') Preview
+  //- button(id='preview_comment', class='blue-button border-rounded margin-top-offset25 margin-bottom-offset25', type='button', name='action', value='preview') Preview
+
   input(id='preview-state', type='text', hidden='true', name='preview_state', value='false')
+
+  input(id='blog_id', type='text', hidden='true', name='blog_comment[blog_id]', value= blog_comment['blog_id'] )
+  input(id='post_id', type='text', hidden='true', name='blog_comment[post_id]', value= blog_comment['post_id'] )
 
   noscript
     p TODO: Add preview link for users without JavaScript enabled
@@ -92,7 +112,8 @@ script.
     console.log(value);
     if( value == 'false' ) {
       $('#contact_message').hide();
-      $('#preview').slideDown('slow');
+      //- $('#preview').slideDown('slow');
+      $('#preview').show();
       var title = $('#contact_message').val();
       $('#display-title').html( title );
 

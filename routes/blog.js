@@ -9,7 +9,7 @@ var Recaptcha = require('recaptcha').Recaptcha;
 
 // GET https://www.googleapis.com/blogger/v3/blogs/blogId/posts?access_token=
 // https://developers.google.com/blogger/docs/3.0/using#WorkingWithPosts
-function blog_posts( req, res, params ) {
+function blog_posts( req, res, params, callback ) {
   blogger.api.posts.list( params, function( err, response ) {
 
     if( err ) {
@@ -43,11 +43,13 @@ function blog_posts( req, res, params ) {
           response.items[i].updated = ts_updated.format( 'dddd MMMM DD, YYYY' );
         }
 
-        res.render('blog/blog', { posts: response.items, notifications: req.flash('notifications') } );
+        callback( { posts: response.items, notifications: req.flash('notifications') } );
+        // res.render('blog/blog', { posts: response.items, notifications: req.flash('notifications') } );
 
       } // if response.items != undefined
       else {
-        res.render('blog/blog', { posts: {}, notifications: req.flash('notifications') } );
+        callback( { posts: {}, notifications: req.flash('notifications') } );
+        // res.render('blog/blog', { posts: {}, notifications: req.flash('notifications') } );
       }
 
     } // end if not err
@@ -55,7 +57,7 @@ function blog_posts( req, res, params ) {
   }); // end blogs callback
 };
 
-function blog_comments( req, res, params ) {
+function blog_comments( req, res, params, callback ) {
 
   // GET https://www.googleapis.com/blogger/v3/blogs/blogId/posts/postId/comments?access_token=
   // https://developers.google.com/blogger/docs/3.0/using#WorkingWithComments
@@ -74,10 +76,10 @@ function blog_comments( req, res, params ) {
 
       // console.log( response );
 
-      var recaptcha = new Recaptcha( process.env.RECAPTCHA_PUBLIC_KEY, process.env.RECAPTCHA_PRIVATE_KEY );
-
       // TODO: Remove blog_id, post_id
-      res.render('blog/comments', { blog_id: params.blogId, post_id: params.postId, comments: response.items, recaptcha_resposne_field: params.recaptcha_response_field, notifications: req.flash('notifications'), recaptcha_form: recaptcha.toHTML() } );
+      callback( { blog_id: params.blogId, post_id: params.postId, comments: response.items, notifications: req.flash('notifications') } );
+      // res.render('blog/comments', { blog_id: params.blogId, post_id: params.postId, comments: response.items, recaptcha_resposne_field: params.recaptcha_response_field, notifications: req.flash('notifications'), recaptcha_form: recaptcha.toHTML() } );
+
     } // end if not err
   }); // end comments callback
 };
@@ -156,7 +158,9 @@ router.get('/oauth2callback', function( req, res ) {
 
 router.get('/', function(req, res) {
 
-  blog_posts( req, res, blogger.params );
+  blog_posts( req, res, blogger.params, function( response ) {
+    res.render('blog/blog', { posts: response.posts, notifications: response.notifications } );
+  });
 
 });
 
@@ -176,7 +180,12 @@ router.get('/blog_comments', function(req, res) {
   //   locals: { recaptcha_form: recaptcha.toHTML() }
   // });
 
-  blog_comments( req, res, blogger.params );
+  blog_comments( req, res, blogger.params, function( response ) {
+    var recaptcha = new Recaptcha( process.env.RECAPTCHA_PUBLIC_KEY, process.env.RECAPTCHA_PRIVATE_KEY );
+
+    res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), recaptcha_form: recaptcha.toHTML() } );
+
+  });
 });
 
 router.post('/blog_comments', function( req, res ) {
@@ -212,6 +221,9 @@ router.post('/blog_comments', function( req, res ) {
                           // req.body.recaptcha_challenge_field,
                           // req.body.recaptcha_response_field );
 
+  blogger.params.blogId = req.body.blog_comment['blog_id'];
+  blogger.params.postId = req.body.blog_comment['post_id'];
+
   var data = {
     remoteip: req.connection.remoteAddress,
     challenge: req.body.recaptcha_challenge_field,
@@ -225,24 +237,16 @@ router.post('/blog_comments', function( req, res ) {
       res.send('Recaptcha response valid.');
     }
     else {
-      res.send( "Recaptcha response INVALID." );
+
       console.log(error_code);
-      // Redisplay the form.
-      // res.render('form.jade', {
-      //   layout: false,
-      //   locals: { recaptcha_form: recaptcha.toHTML() }
-      // });
+
+      blog_comments( req, res, blogger.params, function( response ) {
+
+        res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), recaptcha_form: recaptcha.toHTML() } );
+
+      });
     }
   });
-
-  blogger.params.blogId = req.body.blog_comment['blog_id'];
-  blogger.params.postId = req.body.blog_comment['post_id'];
-
-  // FIXME:
-  return blog_comments( req, res, blogger.params );
-
-  // TODO:
-  // res.render('blog/comments', { blog_id: blogger.params.blogId, post_id: blogger.params.postId, notifications: req.flash('notifications') } );
 
 });
 

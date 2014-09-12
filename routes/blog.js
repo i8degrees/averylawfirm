@@ -7,9 +7,24 @@ var blogger = require('../lib/blogger');
 // https://github.com/GeorgeChan/captchapng
 var captchapng = require('captchapng');
 
+/// \returns An object with two name/value pairs: image, answer. The image is
+/// a base64 encoded string with the mime-type of 'image/png'. It can be used
+/// in an image element like so (assuming you've used the generate_captcha_image
+/// function to create a variable called captcha and passed this onwards to the
+/// route's 'captcha' variable):
+/// \code
+/// <img src='data:image/png; base64,'+ captcha.image />
+/// \endcode
+/// The CPATHCA answer is the second pair, and is the displayed CAPTCHA
+/// challenge answer.
+///
+/// \see views/captcha.jade
 function generate_captcha_image() {
-  // width, height, numeric captcha
-  var p = new captchapng( 80, 30, parseInt( Math.random() * 9000 + 1000 ) );
+
+  var challenge_answer = parseInt( Math.random() * 9000 + 1000 );
+
+  // width, height, numeric CAPTCHA
+  var p = new captchapng( 80, 30, challenge_answer );
 
   // First color: background (red, green, blue, alpha)
   p.color( 115, 95, 197, 100 );
@@ -18,9 +33,9 @@ function generate_captcha_image() {
   p.color( 30, 104, 21, 255 );
 
   var img = p.getBase64();
-  var imgbase64 = new Buffer( img, 'base64' );
+  var imgbase64 = new Buffer( img, 'base64' ).toString('base64');
 
-  return imgbase64;
+  return { image: imgbase64, answer: challenge_answer };
 }
 
 // Required routing for Google OAuth v2 implementation
@@ -113,15 +128,16 @@ router.get('/blog_comments', function(req, res) {
 
   blogger.blog_comments( req, res, blogger.params, function( response ) {
 
-    // The validation code is passed to the page for the rendering of the image
-    // and in a hidden field (name = blog_comment[captcha_response] for the
-    // expected response handling upon form submission.
-    var validation_code = new Buffer( generate_captcha_image() ).toString( 'base64' );
+    // base64 encoded image string in captcha.image
+    var captcha = generate_captcha_image();
+    // console.info( 'app [INFO]: CAPTCHA answer: ', captcha.answer );
 
-    // Store the expected CAPTCHA response in user's session
-    req.session.validation_code = validation_code;
+    // Store the correct CAPTCHA response in user's session
+    req.session.captcha = {
+      challenge_response_field: captcha.answer
+    };
 
-    res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), validation_code : validation_code } );
+    res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), captcha: captcha } );
 
   });
 
@@ -132,32 +148,53 @@ router.post('/blog_comments', function( req, res ) {
   // Save the state of the form input fields upon submission
   res.locals.blog_comment = req.body.blog_comment;
 
-  // CAPTCHA verification
-  var captcha_response = res.locals.blog_comment['captcha_response'];
+  // Blogger API call for grabbing comments
+  blogger.params.blogId = res.locals.blog_comment['blog_id'];
+  blogger.params.postId = res.locals.blog_comment['post_id'];
 
-  // Blogger API call
-  blogger.params.blogId = req.body.blog_comment['blog_id'];
-  blogger.params.postId = req.body.blog_comment['post_id'];
+  // CAPTCHA accessor variables
+  var challenge_response_field = req.session.captcha['challenge_response_field'];
+  var challenge_field = res.locals.blog_comment['captcha_challenge_field'];
 
-  var validation_code = new Buffer( generate_captcha_image() ).toString( 'base64' );
+  // Generate a new CAPTCHA, regardless of success state, in preparation of the
+  // possible event that the end-user attempts submission of another comment.
 
-  if( captcha_response != req.session.validation_code ) {
+  // base64 encoded image string in captcha.image
+  var captcha = generate_captcha_image();
+  // console.info( 'app [INFO]: CAPTCHA answer: ', captcha.answer );
 
-    // Store the new expected CAPTCHA response string in user's session
-    req.session.validation_code = validation_code;
-    console.info( "app [INFO]: CAPTCHA response: ", req.body.captcha );
+  // CAPTCHA verification; check the user's answer with the correct answer
+  // (stored in session).
+  if( challenge_field != challenge_response_field ) {
+
     console.info( "app [INFO]: CAPTCHA response was invalid." );
+    console.info( "app [INFO]: User's answer was: ", challenge_field );
+    console.info( "app [INFO]: The answer was: ", captcha.answer );
+
+    // Store the new expected CAPTCHA response string in user's session, in
+    // preparation of the possible event that the end-user attempts submission
+    // of another comment.
+    req.session.captcha = {
+      challenge_response_field: captcha.answer
+    };
   }
   else {
     console.info( "app [INFO]: CAPTCHA response was successful." );
 
+    // Store the new expected CAPTCHA response string in user's session, in
+    // preparation of the possible event that the end-user attempts submission
+    // of another comment.
+    req.session.captcha = {
+      challenge_response_field: captcha.answer
+    };
+
     blogger.blog_comments( req, res, blogger.params, function( response ) {
-      res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), validation_code : validation_code } );
+      res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), captcha: captcha } );
     });
   }
 
   blogger.blog_comments( req, res, blogger.params, function( response ) {
-    res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), validation_code : validation_code } );
+    res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), captcha: captcha } );
   });
 
 });

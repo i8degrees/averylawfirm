@@ -103,6 +103,9 @@ var session_opts = {
   // Session storage back-end; MemoryStore is *not* supported.
   store: null,
 
+  // Used for Blog comments
+  captcha: {},
+
   // tokens: null,
 };
 

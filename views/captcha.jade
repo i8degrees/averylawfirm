@@ -1,2 +1,8 @@
-img(style='display: block;', src='data:image/png; base64, ' + validation_code, alt= validation_code )
-input(id='captcha', class= locals.form_helpers.class_selector( notifications, locals.input_errs['blog_comment'].captcha ), type='number', name='blog_comment[captcha]', data-required-msg= locals.input_errs['blog_comment'].captcha, placeholder='Response', maxlength=4 )
+img(style='display: block;', src='data:image/png; base64, ' + captcha.image, alt= captcha.image )
+
+//- The end-user's answer (checked against user's session)
+//-
+//- FIXME: We have to use the type 'tel' in order for the maxlength and size
+//- fields to function, whereas the intended type, 'number' breaks this. Tested
+//- under Google Chrome v37.0.2062.120.
+input(class= locals.form_helpers.class_selector( notifications, locals.input_errs['blog_comment'].captcha ), type='tel', name='blog_comment[captcha_challenge_field]', data-required-msg= locals.input_errs['blog_comment'].captcha, placeholder='Response', size=4, maxlength=4 )

@@ -85,7 +85,6 @@ form(class='contact_form', action=locals.loc.pathname + '#errs', method='POST', 
 
   input(id='blog_id', type='text', hidden='true', name='blog_comment[blog_id]', value= blog_comment['blog_id'] )
   input(id='post_id', type='text', hidden='true', name='blog_comment[post_id]', value= blog_comment['post_id'] )
-  input(id='captcha_response', type='text', hidden='true', name='blog_comment[captcha_response]', value= validation_code )
 
   noscript
     p TODO: Add preview link for users without JavaScript enabled

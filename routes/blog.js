@@ -153,15 +153,14 @@ router.post('/blog_comments', function( req, res ) {
   blogger.params.postId = res.locals.blog_comment['post_id'];
 
   // CAPTCHA accessor variables
-  var challenge_response_field = req.session.captcha['challenge_response_field'];
   var challenge_field = res.locals.blog_comment['captcha_challenge_field'];
+  var challenge_response_field = req.session.captcha['challenge_response_field'];
 
   // Generate a new CAPTCHA, regardless of success state, in preparation of the
   // possible event that the end-user attempts submission of another comment.
 
   // base64 encoded image string in captcha.image
   var captcha = generate_captcha_image();
-  // console.info( 'app [INFO]: CAPTCHA answer: ', captcha.answer );
 
   // CAPTCHA verification; check the user's answer with the correct answer
   // (stored in session).
@@ -170,13 +169,6 @@ router.post('/blog_comments', function( req, res ) {
     console.info( "app [INFO]: CAPTCHA response was invalid." );
     console.info( "app [INFO]: User's answer was: ", challenge_field );
     console.info( "app [INFO]: The answer was: ", captcha.answer );
-
-    // Store the new expected CAPTCHA response string in user's session, in
-    // preparation of the possible event that the end-user attempts submission
-    // of another comment.
-    req.session.captcha = {
-      challenge_response_field: captcha.answer
-    };
   }
   else {
     console.info( "app [INFO]: CAPTCHA response was successful." );
@@ -184,18 +176,37 @@ router.post('/blog_comments', function( req, res ) {
     // Store the new expected CAPTCHA response string in user's session, in
     // preparation of the possible event that the end-user attempts submission
     // of another comment.
-    req.session.captcha = {
-      challenge_response_field: captcha.answer
-    };
+    // req.session.captcha = {
+      // challenge_response_field: captcha.answer
+    // };
 
-    blogger.blog_comments( req, res, blogger.params, function( response ) {
-      res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), captcha: captcha } );
-    });
+    // blogger.blog_comments( req, res, blogger.params, function( response ) {
+      // res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), captcha: captcha } );
+    // });
   }
 
-  blogger.blog_comments( req, res, blogger.params, function( response ) {
-    res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), captcha: captcha } );
-  });
+  res.locals.blog_comment_form_helpers.process_form( req, res, function(process_form) {
+
+    // if process_form success logic
+
+    blogger.blog_comments( req, res, blogger.params, function( response ) {
+
+      // WARNING: Logging req.flash messages will result in the clearing of the
+      // notifications, thus never being shown to the web app. This is a
+      // nightmare for debugging when we forget about this warning!
+      // console.log( process_form.notifications );
+
+      // Store the new expected CAPTCHA response string in user's session, in
+      // preparation of the possible event that the end-user attempts submission
+      // of another comment.
+      req.session.captcha = {
+        challenge_response_field: captcha.answer
+      };
+
+      res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: process_form.notifications, captcha: captcha } );
+    }); // end blog_comments callback
+
+  }); // end process_form callback
 
 });
 

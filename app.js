@@ -46,8 +46,9 @@ var blog = require('./routes/blog');
 // See also: http://stackoverflow.com/questions/7549627/passing-raw-markdown-text-to-jade
 var md = require("node-markdown").Markdown;
 
-// Local site dependencies
+// Local site helpers
 var form_helpers = require('./lib/form_helpers');
+var blog_comment_form_helpers = require('./lib/blog_comment_form_helpers');
 
 // Site configuration (configuration, port, site model, routes and so on)
 var app = express();
@@ -288,6 +289,8 @@ app.set( 'google_api_key', 'AIzaSyA9epI58R4vt3eQxAlOPYvLtgZ5RajJ1Ow' );
 // Local site library configuration; **must** go before router!
 app.use( function(req, res, next) {
   res.locals.md = md;
+
+  // TODO: Split contact_form specifics from this
   res.locals.form_helpers = form_helpers;
 
   // Avoid ReferenceError by creating the container used by the form elements
@@ -297,6 +300,8 @@ app.use( function(req, res, next) {
   //
   // See also: http://dailyjs.com/2012/09/13/express-3-csrf-tutorial/
   res.locals.contact = {};
+
+  res.locals.blog_comment_form_helpers = blog_comment_form_helpers;
 
   res.locals.blog_comment = {};
 

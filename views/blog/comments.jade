@@ -31,7 +31,11 @@ block content
     - each comment in comments
       p
         if comment.author
-          a(href= comment.author.url )= comment.author.displayName
+
+          if comment.author.url
+            a(class='', href= comment.author.url )= comment.author.displayName
+          else
+            span(class='')= comment.author.displayName
 
         //- Jump anchor for comment
         if comment.id && comment.published

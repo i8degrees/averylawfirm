@@ -1,4 +1,6 @@
-img(style='display: block;', src='data:image/png; base64, ' + captcha.image, alt= captcha.image )
+//- FIXME: Error happens only on form POST...
+- if( typeof captcha != 'undefined' )
+  img(style='display: block;', src='data:image/png; base64, ' + captcha.image, alt= captcha.image )
 
 //- The end-user's answer (checked against user's session)
 //-

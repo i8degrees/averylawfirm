@@ -210,6 +210,51 @@ router.post('/blog_comments', function( req, res ) {
 
 });
 
+router.get('/delete_comment', function( req, res ) {
+
+  blogger.params.blogId = req.query['blog_id'];
+  blogger.params.postId = req.query['post_id'];
+  blogger.params.commentId = req.query['comment_id'];
+
+  // Blog name
+  var blog = {};
+
+  // Post name
+  var post = {};
+
+  // Get post title
+  blogger.post( req, res, blogger.params, function( response ) {
+
+    post.title = response.post.title;
+
+    // Form the post's URL
+    post.url = '/blog?blog_id=' + blogger.params.blogId + '&post_id=' + blogger.params.postId;
+
+  }); // end blog post callback
+
+  // Get blog name
+  blogger.blog( req, res, blogger.params, function( response ) {
+
+    blog.name = response.blog.name;
+
+    // Get the comment
+    blogger.comment( req, res, blogger.params, function( response ) {
+
+      res.render( 'blog/delete_comment', { blog_id: response.blogId, post_id: response.postId, comment_id: response.commentId, blog: blog, post: post, comment: response.comment, notifications: req.flash('notifications') } );
+
+    }); // end blog_comment callback
+
+  }); // end blog callback
+
+});
+
+router.post('/delete_comment', function( req, res ) {
+
+  //
+
+});
+
+
 // TODO
 router.get('/search', function(req, res) {
   // ...

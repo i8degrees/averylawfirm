@@ -9,7 +9,7 @@ block head
 
 block content
 
-  //- - console.log(comments);
+  - console.log(comments);
 
   //- - console.log(blogspot);
 
@@ -57,6 +57,10 @@ block content
           locals.md!=locals.md( comment.content )
         else
           p!= comment.content
+
+      //- NOTE: Unfinished implementation; would also need authentication of
+      //- some sort (to display the link or not)
+      //- a(href='/blog/delete_comment?blog_id=' + comment.blog.id + '&post_id=' + comment.post.id + '&comment_id=' + comment.id ) Delete
 
       hr
 

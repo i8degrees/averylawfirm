@@ -1,0 +1,53 @@
+extends ../layout
+
+block title
+
+  //- TODO
+  title= locals.settings.nav_links['blog'].title + ' : ' + locals.settings.site_owner['company']
+
+block head
+
+block content
+
+  //- - console.log(comment);
+  //- - console.log(blog);
+
+  if blog.name
+    h1= 'Delete Comment From: ' + blog.name
+  else
+    h1= 'Delete Comment From: ...'
+
+  if typeof comment != 'undefined'
+
+    if comment.author
+      p
+        if comment.author.url
+          a(class='', href= comment.author.url )= comment.author.displayName
+        else
+          span(class='')= comment.author.displayName
+
+        | &#32;
+        span(class='') said...
+
+    if comment.published
+      p(class='')= comment.published
+
+    //- Unbuffered output; this relies on Google's service for properly
+    //- validating and sanitizing (i.e.: escaping HTML tags).
+    if comment.content
+
+      if locals.settings.blog.comments['enable_markdown']
+        locals.md!=locals.md( comment.content )
+      else
+        p!= comment.content
+
+    if post.title
+      h1= 'Posted to ' + post.title
+    else
+      h1= 'Posted to ...'
+
+    //- TODO: Delete Comment form
+
+    hr
+
+block footer

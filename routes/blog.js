@@ -126,20 +126,33 @@ router.get('/blog_comments', function(req, res) {
   res.locals.blog_comment['blog_id'] = req.query.blog_id;
   res.locals.blog_comment['post_id'] = req.query.post_id;
 
-  blogger.blog_comments( req, res, blogger.params, function( response ) {
+  // Get post for comments
+  blogger.post( req, res, blogger.params, function( response ) {
 
-    // base64 encoded image string in captcha.image
-    var captcha = generate_captcha_image();
-    // console.info( 'app [INFO]: CAPTCHA answer: ', captcha.answer );
+    var post = response;
 
-    // Store the correct CAPTCHA response in user's session
-    req.session.captcha = {
-      challenge_response_field: captcha.answer
-    };
+    // Form the post's URL to this server
+    post.post.selfLink = '/blog?blog_id=' + blogger.params.blogId + '&post_id=' + blogger.params.postId;
 
-    res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: req.flash('notifications'), captcha: captcha } );
+    blogger.blog_comments( req, res, blogger.params, function( response ) {
 
-  });
+      // base64 encoded image string in captcha.image
+      var captcha = generate_captcha_image();
+      // console.info( 'app [INFO]: CAPTCHA answer: ', captcha.answer );
+
+      // Store the correct CAPTCHA response in user's session
+      req.session.captcha = {
+        challenge_response_field: captcha.answer
+      };
+
+      // console.log(post);
+      // console.log(response.comments);
+
+      res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, posts: post, comments: response.comments, notifications: req.flash('notifications'), captcha: captcha } );
+
+    }); // end blog comments callback
+
+  }); // end blog post callback
 
 });
 
@@ -185,28 +198,38 @@ router.post('/blog_comments', function( req, res ) {
     // });
   }
 
-  res.locals.blog_comment_form_helpers.process_form( req, res, function(process_form) {
+  // Get post for comments
+  blogger.post( req, res, blogger.params, function( response ) {
 
-    // if process_form success logic
+    var post = response;
 
-    blogger.blog_comments( req, res, blogger.params, function( response ) {
+    // Form the post's URL to this server
+    post.post.selfLink = '/blog?blog_id=' + blogger.params.blogId + '&post_id=' + blogger.params.postId;
 
-      // WARNING: Logging req.flash messages will result in the clearing of the
-      // notifications, thus never being shown to the web app. This is a
-      // nightmare for debugging when we forget about this warning!
-      // console.log( process_form.notifications );
+    res.locals.blog_comment_form_helpers.process_form( req, res, function(process_form) {
 
-      // Store the new expected CAPTCHA response string in user's session, in
-      // preparation of the possible event that the end-user attempts submission
-      // of another comment.
-      req.session.captcha = {
-        challenge_response_field: captcha.answer
-      };
+      // if process_form success logic
 
-      res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, comments: response.comments, notifications: process_form.notifications, captcha: captcha } );
-    }); // end blog_comments callback
+      blogger.blog_comments( req, res, blogger.params, function( response ) {
 
-  }); // end process_form callback
+        // WARNING: Logging req.flash messages will result in the clearing of the
+        // notifications, thus never being shown to the web app. This is a
+        // nightmare for debugging when we forget about this warning!
+        // console.log( process_form.notifications );
+
+        // Store the new expected CAPTCHA response string in user's session, in
+        // preparation of the possible event that the end-user attempts submission
+        // of another comment.
+        req.session.captcha = {
+          challenge_response_field: captcha.answer
+        };
+
+        res.render('blog/comments', { blog_id: response.blogId, post_id: response.postId, posts: post, comments: response.comments, notifications: process_form.notifications, captcha: captcha } );
+      }); // end blog_comments callback
+
+    }); // end process_form callback
+
+  }); // end blog post callback
 
 });
 

@@ -9,24 +9,22 @@ block head
 
 block content
 
-  - console.log(comments);
-
-  //- - console.log(blogspot);
-
-  h1 Blog Comments
+  //- - console.log(comments);
 
   if typeof auth_url != 'undefined'
 
     include blogger_auth
 
-    //- if typeof comments != 'undefined'
-  else if typeof comments != 'undefined'
+  if typeof posts != 'undefined'
+    - var post = posts.post;
+    include post_partial
 
+  if typeof comments != 'undefined'
 
     //- We might want to use the totalItems count from the top-level posts
     //- object for this comment -- might help harden the app from weird
     //- breakage...
-    p #{comments.length} comments:
+    h2 #{comments.length} comments:
 
     - each comment in comments
       p

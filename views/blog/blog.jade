@@ -12,55 +12,9 @@ block content
 
     include blogger_auth
 
-    //- if typeof posts != 'undefined'
   else if typeof posts != 'undefined'
 
     - each post in posts
-
-      if post.published
-        p= post.published
-
-      if post.title
-        a(href=post.selfLink )
-          h1= post.title
-
-      //- Unbuffered output; this relies on Google's service for properly
-      //- validating and sanitizing (i.e.: escaping HTML tags).
-      if post.content
-
-        if locals.settings.blog.posts['enable_markdown']
-          locals.md!=locals.md( post.content )
-        else
-          p!= post.content
-
-      hr
-
-      p
-        if post.author
-          | Posted by &#32;
-          a(href= post.author.url )= post.author.displayName
-
-        //- FIXME: Implement single post view
-        if post.selfLink
-          | &#32;| &#32;
-          a(href=post.selfLink) Permalink
-
-      if post.updated
-        p Last updated on #{post.updated}
-
-      if post.labels
-        p Labels: #{post.labels}
-
-      //- FIXME: Implement single post view
-      //- if post.url
-        a(href=post.url) Blog Post URL
-
-      if post.replies
-        p
-          a(href= '/blog/blog_comments?blog_id=' + post.blog.id + '&post_id=' + post.id ) #{post.replies.totalItems} Comments
-      else
-        p No comments
-
-      hr
+      include post_partial
 
 block footer
